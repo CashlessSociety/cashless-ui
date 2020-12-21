@@ -11,7 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Share from "@material-ui/icons/Share";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 // core components
-import Header from "components/Header/Header.js";
+import Header from "CustomComponents/Header/Header.js";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";

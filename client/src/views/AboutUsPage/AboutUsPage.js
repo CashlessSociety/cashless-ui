@@ -9,13 +9,13 @@ import ListItem from "@material-ui/core/ListItem";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 // core components
-import Header from "components/Header/Header.js";
+import Header from "CustomComponents/Header/Header.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 import Footer from "components/Footer/Footer.js";
 // sections for this page
-import HeaderLinks from "components/Header/HeaderLinks.js";
+import HeaderLinks from "CustomComponents/Header/HeaderLinks.js";
 import SectionDescription from "views/AboutUsPage/Sections/SectionDescription.js";
 import SectionTeam from "views/AboutUsPage/Sections/SectionTeam.js";
 import SectionServices from "views/AboutUsPage/Sections/SectionServices.js";

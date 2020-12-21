@@ -3,8 +3,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
+import Header from "CustomComponents/Header/Header.js";
+import HeaderLinks from "CustomComponents/Header/HeaderLinks.js";
 // sections of this Page
 import SectionHeaders from "./Sections/SectionHeaders.js";
 import SectionFeatures from "./Sections/SectionFeatures.js";

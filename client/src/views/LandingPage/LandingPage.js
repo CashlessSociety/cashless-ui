@@ -10,12 +10,12 @@ import ListItem from "@material-ui/core/ListItem";
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 // core components
-import Header from "components/Header/Header.js";
+import Header from "CustomComponents/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
+import HeaderLinks from "CustomComponents/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 
 import landingPageStyle from "assets/jss/material-kit-pro-react/views/landingPageStyle.js";

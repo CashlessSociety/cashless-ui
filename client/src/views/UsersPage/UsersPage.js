@@ -1,5 +1,7 @@
 /*eslint-disable*/
 import React, {useEffect, useState} from "react";
+// nodejs library that concatenates classes
+import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
@@ -8,16 +10,18 @@ import axios from 'axios';
 // @material-ui/icons
 // import Favorite from "@material-ui/icons/Favorite";
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
+import Header from "CustomComponents/Header/Header.js";
+import HeaderLinks from "CustomComponents/Header/HeaderLinks.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+import Parallax from "components/Parallax/Parallax.js";
+import usersListStyle from "assets/jss/material-kit-pro-react/views/usersListStyle.js";
 
-import errorPageStyle from "assets/jss/material-kit-pro-react/views/errorPageStyles.js";
+import Card from "components/Card/Card.js";
 
 import image from "assets/img/bg3.jpg";
 
-const useStyles = makeStyles(errorPageStyle);
+const useStyles = makeStyles(usersListStyle);
 
 export default function ErrorPage({ ...rest }) {
   useEffect(() => {
@@ -41,33 +45,50 @@ export default function ErrorPage({ ...rest }) {
       <Header
         absolute
         color="transparent"
-        brand="Material Kit PRO React"
+        brand="Cashless"
         links={<HeaderLinks dropdownHoverColor="dark" />}
         {...rest}
       />
-      <div
-        className={classes.pageHeader}
-        style={{
-          backgroundImage: "url(" + image + ")",
-          backgroundSize: "cover",
-          backgroundPosition: "top center"
-        }}
-      >
-        {/* <div className={classes.container}> */}
-        <div className={classes.contentCenter}>
-          <GridContainer>
-            <GridItem md={12}>
-              <h1 className={classes.title}>Users</h1>
-              <h2 className={classes.subTitle}>
-                {users.map(user =>
-                  <div key={user.id}>{user.username}</div>
-                )}
-              </h2>
+
+        <Parallax image={require("assets/img/bg9.jpg")} filter="dark" small>
+        <div className={classes.container}>
+          <GridContainer justify="center">
+            <GridItem
+              md={8}
+              sm={8}
+              className={classNames(
+                classes.mlAuto,
+                classes.mrAuto,
+                classes.textCenter
+              )}
+            >
+              <h1 className={classes.title}>Our Members</h1>
+              <h4>Meet the amazing people in Cashless Society
+              </h4>
             </GridItem>
           </GridContainer>
         </div>
-        {/* </div> */}
+      </Parallax>
+
+       <div className={classNames(classes.main, classes.mainRaised)}>
+        <div className={classes.container}>
+
+          <div className={classes.team}>
+            <GridContainer>
+              
+               <GridItem md={3} sm={3}>
+                 
+                  {users.map(user =>
+                     <Card profile plain>
+                        <div key={user.id}>{user.username}</div>
+                     </Card>
+                  )}
+              </GridItem>
+            </GridContainer>
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // core components
-import Header from "components/Header/Header.js";
+import Header from "CustomComponents/Header/Header.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
@@ -13,7 +13,7 @@ import CardBody from "components/Card/CardBody.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Footer from "components/Footer/Footer.js";
 // sections for this page
-import HeaderLinks from "components/Header/HeaderLinks.js";
+import HeaderLinks from "CustomComponents/Header/HeaderLinks.js";
 import SectionLatestOffers from "views/EcommercePage/Sections/SectionLatestOffers.js";
 import SectionProducts from "views/EcommercePage/Sections/SectionProducts.js";
 import SectionBlog from "views/EcommercePage/Sections/SectionBlog.js";
