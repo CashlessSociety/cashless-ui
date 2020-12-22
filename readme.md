@@ -3,8 +3,6 @@
 To get started
 
 ```
-git clone
-cd cashless-ui
 npm install
 PORT=3001 node bin/www
 ```
