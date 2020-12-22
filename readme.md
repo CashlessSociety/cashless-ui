@@ -1,4 +1,4 @@
-##cashless-ui front end 
+## Cashless-ui front end 
 
 To get started
 
