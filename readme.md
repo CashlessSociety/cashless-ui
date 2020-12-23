@@ -1,16 +1,19 @@
-## Cashless-ui front end 
+## cashless-ui Cashless Front End 
 
-To get started
+#### Getting started
+
+Start the temporary server
 
 ```
+cd server
 npm install
-PORT=3001 node bin/www
+npm start
 ```
 
-then open another terminal
+Then, open another terminal, and start the client in dev mode
 
 ```
-cd cashless-ui/client
+cd client
 yarn install
 yarn start
 ```
