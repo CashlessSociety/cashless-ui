@@ -6,6 +6,7 @@ const logger = require('morgan');
 const { ApolloServer } = require('apollo-server-express');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const adsRouter = require('./routes/ads');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/ads', adsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
