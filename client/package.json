@@ -6,6 +6,7 @@
     "moment": "2.26.0",
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
+    "axios": "^0.21.0",
     "react": "16.13.1",
     "react-bootstrap-switch": "15.5.3",
     "react-datetime": "2.16.3",
@@ -50,6 +51,7 @@
     "@types/react": "16.9.36",
     "typescript": "3.9.5"
   },
+  "proxy": "http://localhost:3001",
   "devDependencies": {
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8"
