@@ -21,6 +21,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-package-lock.json
-client/package-lock.json
+client/yarn.lock
 client/node_modules
+server/node_modules
+server/package-lock.json
+
