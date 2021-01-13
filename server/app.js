@@ -1,13 +1,31 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const { ApolloServer } = require('apollo-server-express');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const typeDefs = require('./graphql/schema');
+const resolvers = require('./graphql/resolvers');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+/* TODO: resolve from real ssb datasource
+const ssbFlumeAPI = require('./graphql/datasource');
 
-var app = express();
+const dataSources = () => ({
+    ssbFlumeAPI: new ssbFlumeAPI(),
+});*/
+
+const apollo = new ApolloServer({
+  typeDefs,
+  resolvers, //dataSources,
+  mocks: true,
+});
+
+let app = express();
+
+apollo.applyMiddleware({ app });
+console.log(`Apollo endpoint deployed: ${apollo.graphqlPath}`);
 
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine', 'html');
