@@ -5,6 +5,14 @@ module.exports = {
                 return 'PromiseMessage';
             } else if (msg.type == "IDENTITY") {
                 return 'IdentityMessage';
+            } else if (msg.type == "COMPLETE_SETTLEMENT") {
+                return 'CompleteSettlementMessage';
+            } else if (msg.type == "PROPOSE_RECIPROCITY") {
+                return 'ProposeReciprocityMessage';
+            } else if (msg.type == "ACCEPT_RECIPROCITY") {
+                return 'AcceptReciprocityMessage';
+            } else if (msg.type == "COMPLETE_RECIPROCITY") {
+                return 'CompleteReciprocityMessage';
             } else {
                 return 'GenericMessage';
             }
@@ -16,6 +24,8 @@ module.exports = {
                 return 'ReservesAddress';
             } else if (msg.type == "ACCOUNT") {
                 return 'AccountHandle';
+            } else if (msg.type == "FEED") {
+                return 'Feed';
             } else {
                 return 'CommonName';
             }
