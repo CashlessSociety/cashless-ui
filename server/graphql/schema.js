@@ -4,9 +4,11 @@ const Date = require('graphql-date');
 
 const typeDefs = gql`
     scalar Date
+
     interface Name {
         type: NameType!
     }
+
     type Feed implements Name {
         type: NameType!
         id: ID
@@ -20,20 +22,24 @@ const typeDefs = gql`
         settledPromises: [PromiseMessage]
         settlements: [CompleteSettlementMessage]
     }
+
     type ReservesAddress implements Name {
         type: NameType!
         address: String
     }
+
     type CommonName implements Name {
         type: NameType!
         name: String
         id: ID
     }
+
     type AccountHandle implements Name {
         type: NameType!
         accountType: AccountType
         handle: String
     }
+
     interface Message {
         id: ID!
         type: MsgType!
@@ -45,6 +51,7 @@ const typeDefs = gql`
         timestamp: Date
         signature: String
     }
+
     type PromiseMessage implements Message {
         id: ID!
         type: MsgType!
@@ -61,13 +68,14 @@ const typeDefs = gql`
         vestDate: Date
         denomination: Denomination
         memo: String
-        serviceRating: Float
         tags: [String]
         nonce: Int
         claimName: ID
         claim: ReservesClaim
         isLatest: Boolean
+        reciprocity: CompleteReciprocityMessage
     }
+
     type IdentityMessage implements Message {
         id: ID!
         type: MsgType!
@@ -82,6 +90,7 @@ const typeDefs = gql`
         name: Name
         evidence: Evidence
     }
+
     type CompleteSettlementMessage implements Message {
         id: ID!
         type: MsgType!
@@ -100,6 +109,55 @@ const typeDefs = gql`
         tx: ID
         confirmed: Boolean
     }
+
+    type ProposeReciprocityMessage implements Message {
+        id: ID!
+        type: MsgType!
+        header: Header
+        previous: String
+        hash: HashFunc
+        author: Feed
+        sequence: Int
+        timestamp: Date
+        signature: String
+        amount: Float
+        denomination: Denomination
+        promises: [PromiseMessage]
+        reciprocityId: ID
+    }
+
+    type AcceptReciprocityMessage implements Message {
+        id: ID!
+        type: MsgType!
+        header: Header
+        previous: String
+        hash: HashFunc
+        author: Feed
+        sequence: Int
+        timestamp: Date
+        signature: String
+        proposal: ProposeReciprocityMessage
+        outgoingOriginalClaim: ReservesClaim
+        incomingOriginalClaim: ReservesClaim
+        outgoingUpdatedClaim: ReservesClaim
+        incomingUpdatedClaim: ReservesClaim
+    }
+
+    type CompleteReciprocityMessage implements Message {
+        id: ID!
+        type: MsgType!
+        header: Header
+        previous: String
+        hash: HashFunc
+        author: Feed
+        sequence: Int
+        timestamp: Date
+        signature: String
+        proposal: ProposeReciprocityMessage
+        originalClaims: [ReservesClaim]
+        updatedClaims: [ReservesClaim]
+    }
+
     type GenericMessage implements Message {
         id: ID!
         type: MsgType!
@@ -112,58 +170,74 @@ const typeDefs = gql`
         signature: String
         content: String
     }
+
     interface Evidence {
         type: EvidenceType!
     }
+
     type MessageEvidence implements Evidence {
         type: EvidenceType!
         id: ID
         feedId: ID
         sequence: Int
     }
+
     type ReservesClaim {
         data: String
         fromSignature: EthereumSignature
         toSignature: EthereumSignature
     }
+
     type Header {
         version: Float
         network: String
     }
+
     type EthereumSignature {
         v: Int
         r: String
         s: String
     }
+
     enum HashFunc {
         SHA256
         KECCAK256
     }
+
     enum Denomination {
         USD
     }
+
     enum MsgType {
         PROMISE
         IDENTITY
         GENERIC
         COMPLETE_SETTLEMENT
+        PROPOSE_RECIPROCITY
+        ACCEPT_RECIPROCITY
+        COMPLETE_RECIPROCITY
     }
+
     enum EvidenceType {
         MESSAGE
     }
+
     enum NameType {
         FEED
         COMMON
         RESERVES
         ACCOUNT
     }
+
     enum AccountType {
         FACEBOOK
         GOOGLE
         TWITTER
     }
+
     type Query {
         allFeedIds: [ID]
+        allCurrentPromises: [PromiseMessage]
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
         feed(id: ID!): Feed
