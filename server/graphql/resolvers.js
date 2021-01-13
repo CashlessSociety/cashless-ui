@@ -5,6 +5,7 @@ module.exports = {
                 return 'PromiseMessage';
             } else if (msg.type == "IDENTITY") {
                 return 'IdentityMessage';
+                // TODO: ProposeSettlementMessage for settlements with a dispute period (two part settlements)
             } else if (msg.type == "COMPLETE_SETTLEMENT") {
                 return 'CompleteSettlementMessage';
             } else if (msg.type == "PROPOSE_RECIPROCITY") {
@@ -13,6 +14,10 @@ module.exports = {
                 return 'AcceptReciprocityMessage';
             } else if (msg.type == "COMPLETE_RECIPROCITY") {
                 return 'CompleteReciprocityMessage';
+            } else if (msg.type == "AD") {
+                return 'AdMessage';
+            } else if (msg.type == "AVAILABILITY") {
+                return 'AvailabilityMessage';
             } else {
                 return 'GenericMessage';
             }
@@ -37,15 +42,17 @@ module.exports = {
         }
     },
     Query: {
+        allCurrentPromises: (_, __, {dataSources}) =>
+            dataSources.ssbFlumeAPI.getActivePromises(),
         allPromises: (_, __, {dataSources}) =>
             dataSources.ssbFlumeAPI.getAllPromises(),
         promises: (_, { feedId }, {dataSources}) =>
             dataSources.ssbFlumeAPI.getPromisesByFeedId({ feedId: feedId }),
         pendingPromises: (_, { feedId }, {dataSources}) =>
             dataSources.ssbFlumeAPI.getPendingPromisesByFeedId({ feedId: feedId }),
-        promiseChain: (_, { claimName, feedId }, {dataSources})  => 
+        promiseChain: (_, { claimName, feedId }, {dataSources})  =>
             dataSources.ssbFlumeAPI.getPromiseChain({ claimName: claimName, feedId: feedId }),
-        promise: (_, { claimName, feedId, nonce }, {dataSources})  => 
+        promise: (_, { claimName, feedId, nonce }, {dataSources})  =>
             dataSources.ssbFlumeAPI.getPromise({ claimName: claimName, feedId: feedId, nonce: nonce }),
         messages: (_, { feedId }, { dataSources }) =>
             dataSources.ssbFlumeAPI.getFeedMessages({ feedId: feedId }),
@@ -58,6 +65,8 @@ module.exports = {
         claimSettlement: (_, { claimName }, {dataSources}) =>
             dataSources.ssbFlumeAPI.getSettlementByClaimName({ claimName }),
         allSettlements: (_, __, {dataSources}) =>
-            dataSources.ssbFlumeAPI.getAllSettlements()
+            dataSources.ssbFlumeAPI.getAllSettlements(),
+        activeProposals: (_, __, {dataSources}) =>
+            dataSources.ssbFlumeAPI.getActiveReciprocityProposals(),
     }
   };

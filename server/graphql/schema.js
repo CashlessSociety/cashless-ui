@@ -158,6 +158,38 @@ const typeDefs = gql`
         updatedClaims: [ReservesClaim]
     }
 
+    type AvaiabilityMessage implements Message {
+        id: ID!
+        type: MsgType!
+        header: Header
+        previous: String
+        hash: HashFunc
+        author: Feed
+        sequence: Int
+        timestamp: Date
+        signature: String
+        skill: Skill
+        isAvailable: Boolean   
+    }
+
+    type AdMessage implements Message {
+        id: ID!
+        type: MsgType!
+        header: Header
+        previous: String
+        hash: HashFunc
+        author: Feed
+        sequence: Int
+        timestamp: Date
+        signature: String
+        text: String
+        rate: Float
+        denomination: Denomination
+        minHours: Int
+        maxHours: Int
+        adType: AdType
+    }
+
     type GenericMessage implements Message {
         id: ID!
         type: MsgType!
@@ -199,6 +231,11 @@ const typeDefs = gql`
         s: String
     }
 
+    type Skill {
+        id: ID
+        name: String
+    }
+
     enum HashFunc {
         SHA256
         KECCAK256
@@ -209,13 +246,15 @@ const typeDefs = gql`
     }
 
     enum MsgType {
-        PROMISE
         IDENTITY
-        GENERIC
+        AD
+        AVAILABILITY
+        PROMISE
         COMPLETE_SETTLEMENT
         PROPOSE_RECIPROCITY
         ACCEPT_RECIPROCITY
         COMPLETE_RECIPROCITY
+        GENERIC
     }
 
     enum EvidenceType {
@@ -235,6 +274,11 @@ const typeDefs = gql`
         TWITTER
     }
 
+    enum AdType {
+        OFFER
+        REQUEST
+    }
+
     type Query {
         allFeedIds: [ID]
         allCurrentPromises: [PromiseMessage]
@@ -248,6 +292,7 @@ const typeDefs = gql`
         pendingPromises(feedId: ID!): [PromiseMessage]
         claimSettlement(claimName: ID!): [CompleteSettlementMessage]
         allSettlements: [CompleteSettlementMessage]
+        activeProposals: [ProposeReciprocityMessage]
     }
 `;
 
