@@ -284,7 +284,7 @@ const typeDefs = gql`
         allCurrentPromises: [PromiseMessage]
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
-        allMessages: [Message]
+        allMessagesFor(userId:ID): [Message]
         availabilityMessage(id:ID!): AvailabilityMessage
         adMessage(id:ID!): AdMessage
         feed(id: ID!): Feed
