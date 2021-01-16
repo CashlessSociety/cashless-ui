@@ -13,7 +13,7 @@ const mocks = {
         age: () => casual.integer(0, 120),
     }),
     Query: () =>({
-        allMessages: () => new MockList([20, 30]),
+        allMessagesFor: () => new MockList([50, 100]),
     }),
 };
 
