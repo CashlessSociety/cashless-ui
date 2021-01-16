@@ -13,8 +13,7 @@ import {
   Navbar,
   NavItem,
   Nav,
-  Container,
-  UncontrolledTooltip,
+  Container
 } from "reactstrap";
 
 function WhiteNavbar() {
@@ -34,11 +33,8 @@ function WhiteNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand to="/" tag={Link} id="navbar-brand">
-              NZ Tech Skills Exchange 
+              Cashless
             </NavbarBrand>
-            <UncontrolledTooltip target="navbar-brand">
-              Powered by Cashless 
-            </UncontrolledTooltip>
           </div>
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className="ml-auto" id="ceva" navbar>
@@ -48,7 +44,7 @@ function WhiteNavbar() {
                   target="_blank"
                   color="info"
                 >
-                  <p>My Trades</p>
+                  <p>Join Cashless</p>
                 </Button>
               </NavItem>
               <UncontrolledDropdown nav>
@@ -75,8 +71,6 @@ function WhiteNavbar() {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-
-
             </Nav>
           </Collapse>
         </Container>

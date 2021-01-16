@@ -25,15 +25,47 @@ import TopNavbar from "components/Navbars/TopNavbar.js";
 import HomeHeader from "components/Headers/HomeHeader.js";
 import FooterSocial from "components/Footers/FooterSocial.js";
 
+import { ApolloClient, gql } from "@apollo/client";
+import { cache } from "../cache";
 
-function HomePage() {
+// FIXME should load this elsewhere and inject but 
+// for now we only have one page so..
+const apollo = new ApolloClient({
+  cache,
+  uri: "/graphql"
+});
+
+
+const messagesQuery = gql`
+    query Query {
+      # passing a 'blank' userId just means 'all messages'
+      allMessagesFor {
+        type
+        id
+      }
+    }
+`
+
+function IndexPage() {
 
   const [items, setItems] = React.useState([]);
 
   const load = async () => {
     let r = await axios.get("/ads");
-    console.log(r.data);
+    //console.log(r.data);
     setItems(r.data);
+
+    apollo.query({
+      query: messagesQuery
+    })
+    .then(result => console.log(result));
+
+    // doesnt work for some reason 
+    // const result = await apollo.query({
+    //   query: messagesQuery
+    // })
+    // console.log(result);
+
   }
 
   // states and functions
@@ -163,7 +195,7 @@ function HomePage() {
       
               </Col>
               <Col className="ml-auto mr-auto" md="6">
-                <h2 className="title">Cashless Home</h2>
+                <h2 className="title">Feed</h2>
 
                 <div
                   aria-multiselectable={true}
@@ -214,4 +246,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default IndexPage;
