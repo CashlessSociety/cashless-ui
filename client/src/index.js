@@ -25,15 +25,15 @@ import "assets/scss/now-ui-kit.scss?v=1.4.0";
 
 // pages
 import NucleoIcons from "views/NucleoIcons.js";
-import HomePage from "views/HomePage.js";
+import IndexPage from "views/IndexPage.js";
 // others
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/home" render={(props) => <HomePage {...props} />} />
+      <Route path="/" render={(props) => <IndexPage {...props} />} />
       <Route path="/icons" render={(props) => <NucleoIcons {...props} />} />
-      <Redirect to="/home" />
+      {/* <Redirect to="/" /> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
