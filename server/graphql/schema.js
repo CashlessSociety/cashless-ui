@@ -158,7 +158,7 @@ const typeDefs = gql`
         updatedClaims: [ReservesClaim]
     }
 
-    type AvaiabilityMessage implements Message {
+    type AvailabilityMessage implements Message {
         id: ID!
         type: MsgType!
         header: Header
@@ -284,6 +284,9 @@ const typeDefs = gql`
         allCurrentPromises: [PromiseMessage]
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
+        allMessages: [Message]
+        availabilityMessage(id:ID!): AvailabilityMessage
+        adMessage(id:ID!): AdMessage
         feed(id: ID!): Feed
         promises(feedId: ID!): [PromiseMessage]
         promiseChain(claimName: ID!, feedId: ID!): [PromiseMessage]

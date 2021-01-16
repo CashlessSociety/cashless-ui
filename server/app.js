@@ -9,6 +9,7 @@ const usersRouter = require('./routes/users');
 const adsRouter = require('./routes/ads');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
+const mocks = require('./mocks')
 
 /* TODO: resolve from real ssb datasource
 const ssbFlumeAPI = require('./graphql/datasource');
@@ -17,10 +18,18 @@ const dataSources = () => ({
     ssbFlumeAPI: new ssbFlumeAPI(),
 });*/
 
+/* NB If you are trying to work out how all this 'server' stuff 
+    can be accessed on the client's web server pay attention to 
+   "proxy": "http://localhost:3001", in 
+   ../client/package.json which proxies all server end points
+    
+   So, eg localhost:3000/graphql -> localhost:3001/graphql
+   (the port 3001 is configured in server/www/bin currently) */
+
 const apollo = new ApolloServer({
   typeDefs,
   resolvers, //dataSources,
-  mocks: true,
+  mocks
 });
 
 let app = express();
