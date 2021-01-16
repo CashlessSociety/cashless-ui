@@ -286,7 +286,7 @@ const typeDefs = gql`
         allIdMsgs: [IdentityMessage]
         allMessagesFor(userId:ID): [Message]
         availabilityMessage(id:ID!): AvailabilityMessage
-        adMessage(id:ID!): AdMessage
+        adMessage(id:ID): AdMessage
         feed(id: ID!): Feed
         promises(feedId: ID!): [PromiseMessage]
         promiseChain(claimName: ID!, feedId: ID!): [PromiseMessage]

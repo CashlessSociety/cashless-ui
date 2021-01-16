@@ -28,13 +28,24 @@ import NucleoIcons from "views/NucleoIcons.js";
 import IndexPage from "views/IndexPage.js";
 // others
 
+import { ApolloClient, ApolloProvider } from "@apollo/client";
+import { cache } from "./cache";
+
+const apolloClient = new ApolloClient({
+  cache,
+  uri: "/graphql"
+});
+
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" render={(props) => <IndexPage {...props} />} />
-      <Route path="/icons" render={(props) => <NucleoIcons {...props} />} />
-      {/* <Redirect to="/" /> */}
-    </Switch>
-  </BrowserRouter>,
+  <ApolloProvider client={apolloClient}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" render={(props) => <IndexPage {...props} />} />
+        <Route path="/icons" render={(props) => <NucleoIcons {...props} />} />
+        {/* <Redirect to="/" /> */}
+      </Switch>
+    </BrowserRouter>
+  </ApolloProvider>,
   document.getElementById("root")
 );
