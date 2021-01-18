@@ -286,6 +286,8 @@ const typeDefs = gql`
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
         allMessagesFor(userId:ID): [AdMessage]
+        #     FIXME [AdMessage] should be [Message]
+        #            but how do we do that? do we need a union type?
         availabilityMessage(id:ID!): AvailabilityMessage
         adMessage(id:ID): AdMessage
         feed(id: ID!): Feed
