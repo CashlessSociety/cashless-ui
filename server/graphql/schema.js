@@ -182,6 +182,7 @@ const typeDefs = gql`
         sequence: Int
         timestamp: Date
         signature: String
+        title: String
         text: String
         rate: Float
         denomination: Denomination
@@ -284,7 +285,7 @@ const typeDefs = gql`
         allCurrentPromises: [PromiseMessage]
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
-        allMessagesFor(userId:ID): [Message]
+        allMessagesFor(userId:ID): [AdMessage]
         availabilityMessage(id:ID!): AvailabilityMessage
         adMessage(id:ID): AdMessage
         feed(id: ID!): Feed

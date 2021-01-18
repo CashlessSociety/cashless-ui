@@ -20,8 +20,14 @@ const messagesQuery = gql`
     query Query {
       # passing a 'blank' userId just means 'all messages'
       allMessagesFor {
+
         type
         id
+
+        #FIXME we need to add a ..partial here for different 
+        #      types of message and then pass that to the relevant card
+        title
+        text
       }
     }
 `
@@ -43,21 +49,10 @@ const Messages = () => {
       >
         <div className="cards">
           <Container>
-            <Row>
-              <Col>
-              { 
-                data.allMessagesFor &&
-                console.log(data.allMessagesFor) &&
-                data.allMessagesFor.map(message => (
-                  <h2>why doesnt this render?</h2>
-                  
+              { data.allMessagesFor.map((message) => (
+                  <AdCard message={message} key={message.id} />
                 ))}
-                <AdCard />
-                <AdCard />
-                <AdCard />
-              </Col>
-            </Row>
-          </Container>
+            </Container>    
         </div>
       </div>
     </>

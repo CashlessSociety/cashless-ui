@@ -39,15 +39,8 @@ function IndexPage() {
       <TopNavbar />
       <div className="wrapper">
         <HomeHeader />
-        <div className="section">
-          <Container>
-            <Row>
-              <Col md="12">
-                <Messages />
-              </Col>
-            </Row>
-          </Container>
-        </div>
+
+          <Messages />
 
         <FooterSocial />
       </div>
