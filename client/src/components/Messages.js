@@ -21,13 +21,16 @@ const messagesQuery = gql`
       # passing a 'blank' userId just means 'all messages'
       allMessagesFor {
 
-        type
-        id
+        ... on Message {
+            type
+            id
+        }
 
-        #FIXME we need to add a ..partial here for different 
-        #      types of message and then pass that to the relevant card
-        title
-        text
+        ... on AdMessage {
+          title
+          text
+        }
+        
       }
     }
 `

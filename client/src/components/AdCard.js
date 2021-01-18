@@ -46,7 +46,7 @@ const AdCard = ({ message })  => {
                 </a>
             </CardTitle>
             <p className="card-description">
-                user description of what the card is 
+                    {message.text}
             </p>
             <CardFooter>
                 <div className="author">
