@@ -79,6 +79,18 @@
               margin-right: 30px;
           }
       }
+
+
+      .tags{
+        &.tags-right{
+            float: right;
+            line-height: 30px;
+        }
+
+        span:first-child{
+            margin-right: 30px;
+        }
+    }
   }
 
   &:not(.card-product) .card-footer .stats{
