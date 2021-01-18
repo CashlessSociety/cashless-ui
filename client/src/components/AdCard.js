@@ -11,8 +11,7 @@ import {
   Button,
 } from "reactstrap";
 
-
-// This needs to be a fragment read into the parent graphql bit
+// FIXME this actually needs to be a fragment read into the parent (or any related) graphql query
 const AD_MESSAGE_QUERY = gql`
     query Query  {
     adMessage  {
