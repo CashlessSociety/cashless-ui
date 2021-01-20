@@ -8,9 +8,9 @@ const mocks = {
     Date: () => {
         return new Date();
     },
-    Person: () => ({
-        name: casual.name,
-        age: () => casual.integer(0, 120),
+    AdMessage: () => ({
+        title: "Request title here",
+        text: "user description of what the card is"
     }),
     Query: () =>({
         allMessagesFor: () => new MockList([50, 100]),

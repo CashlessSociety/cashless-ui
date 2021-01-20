@@ -8,9 +8,10 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
+  Button,
 } from "reactstrap";
 
-
+// FIXME this actually needs to be a fragment read into the parent (or any related) graphql query
 const AD_MESSAGE_QUERY = gql`
     query Query  {
     adMessage  {
@@ -18,6 +19,7 @@ const AD_MESSAGE_QUERY = gql`
             id
             commonName { name }
         }
+        title
         text
         timestamp
         adType
@@ -28,32 +30,23 @@ const AD_MESSAGE_QUERY = gql`
     }
 }`
 
-const AdCard = ({ messageId })  => {
-    const { data, loading, error } = useQuery(AD_MESSAGE_QUERY, {
-        variables: { messageId }
-      }); 
-    console.log("adcard") 
-    if (loading) return <></>;
-    if (error) return <p>ERROR</p>;
-    if (!data) return <p>Not found</p>;
-
+const AdCard = ({ message })  => {
+    console.log(message)
     return (
     <>
       <Card>
          <CardBody>
             <h6 className="category text-danger">
                 <i className="now-ui-icons media-2_sound-wave"></i>{" "}
-                Trending
+                Looking For
             </h6>
             <CardTitle tag="h5">
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                Here Be Dragons
+                    {message.title}
                 </a>
             </CardTitle>
             <p className="card-description">
-                An immersive production studio focused on virtual reality
-                content, has closed a $10 million Series A round led by
-                Discovery Communications
+                    {message.text}
             </p>
             <CardFooter>
                 <div className="author">
@@ -62,13 +55,12 @@ const AdCard = ({ messageId })  => {
                     className="avatar img-raised"
                     src={require("assets/img/olivia.jpg")}
                 ></img>
-                <span>Lord Alex</span>
+                <span>Ariene McCoy</span>
                 </div>
-                <div className="stats stats-right">
-                <i className="now-ui-icons ui-2_favourite-28"></i>
-                342 ·{" "}
-                <i className="now-ui-icons files_single-copy-04"></i>
-                45
+                <div className="tags tags-right">
+                    <Button variant="contained" className="tag" color="secondary">
+                    Web Development
+                    </Button>
                 </div>
             </CardFooter>
         </CardBody>
