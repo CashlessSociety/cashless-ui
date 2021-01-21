@@ -1,0 +1,38 @@
+// adCard
+
+.request-adcard {
+  max-width: 578px;
+  margin: 0 auto;
+
+  .card-title {
+    .nav-link {
+      padding: 0;
+      color: $secondary-color;
+    }
+  }
+  
+  .card-subtitle {
+    color: $primary-color;
+  }
+  
+  .card-timestamp {
+    color: $default-color-opacity;
+  }
+  
+  .card-message { 
+  }
+  
+  .author {
+    font-size: $font-size-small;
+  }
+  
+  .tags {
+    text-align: right;
+  }
+  
+  .badge { 
+    @extend .badge-success;
+    margin-left: $margin-base-horizontal/2;
+  }
+  
+}

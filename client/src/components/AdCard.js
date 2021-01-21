@@ -33,22 +33,22 @@ const AD_MESSAGE_QUERY = gql`
 const AdCard = ({ message })  => {
     console.log(message)
     return (
-    <>
+    <div className="request-adcard">
       <Card>
          <CardBody>
             <div className="card-meta">
-              <h6 className="text-primary">
+              <h6 className="card-subtitle">
                   <i className="now-ui-icons media-2_sound-wave"></i>{" "}
                   Looking For
               </h6>
-              <small className="text-muted">m ago</small>
+              <small className="card-timestamp">m ago</small>
             </div>
             <CardTitle tag="h3">
                 <a className="nav-link" href="#pablo" onClick={(e) => e.preventDefault()}>
                     {message.title}
                 </a>
             </CardTitle>
-            <p>
+            <p className="card-message">
                     {message.text}
             </p>
             <CardFooter>
@@ -60,15 +60,15 @@ const AdCard = ({ message })  => {
                   ></img>
                   <span>Ariene McCoy</span>
                 </div>
-                <div className="tags tags-right">
-                    <Badge variant="contained" color="success">
-                    Web Development
+                <div className="tags">
+                    <Badge>
+                      Web Development
                     </Badge>
                 </div>
             </CardFooter>
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 }
 
