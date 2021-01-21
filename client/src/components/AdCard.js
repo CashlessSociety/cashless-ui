@@ -67,7 +67,7 @@ export const AdCard = ({ message })  => {
 
                 <div className="tags">
                     {message.skills.map((skill) => 
-                        <Badge variant="contained" color="success" key="skill.name">
+                        <Badge variant="contained" color="success" key="`${skill.name}`">
                             {skill.name}
                         </Badge>
                     )}
