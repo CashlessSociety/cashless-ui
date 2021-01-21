@@ -6,6 +6,13 @@
   width: 100%;
   margin-bottom: 30px;
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+  
+  .card-meta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+  }
 
   .card-header{
     background-color: $transparent-bg;

@@ -2,7 +2,7 @@
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-$sans-serif-family:          'Montserrat', 'Helvetica Neue',  Arial, sans-serif !default;
+$sans-serif-family:          'Inter', 'Helvetica Neue',  Arial, sans-serif !default;
 
 $none:                       0   !default;
 $border-thin:                1px !default;
@@ -12,8 +12,8 @@ $white-color:                #FFFFFF !default;
 $white-bg:                   #FFFFFF !default;
 $orange-bg:                  #e95e38 !default;
 
-$smoke-bg:                   #F5F5F5 !default;
-$light-black:                #444    !default;
+$smoke-bg:                   #F4F6F6 !default;
+$light-black:                #C5D1D3 !default;
 
 $black-bg:                   rgba(30,30,30,.97) !default;
 
@@ -40,33 +40,35 @@ $opacity-1:                  rgba(255,255,255, .1) !default;
 $opacity-2:                  rgba(255,255,255, .2) !default;
 
 $transparent-bg:             transparent !default;
-$dark-background:            #555555 !default;
+$dark-background:            #134074 !default;
 
 $default-color:              #888888 !default;
 $default-states-color:       lighten($default-color, 6%) !default;
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 
-$primary-color:              #f96332 !default;
+$primary-color:              #FF8427 !default;
 $primary-states-color:       lighten($primary-color, 6%) !default;
 $primary-color-opacity:      rgba(249, 99, 50, .3) !default;
 $primary-color-alert:        rgba(249, 99, 50, .8) !default;
 
-$success-color:              #18ce0f !default;
+$secondary-color:            #134074 !default;
+
+$success-color:              #08D993 !default;
 $success-states-color:       lighten($success-color, 6%) !default;
 $success-color-opacity:      rgba(24, 206, 15, .3) !default;
 $success-color-alert:        rgba(24, 206, 15, .8) !default;
 
-$info-color:                 #2CA8FF !default;
+$info-color:                 #77BBB7 !default;
 $info-states-color:          lighten($info-color, 6%) !default;
 $info-color-opacity:         rgba(44, 168, 255, .3) !default;
 $info-color-alert:           rgba(44, 168, 255, .8) !default;
 
-$warning-color:              #FFB236 !default;
+$warning-color:              #FFCF40 !default;
 $warning-states-color:       lighten($warning-color, 6%) !default;
 $warning-color-opacity:      rgba(255, 178, 54, .3) !default;
 $warning-color-alert:        rgba(255, 178, 54, .8) !default;
 
-$danger-color:               #FF3636 !default;
+$danger-color:               #EE4266 !default;
 $danger-states-color:        lighten($danger-color, 6%) !default;
 $danger-color-opacity:       rgba(255, 54, 54, .3) !default;
 $danger-color-alert:         rgba(255, 54, 54, .8) !default;
@@ -125,38 +127,38 @@ $margin-base-horizontal:       15px !default;
 $margin-bottom:                 10px        !default;
 $border:                        1px solid   !default;
 $border-radius-extra-small:     0.125rem    !default;
-$border-radius-small:           0.1875rem   !default;
-$border-radius-large:           0.25rem     !default;
-$border-radius-extreme:         0.875rem    !default;
+$border-radius-small:           0.5rem      !default;
+$border-radius-large:           0.875rem    !default;
+$border-radius-extreme:         1rem        !default;
 
 $border-radius-large-top:      $border-radius-large $border-radius-large 0 0 !default;
 $border-radius-large-bottom:   0 0 $border-radius-large $border-radius-large !default;
 
-$btn-round-radius:             30px         !default;
+$btn-round-radius:             100px         !default;
 
 $height-base:                  55px         !default;
 
-$btn-icon-size:                 3.5rem       !default;
-$btn-icon-size-regular:         2.375rem      !default;
-$btn-icon-font-size-regular:    0.9375rem     !default;
-$btn-icon-font-size-small:      0.6875rem      !default;
-$btn-icon-size-small:           1.875rem     !default;
-$btn-icon-font-size-lg:         1.325rem     !default;
-$btn-icon-size-lg:              3.6rem         !default;
+$btn-icon-size:                 3.5rem      !default;
+$btn-icon-size-regular:         2.375rem    !default;
+$btn-icon-font-size-regular:    0.9375rem   !default;
+$btn-icon-font-size-small:      0.6875rem   !default;
+$btn-icon-size-small:           1.875rem    !default;
+$btn-icon-font-size-lg:         1.325rem    !default;
+$btn-icon-size-lg:              3.6rem      !default;
 
-$font-size-h1:                 3.5em        !default; // ~ 49px
-$font-size-h2:                 2.5em        !default; // ~ 35px
-$font-size-h3:                 1.825em      !default; // ~ 28px
-$font-size-h4:                 1.5em        !default; // ~ 24px
-$font-size-h5:                 1.3em        !default; // ~ 22px
-$font-size-h6:                 .9em         !default; // ~ 12px
+$font-size-h1:                 2em          !default; // ~ 32px
+$font-size-h2:                 1.75em       !default; // ~ 28px
+$font-size-h3:                 1.375em      !default; // ~ 22px
+$font-size-h4:                 1.25em       !default; // ~ 18px
+$font-size-h5:                 0.875em      !default; // ~ 14px
+$font-size-h6:                 .75em        !default; // ~ 12px
 
-$font-paragraph:               1.2em          !default;
+$font-paragraph:               1.2em        !default;
 $font-size-navbar:             1em          !default;
-$font-size-mini:               0.7142em     !default;
-$font-size-small:              0.8571em     !default;
-$font-size-base:               14px         !default;
-$font-size-large:              1em          !default;
+$font-size-mini:               0.75em       !default;
+$font-size-small:              0.875em      !default;
+$font-size-base:               16px         !default;
+$font-size-large:              1.25em       !default;
 $font-size-large-navbar:       20px         !default;
 $font-size-blockquote:         1.1em        !default; // ~ 15px
 

@@ -46,8 +46,7 @@ const Messages = () => {
   return (
     <>
       <div
-        className="section section-cards"
-        data-background-color="gray"
+        className="section section-cards bg-dark"
         id="cards"
       >
         <div className="cards">

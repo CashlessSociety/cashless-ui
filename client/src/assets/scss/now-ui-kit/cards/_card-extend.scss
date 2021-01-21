@@ -65,6 +65,11 @@
   }
 
   .card-footer{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    
       div{
           display: inline-block;
       }
@@ -98,6 +103,11 @@
   .card-title{
       margin-top: 15px;
       line-height: 1.25em;
+      
+      .nav-link {
+        padding-left: 0;
+        color: $secondary-color;
+      }
   }
 
   .author{
