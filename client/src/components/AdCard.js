@@ -8,7 +8,7 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
-  Button,
+  Badge,
 } from "reactstrap";
 
 // FIXME this actually needs to be a fragment read into the parent (or any related) graphql query
@@ -33,39 +33,42 @@ const AD_MESSAGE_QUERY = gql`
 const AdCard = ({ message })  => {
     console.log(message)
     return (
-    <>
+    <div className="request-adcard">
       <Card>
          <CardBody>
-            <h6 className="category text-danger">
-                <i className="now-ui-icons media-2_sound-wave"></i>{" "}
-                Looking For
-            </h6>
-            <CardTitle tag="h5">
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+            <div className="card-meta">
+              <h6 className="card-subtitle">
+                  <i className="now-ui-icons media-2_sound-wave"></i>{" "}
+                  Looking For
+              </h6>
+              <small className="card-timestamp">m ago</small>
+            </div>
+            <CardTitle tag="h3">
+                <a className="nav-link" href="#pablo" onClick={(e) => e.preventDefault()}>
                     {message.title}
                 </a>
             </CardTitle>
-            <p className="card-description">
+            <p className="card-message">
                     {message.text}
             </p>
             <CardFooter>
                 <div className="author">
-                <img
-                    alt="..."
-                    className="avatar img-raised"
-                    src={require("assets/img/olivia.jpg")}
-                ></img>
-                <span>Ariene McCoy</span>
+                  <img
+                      alt="..."
+                      className="avatar img-raised"
+                      src={require("assets/img/olivia.jpg")}
+                  ></img>
+                  <span>Ariene McCoy</span>
                 </div>
-                <div className="tags tags-right">
-                    <Button variant="contained" className="tag" color="secondary">
-                    Web Development
-                    </Button>
+                <div className="tags">
+                    <Badge>
+                      Web Development
+                    </Badge>
                 </div>
             </CardFooter>
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 }
 
