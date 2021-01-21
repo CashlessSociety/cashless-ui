@@ -11,13 +11,15 @@ import {
   Badge,
 } from "reactstrap";
 
-// FIXME this actually needs to be a fragment read into the parent (or any related) graphql query
-const AD_MESSAGE_QUERY = gql`
-    query Query  {
-    adMessage  {
+export const AD_CARD_DATA = gql`
+  fragment AdCardData on AdMessage {
         author {
             id
             commonName { name }
+            profileImageSrc
+        }
+        skills {
+            name
         }
         title
         text
@@ -28,9 +30,9 @@ const AD_MESSAGE_QUERY = gql`
         denomination
         rate
     }
-}`
+`;
 
-const AdCard = ({ message })  => {
+export const AdCard = ({ message })  => {
     console.log(message)
     return (
     <div className="request-adcard">
@@ -56,21 +58,25 @@ const AdCard = ({ message })  => {
                   <img
                       alt="..."
                       className="avatar img-raised"
-                      src={require("assets/img/olivia.jpg")}
+                      src={require("assets/img/julie.jpg")}
+                      //argh why doesnt this work?!?
+                      //src={require(message.author.profileImageSrc)}
                   ></img>
-                  <span>Ariene McCoy</span>
+                  <span>{message.author.commonName.name}</span>
                 </div>
+
                 <div className="tags">
-                    <Badge>
-                      Web Development
-                    </Badge>
+                    {message.skills.map((skill) => 
+                        <Badge variant="contained" color="success" key="skill.name">
+                            {skill.name}
+                        </Badge>
+                    )}
                 </div>
+                
             </CardFooter>
         </CardBody>
       </Card>
     </div>
   );
 }
-
-export default AdCard;
   

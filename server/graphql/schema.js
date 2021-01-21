@@ -15,6 +15,7 @@ const typeDefs = gql`
         publicKey: String
         reserves: ReservesAddress
         commonName: CommonName
+        profileImageSrc: String
         verifiedAccounts: [AccountHandle]
         messages: [Message]
         assets: [PromiseMessage]
@@ -168,7 +169,7 @@ const typeDefs = gql`
         sequence: Int
         timestamp: Date
         signature: String
-        skill: Skill
+        skills: [Skill]
         isAvailable: Boolean   
     }
 
@@ -188,6 +189,7 @@ const typeDefs = gql`
         denomination: Denomination
         minHours: Int
         maxHours: Int
+        skills: [Skill]
         adType: AdType
     }
 

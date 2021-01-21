@@ -14,7 +14,8 @@ import {
 } from "reactstrap";
 
 import Loading from "./Loading"
-import AdCard from "./AdCard"
+import {AvailabilityCard, AVAILABILITY_CARD_DATA} from "./AvailabilityCard"
+import {AdCard, AD_CARD_DATA} from "./AdCard"
 
 const messagesQuery = gql`
     query Query {
@@ -25,14 +26,13 @@ const messagesQuery = gql`
             type
             id
         }
-
-        ... on AdMessage {
-          title
-          text
-        }
-        
+        ...AdCardData
+        ...AvailabilityCardData
       }
     }
+
+  ${AD_CARD_DATA}
+  ${AVAILABILITY_CARD_DATA}
 `
 
 // core components
@@ -52,8 +52,13 @@ const Messages = () => {
         <div className="cards">
           <Container>
               { data.allMessagesFor.map((message) => (
-                  <AdCard message={message} key={message.id} />
-                ))}
+
+                  {
+                    'AdMessage': <AdCard message={message} key={message.id} />,
+                    'AvailabilityMessage': <AvailabilityCard message={message} key={message.id} />
+                  }[message.__typename]
+                 
+              ))}
             </Container>    
         </div>
       </div>
