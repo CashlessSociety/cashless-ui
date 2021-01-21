@@ -34,10 +34,7 @@ export const AvailabilityCard = ({ message })  => {
          <CardBody>
             <p>
               {/* FIXME whats the best way to do a comma separated list ? */}
-            {message.author.commonName.name} is available for 
-                    {message.skills.map((skill) => 
-                        <>{skill.name}</>
-                    )}
+            {message.author.commonName.name} is available for {message.skills.map(skill => skill.name).join(', ')}
             </p>
         </CardBody>
       </Card>
