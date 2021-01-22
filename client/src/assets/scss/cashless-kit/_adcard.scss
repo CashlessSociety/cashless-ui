@@ -13,6 +13,9 @@
   
   .card-subtitle {
     color: $primary-color;
+    .now-ui-icons { 
+      margin-right: $margin-base-horizontal/2;
+    }
   }
   
   .card-timestamp {
