@@ -1,0 +1,30 @@
+// availabilityCard
+
+.availability-card {
+  max-width: 578px;
+  margin: 0 auto;
+  text-align: center;
+
+  
+  .card-body { 
+  
+  }
+  
+  .now-ui-icons {
+    font-size: $font-size-h3;
+    display: block;
+  }
+  
+  .available-for {
+    margin: $margin-bottom 0;
+  }
+
+  .available-user {
+    
+  }
+  
+  .each-skill {
+    @extend .h3;
+  }
+  
+}

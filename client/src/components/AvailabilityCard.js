@@ -29,16 +29,21 @@ export const AVAILABILITY_CARD_DATA = gql`
 export const AvailabilityCard = ({ message })  => {
     console.log(message)
     return (
-    <>
-      <Card>
+    <div className="availability-card">
+      <Card data-background-color="orange">
          <CardBody>
             <p>
               {/* FIXME whats the best way to do a comma separated list ? */}
-            {message.author.commonName.name} is available for {message.skills.map(skill => skill.name).join(', ')}
+              <i className="now-ui-icons business_bulb-63"></i>
+              <div class="available-for">
+                <span class="available-user">{message.author.commonName.name}</span>
+                is available for 
+              </div> 
+              <span className="each-skill">{message.skills.map(skill => skill.name).join(', ')}</span>
             </p>
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 }
 
