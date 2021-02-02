@@ -23,6 +23,17 @@ module.exports = {
             }
         },
     },
+    FeedMessage: {
+        __resolveType(msg, _context, _info){
+            if (msg.type == "AD") {
+                return 'AdMessage';
+            } else if (msg.type == "AVAILABILITY") {
+                return 'AvailabilityMessage';
+            } else {
+                return 'GenericMessage';
+            }
+        },
+    },
     Name: {
         __resolveType(msg, _context, _info){
             if (msg.type == "RESERVES") {

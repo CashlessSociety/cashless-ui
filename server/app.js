@@ -11,6 +11,35 @@ const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks')
 
+const ApolloCustomDebugPlugin = {
+
+  // Fires whenever a GraphQL request is received from a client.
+  requestDidStart(requestContext) {
+
+    query = requestContext.request.query
+    if (!query.includes("Introspection")) {
+      console.log('Request started! Query:\n' +
+       requestContext.request.query);
+    }
+
+    return {
+
+      // Fires whenever Apollo Server will parse a GraphQL
+      // request to create its associated document AST.
+      parsingDidStart(requestContext) {
+        console.log('Parsing started!');
+      },
+
+      // Fires whenever Apollo Server will validate a
+      // request's document AST against your GraphQL schema.
+      validationDidStart(requestContext) {
+        console.log('Validation started!');
+      },
+
+    }
+  },
+};
+
 /* TODO: resolve from real ssb datasource
 const ssbFlumeAPI = require('./graphql/datasource');
 
@@ -29,6 +58,7 @@ const dataSources = () => ({
 const apollo = new ApolloServer({
   typeDefs,
   resolvers, //dataSources,
+  plugins: [ ApolloCustomDebugPlugin],
   mocks
 });
 
@@ -46,9 +76,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/ads', adsRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use('/ads', adsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

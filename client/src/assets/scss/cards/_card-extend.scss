@@ -65,11 +65,6 @@
   }
 
   .card-footer{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    
       div{
           display: inline-block;
       }
@@ -84,6 +79,18 @@
               margin-right: 30px;
           }
       }
+
+
+      .tags{
+        &.tags-right{
+            float: right;
+            line-height: 30px;
+        }
+
+        span:first-child{
+            margin-right: 30px;
+        }
+    }
   }
 
   &:not(.card-product) .card-footer .stats{
@@ -103,10 +110,6 @@
   .card-title{
       margin-top: 15px;
       line-height: 1.25em;
-      
-      .nav-link {
-        padding-left: 0;
-      }
   }
 
   .author{
@@ -118,7 +121,7 @@
           margin-right: 5px;
       }
       span{
-          color: $default-color;
+          color: $dark-gray;
       }
   }
 
