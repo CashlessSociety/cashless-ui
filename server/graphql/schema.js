@@ -15,6 +15,7 @@ const typeDefs = gql`
         publicKey: String
         reserves: ReservesAddress
         commonName: CommonName
+        profileImageSrc: String
         verifiedAccounts: [AccountHandle]
         messages: [Message]
         assets: [PromiseMessage]
@@ -168,7 +169,7 @@ const typeDefs = gql`
         sequence: Int
         timestamp: Date
         signature: String
-        skill: Skill
+        skills: [Skill]
         isAvailable: Boolean   
     }
 
@@ -182,11 +183,13 @@ const typeDefs = gql`
         sequence: Int
         timestamp: Date
         signature: String
+        title: String
         text: String
         rate: Float
         denomination: Denomination
         minHours: Int
         maxHours: Int
+        skills: [Skill]
         adType: AdType
     }
 
@@ -279,12 +282,14 @@ const typeDefs = gql`
         REQUEST
     }
 
+    union FeedMessage = AdMessage | AvailabilityMessage  
+
     type Query {
         allFeedIds: [ID]
         allCurrentPromises: [PromiseMessage]
         allPromises: [PromiseMessage]
         allIdMsgs: [IdentityMessage]
-        allMessagesFor(userId:ID): [Message]
+        allMessagesFor(userId:ID): [FeedMessage]
         availabilityMessage(id:ID!): AvailabilityMessage
         adMessage(id:ID): AdMessage
         feed(id: ID!): Feed

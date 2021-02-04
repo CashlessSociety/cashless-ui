@@ -29,7 +29,7 @@ function WhiteNavbar() {
           }}
         />
       ) : null}
-      <Navbar className="bg-white fixed-top" expand="lg">
+      <Navbar className="bg-dark fixed-top" expand="lg">
         <Container>
           <div className="navbar-translate">
             <NavbarBrand to="/" tag={Link} id="navbar-brand">
@@ -40,9 +40,9 @@ function WhiteNavbar() {
             <Nav className="ml-auto" id="ceva" navbar>
               <NavItem>
                 <Button
-                  className="nav-link"
+                  className="nav-link btn-round"
                   target="_blank"
-                  color="info"
+                  color="primary"
                 >
                   <p>Join Cashless</p>
                 </Button>

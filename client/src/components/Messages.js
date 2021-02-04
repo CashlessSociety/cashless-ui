@@ -14,16 +14,25 @@ import {
 } from "reactstrap";
 
 import Loading from "./Loading"
-import AdCard from "./AdCard"
+import {AvailabilityCard, AVAILABILITY_CARD_DATA} from "./AvailabilityCard"
+import {AdCard, AD_CARD_DATA} from "./AdCard"
 
 const messagesQuery = gql`
     query Query {
       # passing a 'blank' userId just means 'all messages'
       allMessagesFor {
-        type
-        id
+
+        ... on Message {
+            type
+            id
+        }
+        ...AdCardData
+        ...AvailabilityCardData
       }
     }
+
+  ${AD_CARD_DATA}
+  ${AVAILABILITY_CARD_DATA}
 `
 
 // core components
@@ -37,27 +46,20 @@ const Messages = () => {
   return (
     <>
       <div
-        className="section section-cards"
-        data-background-color="gray"
+        className="section section-cards bg-dark"
         id="cards"
       >
         <div className="cards">
           <Container>
-            <Row>
-              <Col>
-              { 
-                data.allMessagesFor &&
-                console.log(data.allMessagesFor) &&
-                data.allMessagesFor.map(message => (
-                  <h2>why doesnt this render?</h2>
-                  
-                ))}
-                <AdCard />
-                <AdCard />
-                <AdCard />
-              </Col>
-            </Row>
-          </Container>
+              { data.allMessagesFor.map((message) => (
+
+                  {
+                    'AdMessage': <AdCard message={message} key={message.id} />,
+                    'AvailabilityMessage': <AvailabilityCard message={message} key={message.id} />
+                  }[message.__typename]
+                 
+              ))}
+            </Container>    
         </div>
       </div>
     </>
