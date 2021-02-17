@@ -306,12 +306,21 @@ const typeDefs = gql`
     claimSettlement(claimName: ID!): [CompleteSettlementMessage]
     allSettlements: [CompleteSettlementMessage]
     activeProposals: [ProposeReciprocityMessage]
+    """
+    Gets profile information for an ID
+    """
     profile(id: ID!): Profile
   }
 
   type Mutation {
-    createProfile(name: String!, description: String): Profile
-    updateProfile(id: ID!, name: String, description: String): Profile
+    """
+    Creates profile and return profile
+    """
+    createProfile(name: String, description: String): Profile
+    """
+    Updates profile and returns updated id
+    """
+    updateProfile(id: ID!, name: String, description: String): String
   }
 `;
 

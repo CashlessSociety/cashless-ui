@@ -117,13 +117,7 @@ module.exports = {
       new Promise((resolve, reject) => {
         profile.update(id, { name, description }, (err, res) => {
           if (err) reject(err);
-          profile.read(res, (readErr, data) => {
-            if (readErr || !data) reject(readErr);
-            resolve({
-              ...data.states[0],
-              id: data.key,
-            });
-          });
+          resolve(res);
         });
       }),
   },
