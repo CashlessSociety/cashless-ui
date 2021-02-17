@@ -9,21 +9,18 @@ const usersRouter = require('./routes/users');
 const adsRouter = require('./routes/ads');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
-const mocks = require('./mocks')
+const mocks = require('./mocks');
+require('./ssb/server');
 
 const ApolloCustomDebugPlugin = {
-
   // Fires whenever a GraphQL request is received from a client.
   requestDidStart(requestContext) {
-
-    query = requestContext.request.query
-    if (!query.includes("Introspection")) {
-      console.log('Request started! Query:\n' +
-       requestContext.request.query);
+    query = requestContext.request.query;
+    if (!query.includes('Introspection')) {
+      console.log('Request started! Query:\n' + requestContext.request.query);
     }
 
     return {
-
       // Fires whenever Apollo Server will parse a GraphQL
       // request to create its associated document AST.
       parsingDidStart(requestContext) {
@@ -35,8 +32,7 @@ const ApolloCustomDebugPlugin = {
       validationDidStart(requestContext) {
         console.log('Validation started!');
       },
-
-    }
+    };
   },
 };
 
@@ -58,8 +54,8 @@ const dataSources = () => ({
 const apollo = new ApolloServer({
   typeDefs,
   resolvers, //dataSources,
-  plugins: [ ApolloCustomDebugPlugin],
-  mocks
+  plugins: [ApolloCustomDebugPlugin],
+  mocks,
 });
 
 let app = express();
@@ -81,12 +77,12 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 // app.use('/ads', adsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
