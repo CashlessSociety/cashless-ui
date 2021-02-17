@@ -1,3 +1,5 @@
+const profile = require('../crut/profile');
+
 module.exports = {
   Message: {
     __resolveType(msg, _context, _info) {
@@ -86,5 +88,43 @@ module.exports = {
       dataSources.ssbFlumeAPI.getAllSettlements(),
     activeProposals: (_, __, { dataSources }) =>
       dataSources.ssbFlumeAPI.getActiveReciprocityProposals(),
+    profile: async (_, { id }) =>
+      new Promise((resolve, reject) => {
+        profile.read(id, (err, data) => {
+          if (err || !data) reject(err);
+          resolve({
+            ...data.states[0],
+            id: data.key,
+          });
+        });
+      }),
+  },
+  Mutation: {
+    createProfile: async (_, { name, description }) =>
+      new Promise((resolve, reject) => {
+        profile.create({ name, description }, (err, res) => {
+          if (err) reject(err);
+          profile.read(res, (readErr, data) => {
+            if (readErr || !data) reject(readErr);
+            resolve({
+              ...data.states[0],
+              id: data.key,
+            });
+          });
+        });
+      }),
+    updateProfile: async (_, { id, name, description }) =>
+      new Promise((resolve, reject) => {
+        profile.update(id, { name, description }, (err, res) => {
+          if (err) reject(err);
+          profile.read(res, (readErr, data) => {
+            if (readErr || !data) reject(readErr);
+            resolve({
+              ...data.states[0],
+              id: data.key,
+            });
+          });
+        });
+      }),
   },
 };

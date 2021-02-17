@@ -283,6 +283,12 @@ const typeDefs = gql`
 
   union FeedMessage = AdMessage | AvailabilityMessage
 
+  type Profile {
+    id: ID!
+    name: String
+    description: String
+  }
+
   type Query {
     allFeedIds: [ID]
     allCurrentPromises: [PromiseMessage]
@@ -300,6 +306,12 @@ const typeDefs = gql`
     claimSettlement(claimName: ID!): [CompleteSettlementMessage]
     allSettlements: [CompleteSettlementMessage]
     activeProposals: [ProposeReciprocityMessage]
+    profile(id: ID!): Profile
+  }
+
+  type Mutation {
+    createProfile(name: String!, description: String): Profile
+    updateProfile(id: ID!, name: String, description: String): Profile
   }
 `;
 
