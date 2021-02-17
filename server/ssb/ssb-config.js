@@ -1,7 +1,7 @@
 const configInject = require('ssb-config/inject');
 require('dotenv').config();
 
-module.exports = configInject(process.env.CONFIG_FOLDER || 'ssb', {
+module.exports = configInject(process.env.CONFIG_FOLDER || 'ssb-cashless', {
   onError: (err) => {
     // After a while server gets stuck and start throwing errors, but those are
     // usually swallowed, so we just rethrow it to allow process to die and be restarted
