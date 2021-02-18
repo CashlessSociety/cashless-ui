@@ -50,14 +50,16 @@ const connectClient = (ssbSecret) => {
 const addFirstPub = async () => {
   const peers = await ssbClient.gossip.peers();
   if (peers.length == 0) {
-    console.log('No pubs found, adding pub.feedless.social as a first pub');
-    try {
-      const response = await fetch('https://feedless.social/pub_invite');
-      const { invite } = await response.json();
-      await ssbClient.invite.accept(invite);
-    } catch (e) {
-      console.error('Could not add feedless pub', e);
-    }
+    console.log('No pubs found.');
+    /* Un-comment to add our own Cashless pub */
+    // console.log('No pubs found, adding pub.feedless.social as a first pub');
+    // try {
+    //   const response = await fetch('https://feedless.social/pub_invite');
+    //   const { invite } = await response.json();
+    //   await ssbClient.invite.accept(invite);
+    // } catch (e) {
+    //   console.error('Could not add feedless pub', e);
+    // }
   }
 };
 
