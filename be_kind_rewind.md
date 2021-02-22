@@ -49,7 +49,7 @@ That means we want to build bots that can join your discord,  that can let you p
 
 ### Decentralized organisation - be kind, trust the science
 
-Cashless is a global open source organisation, but it also has roots in New Zealand and builds on technology invented in New Zealand.  Recently, New Zealand successfully squashed their COVID outbreak by using an approach which can be summarized as *"be kind, go hard, trust the science"* 
+Cashless is a global open source organisation, but it also has roots in New Zealand and builds on technology invented in New Zealand.  Recently, New Zealand successfully squashed their COVID outbreak by using an approach which can be summarized as *"be kind, go hard, trust the science"* . We also adopt this mantra.
 
 If our mission is to make the world better a better place *"be kind" should be a core of what we do*. We must practice this internally, in how we work with our own,, but also in the way that our tools work and the products work.
 
