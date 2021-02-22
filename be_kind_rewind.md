@@ -75,4 +75,14 @@ One thing to admit is we tried the angel / vc funded startup approach already. H
 
 ### Clearing, Liquidity, AI
 
-To understand this section 
+To understand this section we have to talk about they way that money actually works. This requires an entire presentation in its own right (insert link here ;-) ) however suffice it to say that 
+
+- Retail banks are mostly relationships (assets and liabilities) with a body of reserves as well. 
+- "Traditional" crypto is an amazing way to build perfectly verifiable reserves (saving the need for reserves and hulls)
+- (PIcture of two ships one built and one being built)
+- A core operation of retail banks is how they clear their credit relationships with each other each night. (The wind?)
+- Mathematically speaking the ability to 'clear' such credit relationships boils down to finding 'cycles' in the graph of obligations 
+- At scale it is relatively 'easy' to find such cycles by 'simply' scanning the graph.
+- What is tricky is 'guiding' the shape of the graph as it grows so that such relationships are more likely
+- Token should reward either (a) suggestions or (b) allocation of reserves providing liquidity that make it possible to do so.
+- Roles: navigator (connect your community), supplier of liquidity (sponsor your community) , member (trade with your community/s)
