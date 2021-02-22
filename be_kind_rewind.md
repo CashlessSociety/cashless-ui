@@ -47,16 +47,32 @@ Cashless has roots within the mutual aid movement. One of the the big lessons we
 
 That means we want to build bots that can join your discord,  that can let you post a message successfully sending money (or credit) to another person in your organisation without even having to come to 'our' site. We also want to let you run your own version of our software. Of course we will need a website, but we want to build tools that let 'mutual credit' appear as just 'one more column' in people's adhoc Airtable and let them design the tools the way they want.
 
-### Decentralized organisation, trust the science, 'slow' startups
+### Decentralized organisation - be kind, trust the science
 
-Cashless is a global open source organisation, but it also has roots in New Zealand and builds on technology invented in New Zealand. 
+Cashless is a global open source organisation, but it also has roots in New Zealand and builds on technology invented in New Zealand.  Recently, New Zealand successfully squashed their COVID outbreak by using an approach which can be summarized as *"be kind, go hard, trust the science"* 
 
-Recently, New Zealand successfully squashed out their COVID outbreak by using an approach which can be summarized as "be kind, go hard, trust the science" 
+If our mission is to make the world better a better place *"be kind" should be a core of what we do*. We must practice this internally, in how we work with our own,, but also in the way that our tools work and the products work.
 
-This is the approach that we will be taking here. We do want to go hard, but money and trust is too important to do in a rush. We must be sure of our approaches and scientifically support our work with real science. 
-
-One thing to admit is that we tried the angel / vc funded startup approach but we've decided to go for a 'slow' startup approach based on a more decentralized organisation approach. <this needs a lot more fleshing out>
+Trusting the science means taking the time to properly write up our approaches and get peer-review of our mathematical and economic models. There is pressure to to build fast ('go hard') if we want to succeed, but also the entire domain of money and trust is also too important to do in a rush. We must be sure of our approaches and support our work with mathematically principled work. 
 
 ### Governance tokens and 'exit to community' 
 
+One thing to admit is we tried the angel / vc funded startup approach already. However having done that for a bit, we've decided to go for a more decentralized startup approach now. The exact form of this approach is still a work in progress but it will be inspired by the work of people like [Mark Pascall](https://medium.com/@mark_pascall/using-blockchain-dao-token-economics-to-create-a-pure-teal-startup-a-practical-guide-534a373d7b1b), [Colony](https://colony.io/), and other related effort.s For now we're keeping things simple by
+
+- meeting on discord 
+- building real solutions and seing how they get used 
+- keeping our code open source
+- progressively distributing governance tokens to the community over multiple years 
+
+(I'll remove this next bit, but fwiw this is what JV of enspiral had to say:
+
+> I’m a big fan of both governance tokens and exit to community. I really rate what Balancer labs and Nexus mutual teams are doing in this space. I have less time for all the ‘pure dao’ folks - daostack, aragon etc.
+>
+> The model I see working currently is a core team who raises money, funds initial development and then progressively distributes governance tokens to a community over multiple years while building up the community capacity to self govern.
+> I’ve only seen folks starting, I haven’t yet seen a successful exit to community  - Joshua Vial 
+
+
+
 ### Clearing, Liquidity, AI
+
+To understand this section 
