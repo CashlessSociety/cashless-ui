@@ -60,16 +60,15 @@ Trusting the science means taking the time to properly write up our approaches a
 One thing to admit is we tried the angel / vc funded startup approach already. However having done that for a bit, we've decided to go for a more decentralized startup approach now. The exact form of this approach is still a work in progress but it will be inspired by the work of people like [Mark Pascall](https://medium.com/@mark_pascall/using-blockchain-dao-token-economics-to-create-a-pure-teal-startup-a-practical-guide-534a373d7b1b), [Colony](https://colony.io/), and other related effort.s For now we're keeping things simple by
 
 - meeting on discord 
-- building real solutions and seing how they get used 
 - keeping our code open source
-- progressively distributing governance tokens to the community over multiple years 
+- building real solutions and see how they get used 
+- progressively distributing governance tokens to the community of creators over multiple years 
 
 (I'll remove this next bit, but fwiw this is what JV of enspiral had to say:
 
 > I’m a big fan of both governance tokens and exit to community. I really rate what Balancer labs and Nexus mutual teams are doing in this space. I have less time for all the ‘pure dao’ folks - daostack, aragon etc.
 >
-> The model I see working currently is a core team who raises money, funds initial development and then progressively distributes governance tokens to a community over multiple years while building up the community capacity to self govern.
-> I’ve only seen folks starting, I haven’t yet seen a successful exit to community  - Joshua Vial 
+> The model I see working currently is a core team who raises money, funds initial development and then progressively distributes governance tokens to a community over multiple years while building up the community capacity to self govern. - Joshua Vial (founder of Enspiral)
 
 
 
