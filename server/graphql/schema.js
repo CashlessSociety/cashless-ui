@@ -110,6 +110,16 @@ const typeDefs = gql`
     confirmed: Boolean
   }
 
+  type ReciprocityMessage {
+    amount: Float
+    denomination: Denomination
+    promises: [PromiseMessage]
+    outgoingOriginalClaim: ReservesClaim
+    incomingOriginalClaim: ReservesClaim
+    outgoingUpdatedClaim: ReservesClaim
+    incomingUpdatedClaim: ReservesClaim
+  }
+
   type ProposeReciprocityMessage implements Message {
     id: ID!
     type: MsgType!

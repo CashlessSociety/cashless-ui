@@ -16,11 +16,11 @@ const debugPosts = require('debug')('queries:posts'),
   );
 const paramap = require('pull-paramap');
 const { promisePull, mapValues } = require('./utils');
-const ssb = require('./ssb-client');
+const ssb = require('../ssb/server');
 
 const lastAboutValues = (dest) => {
   return promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: false,
       query: [
         {
@@ -73,7 +73,7 @@ const getUserDeletes = async (userId) => {
 
   const [deletes, connections] = await Promise.all([
     promisePull(
-      ssb.client().query.read({
+      ssb.query.read({
         reverse: false,
         query: [
           {
@@ -89,7 +89,7 @@ const getUserDeletes = async (userId) => {
         ],
       })
     ),
-    ssb.client().friends.getConnections(userId),
+    ssb.friends.getConnections(userId),
   ]);
 
   const dests = deletes.map((x) => x.value.content.dest);
@@ -113,7 +113,7 @@ const mapDeletes = (currentUserId, onlyLocal = false) => async (
   let authorDelete;
   if (!onlyLocal) {
     authorDelete = await promisePull(
-      ssb.client().query.read({
+      ssb.query.read({
         reverse: false,
         query: [
           {
@@ -148,7 +148,7 @@ const getPosts = async (currentUserId, profile) => {
     // @ts-ignore
     cat([
       // Posts from others in your wall
-      ssb.client().feedlessIndex.read({
+      ssb.feedlessIndex.read({
         reverse: true,
         query: [
           {
@@ -164,7 +164,7 @@ const getPosts = async (currentUserId, profile) => {
         limit: 30,
       }),
       // Deprecated way to see posts from others on your wall
-      ssb.client().query.read({
+      ssb.query.read({
         reverse: true,
         query: [
           {
@@ -181,7 +181,7 @@ const getPosts = async (currentUserId, profile) => {
         limit: 30,
       }),
       // Posts on your own wall
-      ssb.client().query.read({
+      ssb.query.read({
         reverse: true,
         query: [
           {
@@ -219,7 +219,7 @@ const getPost = async (currentUserId, key) => {
 
   let post;
   try {
-    post = await ssb.client().get({ id: key, meta: true });
+    post = await ssb.get({ id: key, meta: true });
     post.rts = post.value.timestamp;
   } catch (err) {
     if (err.name == 'NotFoundError') {
@@ -232,9 +232,7 @@ const getPost = async (currentUserId, key) => {
   let root;
   if (post.value.content.root) {
     try {
-      root = await ssb
-        .client()
-        .get({ id: post.value.content.root, meta: true });
+      root = await ssb.get({ id: post.value.content.root, meta: true });
       root.rts = root.value.timestamp;
     } catch (e) {}
   }
@@ -283,7 +281,7 @@ const flattenPostsWithReplies = (posts) => {
 const mapReplies = (currentUserId) => async (data, callback) => {
   try {
     const replies = await promisePull(
-      ssb.client().query.read({
+      ssb.query.read({
         reverse: true,
         query: [
           {
@@ -315,7 +313,7 @@ const getSecretMessages = async (profile, key = null) => {
   const messagesPromise = promisePull(
     // @ts-ignore
     cat([
-      ssb.client().feedlessIndex.read({
+      ssb.feedlessIndex.read({
         reverse: true,
         limit: 100,
         query: [
@@ -341,7 +339,7 @@ const getSecretMessages = async (profile, key = null) => {
   );
 
   const deletedPromise = promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -360,9 +358,10 @@ const getSecretMessages = async (profile, key = null) => {
 
   let memoryEntriesPromise = Promise.resolve({ post: [], delete: [] });
   if (key) {
-    memoryEntriesPromise = ssb
-      .client()
-      .encryptedView.memoryDecryptedEntries(profile.id, key);
+    memoryEntriesPromise = ssb.encryptedView.memoryDecryptedEntries(
+      profile.id,
+      key
+    );
   }
 
   const [messages, deleted, memoryEntries] = await Promise.all([
@@ -439,7 +438,7 @@ const search = async (search) => {
   const searchRegex = new RegExp(`.*${loosenSpacesSearch}.*`, 'i');
 
   const peoplePromise = promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -471,7 +470,7 @@ const search = async (search) => {
   );
 
   const subscriptionsPromise = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -520,7 +519,7 @@ const search = async (search) => {
 const getFriends = async (profile) => {
   debugFriends('Fetching');
 
-  let connections = await ssb.client().friends.getConnections(profile.id);
+  let connections = await ssb.friends.getConnections(profile.id);
 
   const profilesList = await Promise.all(
     Object.keys(connections).map((id) => getProfile(id))
@@ -548,7 +547,7 @@ const getFriendshipStatus = async (source, dest) => {
   debugFriendshipStatus('Fetching');
 
   let requestRejectionsPromise = promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -573,9 +572,9 @@ const getFriendshipStatus = async (source, dest) => {
     isBlocked,
     requestRejections,
   ] = await Promise.all([
-    ssb.client().friends.isFollowing({ source: source, dest: dest }),
-    ssb.client().friends.isFollowing({ source: dest, dest: source }),
-    ssb.client().friends.isBlocking({ source: source, dest: dest }),
+    ssb.friends.isFollowing({ source: source, dest: dest }),
+    ssb.friends.isFollowing({ source: dest, dest: source }),
+    ssb.friends.isBlocking({ source: source, dest: dest }),
     requestRejectionsPromise.then((x) => x.map((y) => y.content.contact)),
   ]);
 
@@ -609,7 +608,7 @@ const getAllEntries = (query) => {
   const queryOpts = queries.length > 0 ? { query: queries } : {};
 
   return promisePull(
-    ssb.client().query.read(
+    ssb.query.read(
       Object.assign(
         {
           reverse: true,
@@ -640,7 +639,7 @@ const getProfile = async (id) => {
 
 const progress = (callback) => {
   pull(
-    ssb.client().replicate.changes(),
+    ssb.replicate.changes(),
     pull.drain(callback, (err) => {
       console.error('Progress drain error', err);
     })
@@ -648,13 +647,13 @@ const progress = (callback) => {
 };
 
 const autofollow = async (id) => {
-  const isFollowing = await ssb.client().friends.isFollowing({
-    source: ssb.client().id,
+  const isFollowing = await ssb.friends.isFollowing({
+    source: ssb.id,
     dest: id,
   });
 
   if (!isFollowing) {
-    await ssb.client().publish({
+    await ssb.publish({
       type: 'contact',
       contact: id,
       following: true,
@@ -667,7 +666,7 @@ const getCommunities = async () => {
   debugCommunities('Fetching');
 
   const communitiesPosts = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -698,7 +697,7 @@ const getCommunities = async () => {
 const isMember = async (id, channel) => {
   debugCommunityIsMember('Fetching');
   const [lastSubscription] = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       limit: 1,
       query: [
@@ -724,7 +723,7 @@ const isMember = async (id, channel) => {
 const getCommunityMembers = async (name) => {
   debugCommunityMembers('Fetching');
   const communityMembers = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -764,7 +763,7 @@ const getCommunityMembers = async (name) => {
 const getProfileCommunities = async (id) => {
   debugCommunityProfileCommunities('Fetching');
   const subscriptions = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {
@@ -813,7 +812,7 @@ const getCommunityPosts = async (currentUserId, name) => {
   debugCommunityPosts('Fetching');
 
   const communityPosts = await promisePull(
-    ssb.client().query.read({
+    ssb.query.read({
       reverse: true,
       query: [
         {

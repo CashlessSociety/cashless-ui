@@ -11,6 +11,10 @@ const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
 require('./ssb/server');
+const ssbFlumeAPI = require('./graphql/datasource');
+const dataSources = () => ({
+  ssbFlumeAPI: new ssbFlumeAPI(),
+});
 
 const ApolloCustomDebugPlugin = {
   // Fires whenever a GraphQL request is received from a client.
@@ -52,11 +56,12 @@ const dataSources = () => ({
    (the port 3001 is configured in server/www/bin currently) */
 
 const apollo = new ApolloServer({
+  dataSources,
   typeDefs,
   resolvers, //dataSources,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
-  mockEntireSchema: false,
+  mockEntireSchema: true,
 });
 
 let app = express();
