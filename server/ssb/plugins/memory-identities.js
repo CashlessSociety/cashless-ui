@@ -15,13 +15,13 @@ exports.manifest = {
 let unboxersAdded = [];
 let locks = {};
 
-const toTarget = (t) => (typeof t == 'object' ? t && t.link : t);
+const toTarget = t => (typeof t == 'object' ? t && t.link : t);
 
-const addUnboxer = (ssb) => (key) => {
+const addUnboxer = ssb => key => {
   if (unboxersAdded.includes(key.id)) return;
 
   ssb.addUnboxer({
-    key: (content) => {
+    key: content => {
       const unboxKey = ssbKeys.unboxKey(content, key);
       if (unboxKey) return unboxKey;
     },
@@ -76,7 +76,7 @@ const publishAs = (ssb, config) => ({ key, private, content }, cb) => {
   });
 };
 
-exports.init = function (ssb, config) {
+exports.init = function(ssb, config) {
   return {
     addUnboxer: addUnboxer(ssb),
     publishAs: publishAs(ssb, config),

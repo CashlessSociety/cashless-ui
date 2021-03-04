@@ -26,7 +26,7 @@ exports.manifest = {
 
 //mdm.manifest(apidoc)
 
-exports.init = function (sbot, config) {
+exports.init = function(sbot, config) {
   var max =
     (config.friends && config.friends.hops) ||
     (config.replicate && config.replicate.hops) ||
@@ -34,7 +34,7 @@ exports.init = function (sbot, config) {
   var layered = LayeredGraph({ max: max, start: sbot.id });
 
   function getConnections(id, cb) {
-    layered.onReady(function () {
+    layered.onReady(function() {
       var graph = layered.getGraph();
 
       let connections = {};
@@ -59,23 +59,23 @@ exports.init = function (sbot, config) {
   }
 
   function isFollowing(opts, cb) {
-    layered.onReady(function () {
+    layered.onReady(function() {
       var g = layered.getGraph();
       cb(null, g[opts.source] ? g[opts.source][opts.dest] >= 0 : false);
     });
   }
 
   function isBlocking(opts, cb) {
-    layered.onReady(function () {
+    layered.onReady(function() {
       var g = layered.getGraph();
       cb(null, Math.round(g[opts.source] && g[opts.source][opts.dest]) == -1);
     });
   }
 
   //opinion: do not authorize peers blocked by this node.
-  sbot.auth.hook(function (fn, args) {
+  sbot.auth.hook(function(fn, args) {
     var self = this;
-    isBlocking({ source: sbot.id, dest: args[0] }, function (err, blocked) {
+    isBlocking({ source: sbot.id, dest: args[0] }, function(err, blocked) {
       if (blocked) args[1](new Error('client is blocked'));
       else fn.apply(self, args);
     });
@@ -87,7 +87,7 @@ exports.init = function (sbot, config) {
   // opinion: replicate with everyone within max hops (max passed to layered above ^)
   pull(
     layered.hopStream({ live: true, old: true }),
-    pull.drain(function (data) {
+    pull.drain(function(data) {
       if (data.sync) return;
       for (var k in data) {
         sbot.replicate.request(k, data[k] >= 0);
@@ -100,7 +100,7 @@ exports.init = function (sbot, config) {
   var legacy = require('ssb-friends/legacy')(layered);
 
   //opinion: pass the blocks to replicate.block
-  setImmediate(function () {
+  setImmediate(function() {
     var block =
       (sbot.replicate && sbot.replicate.block) || (sbot.ebt && sbot.ebt.block);
     if (block) {
@@ -110,7 +110,7 @@ exports.init = function (sbot, config) {
       }
       pull(
         legacy.stream({ live: true }),
-        pull.drain(function (contacts) {
+        pull.drain(function(contacts) {
           if (!contacts) return;
 
           if (isFeed(contacts.from) && isFeed(contacts.to)) {
@@ -140,13 +140,13 @@ exports.init = function (sbot, config) {
     createLayer: layered.createLayer,
 
     // legacy, debugging
-    hops: function (opts, cb) {
-      layered.onReady(function () {
+    hops: function(opts, cb) {
+      layered.onReady(function() {
         if (isFunction(opts)) (cb = opts), (opts = {});
         cb(null, layered.getHops(opts));
       });
     },
-    help: function () {
+    help: function() {
       return require('ssb-friends/help');
     },
     // legacy

@@ -40,13 +40,6 @@ const ApolloCustomDebugPlugin = {
   },
 };
 
-/* TODO: resolve from real ssb datasource
-const ssbFlumeAPI = require('./graphql/datasource');
-
-const dataSources = () => ({
-    ssbFlumeAPI: new ssbFlumeAPI(),
-});*/
-
 /* NB If you are trying to work out how all this 'server' stuff 
     can be accessed on the client's web server pay attention to 
    "proxy": "http://localhost:3001", in 
@@ -61,7 +54,7 @@ const apollo = new ApolloServer({
   resolvers, //dataSources,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
-  mockEntireSchema: true,
+  mockEntireSchema: process.env.NOMOCK ? false : true,
 });
 
 let app = express();
@@ -83,12 +76,12 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 // app.use('/ads', adsRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

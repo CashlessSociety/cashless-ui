@@ -15,7 +15,7 @@ let indexing = true;
 const mode = process.env.MODE;
 const ssbSecret = ssbKeys.loadOrCreateSync(`${ssbFolder()}/secret`);
 
-const connectClient = (ssbSecret) => {
+const connectClient = ssbSecret => {
   Client(ssbSecret, ssbConfig, async (err, server) => {
     if (err) {
       console.error('Failed connecting to ssb-server', err);

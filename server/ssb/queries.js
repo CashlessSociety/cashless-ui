@@ -18,7 +18,7 @@ const paramap = require('pull-paramap');
 const { promisePull, mapValues } = require('./utils');
 const ssb = require('../ssb/server');
 
-const lastAboutValues = (dest) => {
+const lastAboutValues = dest => {
   return promisePull(
     ssb.query.read({
       reverse: false,
@@ -36,7 +36,7 @@ const lastAboutValues = (dest) => {
         },
       ],
     })
-  ).then((msgs) => {
+  ).then(msgs => {
     let abouts = {};
     for (let msg of msgs) {
       if (!msg.value.content) continue;
@@ -53,11 +53,11 @@ const lastAboutValues = (dest) => {
 
 const mapProfiles = (data, callback) =>
   getProfile(data.value.author)
-    .then((author) => {
+    .then(author => {
       data.value.authorProfile = author;
       callback(null, data);
     })
-    .catch((err) => callback(err, null));
+    .catch(err => callback(err, null));
 
 const removeWallMention = (data, callback) => {
   const { wall, text } = data.value.content;
@@ -68,7 +68,7 @@ const removeWallMention = (data, callback) => {
 };
 
 let userDeletesCache = {};
-const getUserDeletes = async (userId) => {
+const getUserDeletes = async userId => {
   if (userDeletesCache[userId]) return userDeletesCache[userId];
 
   const [deletes, connections] = await Promise.all([
@@ -92,7 +92,7 @@ const getUserDeletes = async (userId) => {
     ssb.friends.getConnections(userId),
   ]);
 
-  const dests = deletes.map((x) => x.value.content.dest);
+  const dests = deletes.map(x => x.value.content.dest);
 
   let blocked = [];
   for (let key in connections) {
@@ -202,7 +202,7 @@ const getPosts = async (currentUserId, profile) => {
         limit: 30,
       }),
     ]),
-    pull.filter((msg) => msg.value.content.type == 'post'),
+    pull.filter(msg => msg.value.content.type == 'post'),
     paramap(mapReplies(currentUserId)),
     paramap(mapDeletes(currentUserId)),
     paramap(mapProfiles),
@@ -240,7 +240,7 @@ const getPost = async (currentUserId, key) => {
   const posts = await promisePull(
     // @ts-ignore
     cat([once(root || post)]),
-    pull.filter((msg) => msg.value.content.type == 'post'),
+    pull.filter(msg => msg.value.content.type == 'post'),
     paramap(mapReplies(currentUserId)),
     paramap(mapDeletes(currentUserId)),
     paramap(mapProfiles),
@@ -252,7 +252,7 @@ const getPost = async (currentUserId, key) => {
   return flattenPostsWithReplies(posts);
 };
 
-const flattenPostsWithReplies = (posts) => {
+const flattenPostsWithReplies = posts => {
   let flattenPosts = [];
   let postsByKey = {};
   for (const post of posts) {
@@ -278,7 +278,7 @@ const flattenPostsWithReplies = (posts) => {
   return flattenPosts;
 };
 
-const mapReplies = (currentUserId) => async (data, callback) => {
+const mapReplies = currentUserId => async (data, callback) => {
   try {
     const replies = await promisePull(
       ssb.query.read({
@@ -331,7 +331,7 @@ const getSecretMessages = async (profile, key = null) => {
       }),
     ]),
     pull.filter(
-      (msg) =>
+      msg =>
         msg.value.content.type == 'post' &&
         msg.value.content.recps &&
         msg.value.content.recps.includes(profile.id)
@@ -378,7 +378,7 @@ const getSecretMessages = async (profile, key = null) => {
 
   const deletedIds = deleted
     .concat(memoryEntries.delete || [])
-    .map((x) => x.value.content.dest);
+    .map(x => x.value.content.dest);
 
   const messagesByAuthor = {};
   for (const message of messages.concat(memoryEntries.post || [])) {
@@ -407,14 +407,14 @@ const getSecretMessages = async (profile, key = null) => {
   }
 
   const profilesList = await Promise.all(
-    Object.keys(messagesByAuthor).map((id) => getProfile(id))
+    Object.keys(messagesByAuthor).map(id => getProfile(id))
   );
   const profilesHash = profilesList.reduce((hash, profile) => {
     hash[profile.id] = profile;
     return hash;
   }, {});
 
-  const chatList = Object.values(messagesByAuthor).map((m) => {
+  const chatList = Object.values(messagesByAuthor).map(m => {
     m.authorProfile = profilesHash[m.author];
     return m;
   });
@@ -423,7 +423,7 @@ const getSecretMessages = async (profile, key = null) => {
   return chatList;
 };
 
-const search = async (search) => {
+const search = async search => {
   debugSearch('Fetching');
 
   // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
@@ -453,7 +453,7 @@ const search = async (search) => {
         },
       ],
     }),
-    pull.filter((msg) => {
+    pull.filter(msg => {
       if (!msg.value.content) return;
 
       const normalizedName = msg.value.content.name
@@ -461,7 +461,7 @@ const search = async (search) => {
         .replace(/[\u0300-\u036f]/g, '');
       return searchRegex.exec(normalizedName);
     }),
-    pull.map((msg) => {
+    pull.map(msg => {
       // Quick workaround for mapProfiles which only looks at value.author
       msg.value.author = msg.value.content.about;
       return msg;
@@ -492,12 +492,10 @@ const search = async (search) => {
     subscriptionsPromise,
   ]);
 
-  const subscriptionsChannels = subscriptions.map(
-    (p) => p.value.content.channel
-  );
+  const subscriptionsChannels = subscriptions.map(p => p.value.content.channel);
 
   const communities = Array.from(new Set(subscriptionsChannels)).filter(
-    (name) => {
+    name => {
       if (!name) return false;
       const normalizedName = name
         .normalize('NFD')
@@ -516,13 +514,13 @@ const search = async (search) => {
   return { people: Object.values(peopleResult), communities };
 };
 
-const getFriends = async (profile) => {
+const getFriends = async profile => {
   debugFriends('Fetching');
 
   let connections = await ssb.friends.getConnections(profile.id);
 
   const profilesList = await Promise.all(
-    Object.keys(connections).map((id) => getProfile(id))
+    Object.keys(connections).map(id => getProfile(id))
   );
   const profilesHash = profilesList.reduce((hash, profile) => {
     hash[profile.id] = profile;
@@ -575,7 +573,7 @@ const getFriendshipStatus = async (source, dest) => {
     ssb.friends.isFollowing({ source: source, dest: dest }),
     ssb.friends.isFollowing({ source: dest, dest: source }),
     ssb.friends.isBlocking({ source: source, dest: dest }),
-    requestRejectionsPromise.then((x) => x.map((y) => y.content.contact)),
+    requestRejectionsPromise.then(x => x.map(y => y.content.contact)),
   ]);
 
   let status = 'no_relation';
@@ -597,7 +595,7 @@ const getFriendshipStatus = async (source, dest) => {
   return status;
 };
 
-const getAllEntries = (query) => {
+const getAllEntries = query => {
   let queries = [];
   if (query.author) {
     queries.push({ $filter: { value: { author: query.author } } });
@@ -621,7 +619,7 @@ const getAllEntries = (query) => {
 };
 
 let profileCache = {};
-const getProfile = async (id) => {
+const getProfile = async id => {
   if (profileCache[id]) return profileCache[id];
 
   let abouts = await lastAboutValues(id);
@@ -637,16 +635,16 @@ const getProfile = async (id) => {
   return profile;
 };
 
-const progress = (callback) => {
+const progress = callback => {
   pull(
     ssb.replicate.changes(),
-    pull.drain(callback, (err) => {
+    pull.drain(callback, err => {
       console.error('Progress drain error', err);
     })
   );
 };
 
-const autofollow = async (id) => {
+const autofollow = async id => {
   const isFollowing = await ssb.friends.isFollowing({
     source: ssb.id,
     dest: id,
@@ -686,7 +684,7 @@ const getCommunities = async () => {
   );
 
   const communities = Array.from(
-    new Set(communitiesPosts.map((p) => p.value.content.channel))
+    new Set(communitiesPosts.map(p => p.value.content.channel))
   );
 
   debugCommunities('Done');
@@ -720,7 +718,7 @@ const isMember = async (id, channel) => {
   return lastSubscription && lastSubscription.value.content.subscribed;
 };
 
-const getCommunityMembers = async (name) => {
+const getCommunityMembers = async name => {
   debugCommunityMembers('Fetching');
   const communityMembers = await promisePull(
     ssb.query.read({
@@ -749,18 +747,16 @@ const getCommunityMembers = async (name) => {
     dedupMembers[author] = member;
   }
   const onlySubscribedMembers = Object.values(dedupMembers).filter(
-    (x) => x.value.content.subscribed
+    x => x.value.content.subscribed
   );
-  const memberProfiles = onlySubscribedMembers.map(
-    (x) => x.value.authorProfile
-  );
+  const memberProfiles = onlySubscribedMembers.map(x => x.value.authorProfile);
 
   debugCommunityMembers('Done');
 
   return memberProfiles;
 };
 
-const getProfileCommunities = async (id) => {
+const getProfileCommunities = async id => {
   debugCommunityProfileCommunities('Fetching');
   const subscriptions = await promisePull(
     ssb.query.read({
@@ -786,10 +782,10 @@ const getProfileCommunities = async (id) => {
     dedupSubscriptions[channel] = subscription;
   }
   const onlyActiveSubscriptions = Object.values(dedupSubscriptions).filter(
-    (x) => x.value.content.subscribed
+    x => x.value.content.subscribed
   );
   const channelNames = onlyActiveSubscriptions.map(
-    (x) => x.value.content.channel
+    x => x.value.content.channel
   );
   debugCommunityProfileCommunities('Done');
 
@@ -798,7 +794,7 @@ const getProfileCommunities = async (id) => {
 
 const getPostWithReplies = async (currentUserId, channel, key) => {
   const posts = await getCommunityPosts(currentUserId, channel);
-  const topic = posts.find((x) => x.key == key);
+  const topic = posts.find(x => x.key == key);
 
   if (!topic) return [];
   return [topic, ...topic.value.content.replies];
@@ -835,7 +831,7 @@ const getCommunityPosts = async (currentUserId, name) => {
   let communityPostsByKey = {};
   let repliesByKey = {};
 
-  let getRootKey = (post) => {
+  let getRootKey = post => {
     return (
       post.value.content.root ||
       (post.value.content.reply && Object.keys(post.value.content.reply)[0])

@@ -52,13 +52,13 @@ const server = require('../ssb/server');
 // indexingLog(server);
 
 const spec = {
-  type: 'profile',
+  type: 'cashless/profile',
   props: {
     name: Overwrite(),
     description: Overwrite(),
   },
 };
 
-const crut = new Crut(server, spec);
+const crut = new Crut(server, spec, { publish: server.identities.publishAs });
 
 module.exports = crut;

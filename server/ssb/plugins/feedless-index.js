@@ -19,18 +19,18 @@ function mapRts(msg) {
   return msg;
 }
 
-exports.init = function (ssb, config) {
+exports.init = function(ssb, config) {
   var s = ssb._flumeUse(
     'feedless-index',
     FlumeQuery(INDEX_VERSION, { indexes: indexes, map: mapRts })
   );
   var read = s.read;
   var explain = s.explain;
-  s.explain = function (opts) {
+  s.explain = function(opts) {
     return explain(opts || {});
   };
 
-  s.read = function (opts) {
+  s.read = function(opts) {
     return read(opts || {});
   };
 

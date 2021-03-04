@@ -324,6 +324,10 @@ const typeDefs = gql`
 
   type Mutation {
     """
+    Generates a ssb key and returns as strigified json. On client JSON.parse it and save to local storage.
+    """
+    signup: String
+    """
     Creates profile and return profile
     """
     createProfile(name: String, description: String): Profile

@@ -7,10 +7,10 @@ const sharp = require('sharp');
 const urlLib = require('url');
 require('dotenv').config();
 
-const isPhone = (req) => isMobile(req.headers['user-agent']).phone;
+const isPhone = req => isMobile(req.headers['user-agent']).phone;
 module.exports.isPhone = isPhone;
 
-module.exports.asyncRouter = (app) => {
+module.exports.asyncRouter = app => {
   const debug = require('debug')('router');
 
   let wrapper = (method, path, opts, fn) => async (req, res, next) => {
@@ -72,15 +72,15 @@ module.exports.writeKey = (key, path) => {
 };
 
 // From ssb-keys
-module.exports.reconstructKeys = (keyfile) => {
+module.exports.reconstructKeys = keyfile => {
   var privateKey = keyfile
     .replace(/\s*\#[^\n]*/g, '')
     .split('\n')
-    .filter((x) => x)
+    .filter(x => x)
     .join('');
 
   var keys = JSON.parse(privateKey);
-  const hasSigil = (x) => /^(@|%|&)/.test(x);
+  const hasSigil = x => /^(@|%|&)/.test(x);
 
   if (!hasSigil(keys.id)) keys.id = '@' + keys.public;
   return keys;
@@ -90,7 +90,9 @@ module.exports.uploadPicture = async (ssbClient, picture) => {
   const maxSize = 5 * 1024 * 1024; // 5 MB
   if (picture.size > maxSize) throw 'Max size exceeded';
 
-  const resizedPicture = await sharp(picture.data).resize(256, 256).toBuffer();
+  const resizedPicture = await sharp(picture.data)
+    .resize(256, 256)
+    .toBuffer();
 
   return await new Promise((resolve, reject) =>
     pull(
@@ -114,4 +116,4 @@ module.exports.promisePull = (...streams) =>
     );
   });
 
-module.exports.mapValues = (x) => x.map((y) => y.value);
+module.exports.mapValues = x => x.map(y => y.value);

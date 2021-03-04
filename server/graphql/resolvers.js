@@ -1,4 +1,5 @@
 const profile = require('../crut/profile');
+const { generateKey } = require('../ssb/identities');
 
 module.exports = {
   Message: {
@@ -100,7 +101,13 @@ module.exports = {
       }),
   },
   Mutation: {
-    createProfile: async (_, { name, description }) =>
+    signup: async () => {
+      /* Generate a ssb secret */
+      const key = await generateKey();
+      /* Stringify and return to client */
+      return JSON.stringify(key);
+    },
+    createProfile: async (_, { key, name, description }) =>
       new Promise((resolve, reject) => {
         profile.create({ name, description }, (err, res) => {
           if (err) reject(err);

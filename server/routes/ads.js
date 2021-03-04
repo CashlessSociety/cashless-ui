@@ -25,7 +25,7 @@ const ads = [
 ];
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   res.json(ads);
 });
 

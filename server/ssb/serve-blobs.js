@@ -6,13 +6,13 @@ const mime = require('mime-types');
 const URL = require('url');
 const debug = require('debug')('server-blobs');
 
-const serveBlobs = (sbot) => {
+const serveBlobs = sbot => {
   return (req, res) => {
     const parsed = URL.parse(req.url, true);
     const hash = decodeURIComponent(parsed.pathname.replace('/blob/', ''));
     debug('fetching', hash);
 
-    waitFor(hash, function (_, has) {
+    waitFor(hash, function(_, has) {
       if (!has) return respond(res, 404, 'File not found');
       // optional name override
       if (parsed.query.name) {
@@ -39,7 +39,7 @@ const serveBlobs = (sbot) => {
       wrappedCb(null, false);
     }, 5000);
 
-    sbot.blobs.has(hash, function (err, has) {
+    sbot.blobs.has(hash, function(err, has) {
       if (err) return wrappedCb(err);
       debug('has is ', has, 'for', hash);
       if (has) {
@@ -65,7 +65,7 @@ const serveBlobs = (sbot) => {
     } else {
       pull(
         source,
-        ident(function (type) {
+        ident(function(type) {
           const ONE_YEAR = 60 * 60 * 24 * 365;
           res.setHeader('Cache-Control', `public, max-age=${ONE_YEAR}`);
           res.setHeader('Content-Security-Policy', BlobCSP());
