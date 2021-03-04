@@ -299,6 +299,15 @@ const typeDefs = gql`
     description: String
   }
 
+  input SecretInput {
+    publicKey: String!
+    secretKey: String!
+  }
+  type Secret {
+    publicKey: String
+    secretKey: String
+  }
+
   type Query {
     allFeedIds: [ID]
     allCurrentPromises: [PromiseMessage]
@@ -330,7 +339,11 @@ const typeDefs = gql`
     """
     Sends email with a magic link containing hashed user secrets
     """
-    sendMagiclink(email: String): Boolean
+    sendMagiclink(email: String!, secret: SecretInput!): String
+    """
+    Decrypts a hash that was sent through a magic link
+    """
+    decryptMagicLink(hash: String!): Secret
     """
     Creates profile and return profile
     """

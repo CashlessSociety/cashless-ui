@@ -4,9 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { ApolloServer } = require('apollo-server-express');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const adsRouter = require('./routes/ads');
+// const indexRouter = require('./routes/index');
+// const usersRouter = require('./routes/users');
+// const adsRouter = require('./routes/ads');
+const mail = require('./routes/mail');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
@@ -77,6 +78,7 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 // app.use('/ads', adsRouter);
+app.use('/mail', mail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

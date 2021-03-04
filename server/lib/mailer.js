@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
+const { encrypt } = require('./crypto');
+
 const {
   NODE_ENV,
   MAIL_HOST,
@@ -8,10 +10,14 @@ const {
   MAIL_USER,
   MAIL_PORT,
   MAIL_SUBJECT,
+  MAIL_URL,
 } = process.env;
 const isDev = NODE_ENV === 'development';
 
-module.exports = async email => {
+module.exports = async (email, secret) => {
+  const secretToHash = `${secret.publicKey}+${secret.secretKey}`;
+  const hash = encrypt(secretToHash);
+  const hashIv = `${hash.content}+${hash.iv}`;
   let testAccount;
   if (isDev) {
     /* Get test account: https://ethereal.email/create */
@@ -71,5 +77,7 @@ module.exports = async email => {
     console.log('Sent e-mail information:', info);
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
-  return info.accepted.length > 0;
+  return info.accepted.length > 0
+    ? `${isDev ? 'http://localhost:3000/mail' : MAIL_URL}?secret=${hashIv}`
+    : null;
 };

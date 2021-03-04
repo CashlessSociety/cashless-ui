@@ -1,7 +1,7 @@
 const profile = require('../crut/profile');
 const { generateKey } = require('../ssb/identities');
 const sendMail = require('../lib/mailer');
-
+const { decrypt } = require('../lib/crypto');
 module.exports = {
   Message: {
     __resolveType(msg, _context, _info) {
@@ -108,7 +108,14 @@ module.exports = {
       /* Stringify and return to client */
       return JSON.stringify(key);
     },
-    sendMagiclink: async (_, { email }) => sendMail(email),
+    sendMagiclink: async (_, { email, secret }) => sendMail(email, secret),
+    decryptMagicLink: async (_, { hash }) => {
+      const [publicKey, secretKey] = decrypt(hash).split('+');
+      return {
+        publicKey,
+        secretKey,
+      };
+    },
     createProfile: async (_, { key, name, description }) =>
       new Promise((resolve, reject) => {
         profile.create({ name, description }, (err, res) => {
