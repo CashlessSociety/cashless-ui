@@ -328,6 +328,10 @@ const typeDefs = gql`
     """
     signup: String
     """
+    Sends email with a magic link containing hashed user secrets
+    """
+    sendMagiclink(email: String): Boolean
+    """
     Creates profile and return profile
     """
     createProfile(name: String, description: String): Profile

@@ -12,6 +12,9 @@ const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
 require('./ssb/server');
 const ssbFlumeAPI = require('./graphql/datasource');
+
+const isDev = process.env.NODE_ENV === 'development';
+
 const dataSources = () => ({
   ssbFlumeAPI: new ssbFlumeAPI(),
 });
@@ -54,7 +57,7 @@ const apollo = new ApolloServer({
   resolvers, //dataSources,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
-  mockEntireSchema: process.env.NOMOCK ? false : true,
+  mockEntireSchema: !isDev,
 });
 
 let app = express();

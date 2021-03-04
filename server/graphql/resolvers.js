@@ -1,5 +1,6 @@
 const profile = require('../crut/profile');
 const { generateKey } = require('../ssb/identities');
+const sendMail = require('../lib/mailer');
 
 module.exports = {
   Message: {
@@ -107,6 +108,7 @@ module.exports = {
       /* Stringify and return to client */
       return JSON.stringify(key);
     },
+    sendMagiclink: async (_, { email }) => sendMail(email),
     createProfile: async (_, { key, name, description }) =>
       new Promise((resolve, reject) => {
         profile.create({ name, description }, (err, res) => {
