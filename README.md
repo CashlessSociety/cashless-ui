@@ -7,6 +7,8 @@
 
 #### Getting started
 
+Make sure you are using Node v12.xxx. (latest version of node 12)
+
 Start the temporary server
 
 ```
