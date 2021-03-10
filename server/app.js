@@ -58,7 +58,8 @@ const apollo = new ApolloServer({
   resolvers, //dataSources,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
-  mockEntireSchema: !isDev,
+  mockEntireSchema: false 
+  //!isDev,
 });
 
 let app = express();

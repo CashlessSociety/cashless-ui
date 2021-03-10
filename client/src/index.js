@@ -26,6 +26,7 @@ import "assets/scss/now-ui-kit.scss?v=1.4.0";
 // pages
 import NucleoIcons from "views/NucleoIcons.js";
 import IndexPage from "views/IndexPage.js";
+import JoinPage from "views/JoinPage.js";
 // others
 
 import { ApolloClient, ApolloProvider } from "@apollo/client";
@@ -41,7 +42,9 @@ ReactDOM.render(
   <ApolloProvider client={apolloClient}>
     <BrowserRouter>
       <Switch>
+        <Route path="/join" render={(props) => <JoinPage {...props} />} />
         <Route path="/" render={(props) => <IndexPage {...props} />} />
+      
         <Route path="/icons" render={(props) => <NucleoIcons {...props} />} />
         {/* <Redirect to="/" /> */}
       </Switch>

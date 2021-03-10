@@ -38,13 +38,13 @@ function WhiteNavbar() {
           </div>
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className="ml-auto" id="ceva" navbar>
-              <NavItem>
+              <NavItem to="/join" tag={Link}>
                 <Button
                   className="nav-link btn-round"
                   target="_blank"
                   color="primary"
                 >
-                  <p>Join Cashless</p>
+                  <p>Join</p>
                 </Button>
               </NavItem>
               <UncontrolledDropdown nav>

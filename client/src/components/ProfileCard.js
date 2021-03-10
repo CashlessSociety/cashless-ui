@@ -12,8 +12,8 @@ import {
 } from "reactstrap";
 
 
-export const AVAILABILITY_CARD_DATA = gql`
-  fragment AvailabilityCardData on AvailabilityMessage {
+export const PROFILE_CARD_DATA = gql`
+  fragment ProfileCardData on Profile {
     skills {
       name
     }
@@ -26,7 +26,7 @@ export const AVAILABILITY_CARD_DATA = gql`
 `;
 
 
-export const AvailabilityCard = ({ message })  => {
+export const ProfileCard = ({ message })  => {
     console.log(message)
     console.log(message.id)
     return (
