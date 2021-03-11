@@ -304,8 +304,10 @@ const typeDefs = gql`
     secretKey: String!
   }
   type Secret {
-    publicKey: String
-    secretKey: String
+    public: String
+    private: String
+    curve: String
+    id: String
   }
 
   type Query {
@@ -333,9 +335,9 @@ const typeDefs = gql`
 
   type Mutation {
     """
-    Generates a ssb key and returns as strigified json. On client JSON.parse it and save to local storage.
+    Generates a ssb key and returns it's secret.
     """
-    signup: String
+    signup(name: String! description: String): Secret
     """
     Sends email with a magic link containing hashed user secrets
     """

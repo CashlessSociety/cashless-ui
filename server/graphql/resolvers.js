@@ -1,7 +1,8 @@
-const profile = require('../crut/profile');
-const { generateKey } = require('../ssb/identities');
+const { generateKey, publishAs } = require('../ssb/identities');
 const sendMail = require('../lib/mailer');
 const { decrypt } = require('../lib/crypto');
+const ssbConfig = require('../ssb/ssb-config');
+
 module.exports = {
   Message: {
     __resolveType(msg, _context, _info) {
@@ -90,23 +91,31 @@ module.exports = {
       dataSources.ssbFlumeAPI.getAllSettlements(),
     activeProposals: (_, __, { dataSources }) =>
       dataSources.ssbFlumeAPI.getActiveReciprocityProposals(),
-    profile: async (_, { id }) =>
-      new Promise((resolve, reject) => {
-        profile.read(id, (err, data) => {
-          if (err || !data) reject(err);
-          resolve({
-            ...data.states[0],
-            id: data.key,
-          });
-        });
-      }),
+    profile: async (_, { id }) => {},
   },
   Mutation: {
-    signup: async () => {
-      /* Generate a ssb secret */
-      const key = await generateKey();
-      /* Stringify and return to client */
-      return JSON.stringify(key);
+    signup: async (_, { name, description, image }, { ssb }) => {
+      const key = await generateKey()
+      const content = {
+        type: "about",
+        about: key.id,
+        name,
+        description,
+        // image: {
+        //   link: '&NfP4H4NZCfiPQ6AZ6fEmilbFL8Hz3wTQVeaxbCnNEt4=.sha256',
+        //   size: 347856,
+        //   type: 'image/png',
+        //   width: 512,
+        //   height: 512
+        // }
+      };
+      const publishData = {
+        key,
+        private: false,
+        content: content
+      }
+      const data = await publishAs(ssb, publishData)
+      return key
     },
     sendMagiclink: async (_, { email, secret }) => sendMail(email, secret),
     decryptMagicLink: async (_, { hash }) => {
@@ -116,25 +125,6 @@ module.exports = {
         secretKey,
       };
     },
-    createProfile: async (_, { key, name, description }) =>
-      new Promise((resolve, reject) => {
-        profile.create({ name, description }, (err, res) => {
-          if (err) reject(err);
-          profile.read(res, (readErr, data) => {
-            if (readErr || !data) reject(readErr);
-            resolve({
-              ...data.states[0],
-              id: data.key,
-            });
-          });
-        });
-      }),
-    updateProfile: async (_, { id, name, description }) =>
-      new Promise((resolve, reject) => {
-        profile.update(id, { name, description }, (err, res) => {
-          if (err) reject(err);
-          resolve(res);
-        });
-      }),
+    updateProfile: async (_, { key, name, description }) => {}
   },
 };

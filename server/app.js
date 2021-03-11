@@ -7,11 +7,10 @@ const { ApolloServer } = require('apollo-server-express');
 // const indexRouter = require('./routes/index');
 // const usersRouter = require('./routes/users');
 // const adsRouter = require('./routes/ads');
-const mail = require('./routes/mail');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
-require('./ssb/server');
+const ssb = require('./ssb/server');
 const ssbFlumeAPI = require('./graphql/datasource');
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -55,30 +54,39 @@ const ApolloCustomDebugPlugin = {
 const apollo = new ApolloServer({
   dataSources,
   typeDefs,
-  resolvers, //dataSources,
+  resolvers,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
+  context: ({ req }) => {
+    const token = req.headers.authorization || '';
+    // const user = getUser(token);
+    // if (!user) throw new AuthenticationError('you must be logged in'); 
+
+    return {
+      // user,
+      ssb
+    }
+  },
   mockEntireSchema: !isDev,
 });
 
 let app = express();
-
 apollo.applyMiddleware({ app });
 console.log(`Apollo endpoint deployed: ${apollo.graphqlPath}`);
 
 app.set('views', __dirname + '/views'); // general config
-app.set('view engine', 'html');
+// app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client/public')));
+// app.use(express.static(path.join(__dirname, 'client/public')));
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 // app.use('/ads', adsRouter);
-app.use('/mail', mail);
+// app.use('/mail', mail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
