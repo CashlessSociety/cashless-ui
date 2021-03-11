@@ -28,7 +28,6 @@ export const AVAILABILITY_CARD_DATA = gql`
 
 export const AvailabilityCard = ({ message })  => {
     console.log(message)
-    console.log(message.id)
     return (
     <div className="availability-card">
       <Card data-background-color="orange">
