@@ -49,12 +49,14 @@ const SignupForm = ({ storageKeys }) => {
     e.preventDefault();
     const { profileName, profileDescription, profileEmail } = input;
     signup({ variables: { name: profileName, profile: profileDescription } });
+    if (data && !error) {
+      /* Hack to force refetching of new set localStorage keys */
+      window.location.reload();
+      history.push('/')
+    }
     if (!error && data && profileEmail) {
       localStorageSet(storageKeys.email, profileEmail);
     }
-    /* Hack to force refetching of new set localStorage keys */
-    window.location.reload();
-    history.push('/')
   };
   return (
     <Container>
@@ -107,7 +109,7 @@ const SignupForm = ({ storageKeys }) => {
         <Button disabled={loading } type='submit'>
           Send
         </Button>
-        {(error) && <p>Got error: {error}</p>}
+        {(error) && <p>Got error: {JSON.stringify(error)}</p>}
       </Form>
     </Container>
   );
