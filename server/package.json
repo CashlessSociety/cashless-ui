@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "lint": "npx prettier --write ."
+    "lint": "npx prettier --write .",
+    "dev": "NODE_ENV=development nodemon server/bin/www"
   },
   "dependencies": {
     "@tangle/overwrite": "^2.0.1",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "husky": "^5.0.9",
     "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
     "prettier": "2.2.1"
   },
   "husky": {
