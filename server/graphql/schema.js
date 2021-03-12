@@ -342,7 +342,7 @@ const typeDefs = gql`
     """
     Generates a ssb key and returns it's secret.
     """
-    signup(name: String! description: String): Secret
+    signup(name: String!, description: String): Secret
     """
     Sends email with a magic link containing hashed user secrets and email. Returns the created token.
     """

@@ -99,15 +99,15 @@ module.exports = {
         private,
         curve: 'ed25519',
         id: public,
-        email
+        email,
       };
     },
   },
   Mutation: {
     signup: async (_, { name, description }, { ssb }) => {
-      const key = await generateKey()
+      const key = await generateKey();
       const content = {
-        type: "about",
+        type: 'about',
         about: key.id,
         name,
         description,
@@ -123,12 +123,12 @@ module.exports = {
       const publishData = {
         key,
         private: false,
-        content: content
-      }
-      await publishAs(ssb, publishData)
-      return key
+        content: content,
+      };
+      await publishAs(ssb, publishData);
+      return key;
     },
     sendMagiclink: async (_, { email, secret }) => sendMail(email, secret),
-    updateProfile: async (_, { key, name, description }) => {}
+    updateProfile: async (_, { key, name, description }) => {},
   },
 };

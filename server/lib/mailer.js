@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const hbs = require('nodemailer-express-handlebars');
 const { encrypt } = require('./crypto');
 
 const {
@@ -15,7 +14,7 @@ const {
 const isDev = NODE_ENV === 'development';
 
 module.exports = async (email, secret) => {
-  if (email.split('@').length < 2) throw new Error('Must provide valid email')
+  if (email.split('@').length < 2) throw new Error('Must provide valid email');
   /* Check if keys are valid? */
   const secretToHash = `${secret.publicKey}~~${secret.privateKey}~~${email}`;
   const hash = encrypt(secretToHash);
@@ -35,20 +34,6 @@ module.exports = async (email, secret) => {
       pass: isDev ? testAccount.pass : MAIL_PASS,
     },
   });
-  var options = {
-    extName: '.hbs',
-    viewPath: './',
-    layoutsDir: './',
-    defaultLayout: 'template',
-    partialsDir: './',
-  };
-
-  /* TODO:
-    https://excellencetechnologies.in/blog/express-nodemailer-sending-mails/
-    https://stackoverflow.com/questions/45302010/how-to-use-handlebars-with-nodemailer-to-send-email
-    https://stackoverflow.com/questions/56612389/node-js-express-send-email-with-nodemailer-and-nodemailer-handlebars-givin
-    transporter.use('compile', hbs(options));
-    */
 
   let message = {
     from: isDev
@@ -56,9 +41,8 @@ module.exports = async (email, secret) => {
       : `${MAIL_NAME} <${MAIL_USER}>`,
     to: email,
     subject: isDev ? 'Test email' : MAIL_SUBJECT,
-    text: 'For clients with plaintext support only',
-    html:
-      '<p>For clients that do not support AMP4EMAIL or amp content is not valid</p>',
+    text: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`,
+    html: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`,
     amp: `<!doctype html>
     <html ⚡4email>
       <head>
@@ -68,9 +52,7 @@ module.exports = async (email, secret) => {
         <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
       </head>
       <body>
-        <p>Image: <amp-img src="https://cldup.com/P0b1bUmEet.png" width="16" height="16"/></p>
-        <p>GIF (requires "amp-anim" script in header):<br/>
-          <amp-anim src="https://cldup.com/D72zpdwI-i.gif" width="500" height="350"/></p>
+        ${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}
       </body>
     </html>`,
   };
@@ -80,8 +62,8 @@ module.exports = async (email, secret) => {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
   return info.accepted.length > 0
-    /* Maybe return the full url? */
-    // ? `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`
-    ? token
+    ? /* Maybe return the full url? */
+      // ? `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`
+      token
     : null;
 };

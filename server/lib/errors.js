@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
     }, 1000);
   });
 
-  process.on('uncaughtException', err => {
+  process.on('uncaughtException', (err) => {
     console.error('uncaughtException', err.message);
     if (sentry) {
       Sentry.captureException(err);

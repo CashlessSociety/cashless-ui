@@ -11,7 +11,7 @@ exports.manifest = {
 
 const MAX_ENTRIES_TO_HOLD = 20000;
 
-exports.init = function(ssb) {
+exports.init = function (ssb) {
   let values;
 
   const view = ssb._flumeUse(
@@ -48,7 +48,7 @@ exports.init = function(ssb) {
 
     pull(
       pull.values(values),
-      pull.drain(data => {
+      pull.drain((data) => {
         if (!data.value || typeof data.value.content != 'string') return;
 
         const content = ssbkeys.unbox(data.value.content, key);

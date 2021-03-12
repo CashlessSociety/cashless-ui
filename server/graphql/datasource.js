@@ -259,7 +259,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      return results.map(result => this.identityReducer(result));
+      return results.map((result) => this.identityReducer(result));
     } catch (e) {
       console.log('ERROR QUERYING FLUME DB:', e);
       return [];
@@ -285,7 +285,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      return results.map(result => this.identityReducer(result));
+      return results.map((result) => this.identityReducer(result));
     } catch (e) {
       console.log('ERROR QUERYING FLUME DB:', e);
       return [];
@@ -311,7 +311,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      return results.map(result => this.completeSettlementReducer(result));
+      return results.map((result) => this.completeSettlementReducer(result));
     } catch (e) {
       console.log('ERROR QUERYING FLUME DB:', e);
       return [];
@@ -337,7 +337,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      return results.map(result => this.completeSettlementReducer(result));
+      return results.map((result) => this.completeSettlementReducer(result));
     } catch (e) {
       console.log('ERROR QUERYING FLUME DB:', e);
       return [];
@@ -374,7 +374,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      let promises = results.map(result => this.promiseReducer(result));
+      let promises = results.map((result) => this.promiseReducer(result));
       // TODO: this can be done more efficiently/elegantly
       for (let i = 0; i < promises.length; i++) {
         let isLatest = true;
@@ -432,7 +432,7 @@ class ssbFlumeAPI extends DataSource {
           query: myQuery,
         })
       );
-      let promises = results.map(result => this.promiseReducer(result));
+      let promises = results.map((result) => this.promiseReducer(result));
       let highest = 0;
       for (let i = 0; i < promises.length; i++) {
         if (promises[i].nonce > highest) {
@@ -468,7 +468,7 @@ class ssbFlumeAPI extends DataSource {
 
   async getFeedIds() {
     let msgs = await this.getAllIdMsgs();
-    let allIds = new Set(msgs.map(msg => msg.author.id));
+    let allIds = new Set(msgs.map((msg) => msg.author.id));
     return [...allIds];
   }
 

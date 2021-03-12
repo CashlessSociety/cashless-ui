@@ -5,7 +5,7 @@ const privateKey = isDev ? 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3' : MAIL_SECRET;
 const algorithm = 'aes-256-ctr';
 const iv = crypto.randomBytes(16);
 
-const encrypt = text => {
+const encrypt = (text) => {
   const cipher = crypto.createCipheriv(algorithm, privateKey, iv);
 
   const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
@@ -16,7 +16,7 @@ const encrypt = text => {
   };
 };
 
-const decrypt = hash => {
+const decrypt = (hash) => {
   const [content, iv] = hash.split('+');
   const decipher = crypto.createDecipheriv(
     algorithm,

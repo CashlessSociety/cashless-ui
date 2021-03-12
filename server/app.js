@@ -60,12 +60,12 @@ const apollo = new ApolloServer({
   context: ({ req }) => {
     const token = req.headers.authorization || '';
     // const user = getUser(token);
-    // if (!user) throw new AuthenticationError('you must be logged in'); 
+    // if (!user) throw new AuthenticationError('you must be logged in');
 
     return {
       // user,
-      ssb
-    }
+      ssb,
+    };
   },
   mockEntireSchema: !isDev,
 });
@@ -89,12 +89,12 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 // app.use('/mail', mail);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
