@@ -10,7 +10,7 @@ router.get('/:hash', (req, res, next) => {
   /* TODO: divide keys into public and private */
   res.json({
     publicKey: msg,
-    secretKey: msg,
+    privateKey: msg,
   });
 });
 

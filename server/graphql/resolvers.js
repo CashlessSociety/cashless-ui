@@ -92,15 +92,26 @@ module.exports = {
     activeProposals: (_, __, { dataSources }) =>
       dataSources.ssbFlumeAPI.getActiveReciprocityProposals(),
     profile: async (_, { id }) => {},
+    decryptMagicLink: async (_, { hash }) => {
+      const [public, private, email] = decrypt(hash).split('~~');
+      return {
+        public,
+        private,
+        curve: 'ed25519',
+        id: public,
+        email
+      };
+    },
   },
   Mutation: {
-    signup: async (_, { name, description, image }, { ssb }) => {
+    signup: async (_, { name, description }, { ssb }) => {
       const key = await generateKey()
       const content = {
         type: "about",
         about: key.id,
         name,
         description,
+        /* TODO add image blobs */
         // image: {
         //   link: '&NfP4H4NZCfiPQ6AZ6fEmilbFL8Hz3wTQVeaxbCnNEt4=.sha256',
         //   size: 347856,
@@ -114,17 +125,10 @@ module.exports = {
         private: false,
         content: content
       }
-      const data = await publishAs(ssb, publishData)
+      await publishAs(ssb, publishData)
       return key
     },
     sendMagiclink: async (_, { email, secret }) => sendMail(email, secret),
-    decryptMagicLink: async (_, { hash }) => {
-      const [publicKey, secretKey] = decrypt(hash).split('+');
-      return {
-        publicKey,
-        secretKey,
-      };
-    },
     updateProfile: async (_, { key, name, description }) => {}
   },
 };

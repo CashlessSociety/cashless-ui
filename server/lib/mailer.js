@@ -15,9 +15,11 @@ const {
 const isDev = NODE_ENV === 'development';
 
 module.exports = async (email, secret) => {
-  const secretToHash = `${secret.publicKey}+${secret.secretKey}`;
+  if (email.split('@').length < 2) throw new Error('Must provide valid email')
+  /* Check if keys are valid? */
+  const secretToHash = `${secret.publicKey}~~${secret.privateKey}~~${email}`;
   const hash = encrypt(secretToHash);
-  const hashIv = `${hash.content}+${hash.iv}`;
+  const token = `${hash.content}+${hash.iv}`;
   let testAccount;
   if (isDev) {
     /* Get test account: https://ethereal.email/create */
@@ -78,6 +80,8 @@ module.exports = async (email, secret) => {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
   return info.accepted.length > 0
-    ? `${isDev ? 'http://localhost:3000/mail' : MAIL_URL}?secret=${hashIv}`
+    /* Maybe return the full url? */
+    // ? `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`
+    ? token
     : null;
 };

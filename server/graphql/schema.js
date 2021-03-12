@@ -301,13 +301,14 @@ const typeDefs = gql`
 
   input SecretInput {
     publicKey: String!
-    secretKey: String!
+    privateKey: String!
   }
   type Secret {
     public: String
     private: String
     curve: String
     id: String
+    email: String
   }
 
   type Query {
@@ -331,6 +332,10 @@ const typeDefs = gql`
     Gets profile information for an ID
     """
     profile(id: ID!): Profile
+    """
+    Decrypts a hash that was sent through a magic link
+    """
+    decryptMagicLink(hash: String!): Secret
   }
 
   type Mutation {
@@ -339,13 +344,9 @@ const typeDefs = gql`
     """
     signup(name: String! description: String): Secret
     """
-    Sends email with a magic link containing hashed user secrets
+    Sends email with a magic link containing hashed user secrets and email. Returns the created token.
     """
     sendMagiclink(email: String!, secret: SecretInput!): String
-    """
-    Decrypts a hash that was sent through a magic link
-    """
-    decryptMagicLink(hash: String!): Secret
     """
     Creates profile and return profile
     """

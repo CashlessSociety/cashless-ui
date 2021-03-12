@@ -75,13 +75,13 @@ apollo.applyMiddleware({ app });
 console.log(`Apollo endpoint deployed: ${apollo.graphqlPath}`);
 
 app.set('views', __dirname + '/views'); // general config
-// app.set('view engine', 'html');
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'client/public')));
+app.use(express.static(path.join(__dirname, 'client/public')));
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
