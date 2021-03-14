@@ -291,7 +291,7 @@ const typeDefs = gql`
     REQUEST
   }
 
-  union FeedMessage = AdMessage | AvailabilityMessage
+  union FeedMessage = AdMessage | AvailabilityMessage | GenericMessage
 
   type Profile {
     id: ID!
