@@ -43,13 +43,10 @@ const ApolloCustomDebugPlugin = {
   },
 };
 
-/* NB If you are trying to work out how all this 'server' stuff 
-    can be accessed on the client's web server pay attention to 
-   "proxy": "http://localhost:3001", in 
-   ../client/package.json which proxies all server end points
+/* NB If you are trying to work out how all this 'server' stuff can be accessed on the client's web server pay attention to  "proxy": "http://localhost:3001", in ../client/package.json which proxies all server end points
     
-   So, eg localhost:3000/graphql -> localhost:3001/graphql
-   (the port 3001 is configured in server/www/bin currently) */
+So, eg localhost:3000/graphql -> localhost:3001/graphql
+(the port 3001 is configured in server/www/bin currently) */
 
 const apollo = new ApolloServer({
   dataSources,
