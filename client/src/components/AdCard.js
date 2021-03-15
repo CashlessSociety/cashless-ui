@@ -39,7 +39,7 @@ export const AdCard = ({ message })  => {
          <CardBody>
             <div className="card-meta">
               <h6 className="card-subtitle">
-                  <i className="now-ui-icons media-2_sound-wave"></i>
+                  <i className="now-ui-icons ui-2_chat-round"></i>
                   Looking For
               </h6>
               <small className="card-timestamp">
