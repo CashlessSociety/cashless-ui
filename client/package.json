@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.7",
     "axios": "^0.21.0",
+    "date-fns": "^2.19.0",
     "graphql": "^15.4.0",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
