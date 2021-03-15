@@ -41,8 +41,8 @@ module.exports = async (email, secret) => {
       : `${MAIL_NAME} <${MAIL_USER}>`,
     to: email,
     subject: isDev ? 'Test email' : MAIL_SUBJECT,
-    text: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`,
-    html: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}?secret=${token}`,
+    text: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}/${token}`,
+    html: `${isDev ? 'http://localhost:3000/login' : MAIL_URL}/${token}`,
     amp: `<!doctype html>
     <html ⚡4email>
       <head>
