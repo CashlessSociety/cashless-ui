@@ -1,5 +1,3 @@
-
-
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 // reactstrap components
@@ -10,6 +8,7 @@ import {
   CardTitle,
   Badge,
 } from "reactstrap";
+import { formatDistance } from 'date-fns'
 
 export const AD_CARD_DATA = gql`
   fragment AdCardData on AdMessage {
@@ -33,8 +32,8 @@ export const AD_CARD_DATA = gql`
 `;
 
 export const AdCard = ({ message })  => {
-    console.log(message)
-    return (
+  console.log(message)
+  return (
     <div className="request-adcard">
       <Card>
          <CardBody>
@@ -43,7 +42,9 @@ export const AdCard = ({ message })  => {
                   <i className="now-ui-icons media-2_sound-wave"></i>
                   Looking For
               </h6>
-              <small className="card-timestamp">m ago</small>
+              <small className="card-timestamp">
+                {formatDistance(new Date(message.timestamp), new Date(), { addSuffix: true })}
+              </small>
             </div>
             <CardTitle tag="h3">
                 <a className="nav-link" href="#pablo" onClick={(e) => e.preventDefault()}>
