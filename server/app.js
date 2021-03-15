@@ -4,26 +4,30 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { ApolloServer } = require('apollo-server-express');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const adsRouter = require('./routes/ads');
+// const indexRouter = require('./routes/index');
+// const usersRouter = require('./routes/users');
+// const adsRouter = require('./routes/ads');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
-const mocks = require('./mocks')
+const mocks = require('./mocks');
+const ssb = require('./ssb/server');
+const ssbFlumeAPI = require('./graphql/datasource');
+
+const isDev = process.env.NODE_ENV === 'development';
+
+const dataSources = () => ({
+  ssbFlumeAPI: new ssbFlumeAPI(),
+});
 
 const ApolloCustomDebugPlugin = {
-
   // Fires whenever a GraphQL request is received from a client.
   requestDidStart(requestContext) {
-
-    query = requestContext.request.query
-    if (!query.includes("Introspection")) {
-      console.log('Request started! Query:\n' +
-       requestContext.request.query);
+    query = requestContext.request.query;
+    if (!query.includes('Introspection')) {
+      console.log('Request started! Query:\n' + requestContext.request.query);
     }
 
     return {
-
       // Fires whenever Apollo Server will parse a GraphQL
       // request to create its associated document AST.
       parsingDidStart(requestContext) {
@@ -35,35 +39,35 @@ const ApolloCustomDebugPlugin = {
       validationDidStart(requestContext) {
         console.log('Validation started!');
       },
-
-    }
+    };
   },
 };
 
-/* TODO: resolve from real ssb datasource
-const ssbFlumeAPI = require('./graphql/datasource');
-
-const dataSources = () => ({
-    ssbFlumeAPI: new ssbFlumeAPI(),
-});*/
-
-/* NB If you are trying to work out how all this 'server' stuff 
-    can be accessed on the client's web server pay attention to 
-   "proxy": "http://localhost:3001", in 
-   ../client/package.json which proxies all server end points
+/* NB If you are trying to work out how all this 'server' stuff can be accessed on the client's web server pay attention to  "proxy": "http://localhost:3001", in ../client/package.json which proxies all server end points
     
-   So, eg localhost:3000/graphql -> localhost:3001/graphql
-   (the port 3001 is configured in server/www/bin currently) */
+So, eg localhost:3000/graphql -> localhost:3001/graphql
+(the port 3001 is configured in server/www/bin currently) */
 
 const apollo = new ApolloServer({
+  dataSources,
   typeDefs,
-  resolvers, //dataSources,
-  plugins: [ ApolloCustomDebugPlugin],
-  mocks
+  resolvers,
+  plugins: [ApolloCustomDebugPlugin],
+  mocks,
+  context: ({ req }) => {
+    const token = req.headers.authorization || '';
+    // const user = getUser(token);
+    // if (!user) throw new AuthenticationError('you must be logged in');
+
+    return {
+      // user,
+      ssb,
+    };
+  },
+  mockEntireSchema: !isDev,
 });
 
 let app = express();
-
 apollo.applyMiddleware({ app });
 console.log(`Apollo endpoint deployed: ${apollo.graphqlPath}`);
 
@@ -79,14 +83,15 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 // app.use('/ads', adsRouter);
+// app.use('/mail', mail);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

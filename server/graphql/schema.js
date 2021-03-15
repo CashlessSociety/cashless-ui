@@ -1,307 +1,361 @@
 const { gql } = require('apollo-server-express');
 const Date = require('graphql-date');
 
-
 const typeDefs = gql`
-    scalar Date
+  scalar Date
 
-    interface Name {
-        type: NameType!
-    }
+  interface Name {
+    type: NameType!
+  }
 
-    type Feed implements Name {
-        type: NameType!
-        id: ID
-        publicKey: String
-        reserves: ReservesAddress
-        commonName: CommonName
-        profileImageSrc: String
-        verifiedAccounts: [AccountHandle]
-        messages: [Message]
-        assets: [PromiseMessage]
-        liabilities: [PromiseMessage]
-        settledPromises: [PromiseMessage]
-        settlements: [CompleteSettlementMessage]
-    }
+  type Feed implements Name {
+    type: NameType!
+    id: ID
+    publicKey: String
+    reserves: ReservesAddress
+    commonName: CommonName
+    profileImageSrc: String
+    verifiedAccounts: [AccountHandle]
+    messages: [Message]
+    assets: [PromiseMessage]
+    liabilities: [PromiseMessage]
+    settledPromises: [PromiseMessage]
+    settlements: [CompleteSettlementMessage]
+  }
 
-    type ReservesAddress implements Name {
-        type: NameType!
-        address: String
-    }
+  type ReservesAddress implements Name {
+    type: NameType!
+    address: String
+  }
 
-    type CommonName implements Name {
-        type: NameType!
-        name: String
-        id: ID
-    }
+  type CommonName implements Name {
+    type: NameType!
+    name: String
+    id: ID
+  }
 
-    type AccountHandle implements Name {
-        type: NameType!
-        accountType: AccountType
-        handle: String
-    }
+  type AccountHandle implements Name {
+    type: NameType!
+    accountType: AccountType
+    handle: String
+  }
 
-    interface Message {
-        id: ID!
-        type: MsgType!
-        previous: String
-        header: Header
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-    }
+  interface Message {
+    id: ID!
+    type: MsgType!
+    previous: String
+    header: Header
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+  }
 
-    type PromiseMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        recipient: Feed
-        amount: Float
-        issueDate: Date
-        vestDate: Date
-        denomination: Denomination
-        memo: String
-        tags: [String]
-        nonce: Int
-        claimName: ID
-        claim: ReservesClaim
-        isLatest: Boolean
-        reciprocity: CompleteReciprocityMessage
-    }
+  type PromiseMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    recipient: Feed
+    amount: Float
+    issueDate: Date
+    vestDate: Date
+    denomination: Denomination
+    memo: String
+    tags: [String]
+    nonce: Int
+    claimName: ID
+    claim: ReservesClaim
+    isLatest: Boolean
+    reciprocity: CompleteReciprocityMessage
+  }
 
-    type IdentityMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        feed: Feed
-        name: Name
-        evidence: Evidence
-    }
+  type IdentityMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    feed: Feed
+    name: Name
+    evidence: Evidence
+  }
 
-    type CompleteSettlementMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        amount: Float
-        denomination: Denomination
-        claimName: ID
-        nonce: Int
-        claim: ReservesClaim
-        tx: ID
-        confirmed: Boolean
-    }
+  type CompleteSettlementMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    amount: Float
+    denomination: Denomination
+    claimName: ID
+    nonce: Int
+    claim: ReservesClaim
+    tx: ID
+    confirmed: Boolean
+  }
 
-    type ProposeReciprocityMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        amount: Float
-        denomination: Denomination
-        promises: [PromiseMessage]
-        reciprocityId: ID
-    }
+  type ReciprocityMessage {
+    amount: Float
+    denomination: Denomination
+    promises: [PromiseMessage]
+    outgoingOriginalClaim: ReservesClaim
+    incomingOriginalClaim: ReservesClaim
+    outgoingUpdatedClaim: ReservesClaim
+    incomingUpdatedClaim: ReservesClaim
+  }
 
-    type AcceptReciprocityMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        proposal: ProposeReciprocityMessage
-        outgoingOriginalClaim: ReservesClaim
-        incomingOriginalClaim: ReservesClaim
-        outgoingUpdatedClaim: ReservesClaim
-        incomingUpdatedClaim: ReservesClaim
-    }
+  type ProposeReciprocityMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    amount: Float
+    denomination: Denomination
+    promises: [PromiseMessage]
+    reciprocityId: ID
+  }
 
-    type CompleteReciprocityMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        proposal: ProposeReciprocityMessage
-        originalClaims: [ReservesClaim]
-        updatedClaims: [ReservesClaim]
-    }
+  type AcceptReciprocityMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    proposal: ProposeReciprocityMessage
+    outgoingOriginalClaim: ReservesClaim
+    incomingOriginalClaim: ReservesClaim
+    outgoingUpdatedClaim: ReservesClaim
+    incomingUpdatedClaim: ReservesClaim
+  }
 
-    type AvailabilityMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        skills: [Skill]
-        isAvailable: Boolean   
-    }
+  type CompleteReciprocityMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    proposal: ProposeReciprocityMessage
+    originalClaims: [ReservesClaim]
+    updatedClaims: [ReservesClaim]
+  }
 
-    type AdMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        title: String
-        text: String
-        rate: Float
-        denomination: Denomination
-        minHours: Int
-        maxHours: Int
-        skills: [Skill]
-        adType: AdType
-    }
+  type AvailabilityMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    skills: [Skill]
+    isAvailable: Boolean
+  }
 
-    type GenericMessage implements Message {
-        id: ID!
-        type: MsgType!
-        header: Header
-        previous: String
-        hash: HashFunc
-        author: Feed
-        sequence: Int
-        timestamp: Date
-        signature: String
-        content: String
-    }
+  type AdMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    title: String
+    text: String
+    rate: Float
+    denomination: Denomination
+    minHours: Int
+    maxHours: Int
+    skills: [Skill]
+    adType: AdType
+  }
 
-    interface Evidence {
-        type: EvidenceType!
-    }
+  type GenericMessage implements Message {
+    id: ID!
+    type: MsgType!
+    header: Header
+    previous: String
+    hash: HashFunc
+    author: Feed
+    sequence: Int
+    timestamp: Date
+    signature: String
+    content: String
+  }
 
-    type MessageEvidence implements Evidence {
-        type: EvidenceType!
-        id: ID
-        feedId: ID
-        sequence: Int
-    }
+  interface Evidence {
+    type: EvidenceType!
+  }
 
-    type ReservesClaim {
-        data: String
-        fromSignature: EthereumSignature
-        toSignature: EthereumSignature
-    }
+  type MessageEvidence implements Evidence {
+    type: EvidenceType!
+    id: ID
+    feedId: ID
+    sequence: Int
+  }
 
-    type Header {
-        version: Float
-        network: String
-    }
+  type ReservesClaim {
+    data: String
+    fromSignature: EthereumSignature
+    toSignature: EthereumSignature
+  }
 
-    type EthereumSignature {
-        v: Int
-        r: String
-        s: String
-    }
+  type Header {
+    version: Float
+    network: String
+  }
 
-    type Skill {
-        id: ID
-        name: String
-    }
+  type EthereumSignature {
+    v: Int
+    r: String
+    s: String
+  }
 
-    enum HashFunc {
-        SHA256
-        KECCAK256
-    }
+  type Skill {
+    id: ID
+    name: String
+  }
 
-    enum Denomination {
-        USD
-    }
+  enum HashFunc {
+    SHA256
+    KECCAK256
+  }
 
-    enum MsgType {
-        IDENTITY
-        AD
-        AVAILABILITY
-        PROMISE
-        COMPLETE_SETTLEMENT
-        PROPOSE_RECIPROCITY
-        ACCEPT_RECIPROCITY
-        COMPLETE_RECIPROCITY
-        GENERIC
-    }
+  enum Denomination {
+    USD
+  }
 
-    enum EvidenceType {
-        MESSAGE
-    }
+  enum MsgType {
+    IDENTITY
+    AD
+    AVAILABILITY
+    PROMISE
+    COMPLETE_SETTLEMENT
+    PROPOSE_RECIPROCITY
+    ACCEPT_RECIPROCITY
+    COMPLETE_RECIPROCITY
+    GENERIC
+  }
 
-    enum NameType {
-        FEED
-        COMMON
-        RESERVES
-        ACCOUNT
-    }
+  enum EvidenceType {
+    MESSAGE
+  }
 
-    enum AccountType {
-        FACEBOOK
-        GOOGLE
-        TWITTER
-    }
+  enum NameType {
+    FEED
+    COMMON
+    RESERVES
+    ACCOUNT
+  }
 
-    enum AdType {
-        OFFER
-        REQUEST
-    }
+  enum AccountType {
+    FACEBOOK
+    GOOGLE
+    TWITTER
+  }
 
-    union FeedMessage = AdMessage | AvailabilityMessage  
+  enum AdType {
+    OFFER
+    REQUEST
+  }
 
-    type Query {
-        allFeedIds: [ID]
-        allCurrentPromises: [PromiseMessage]
-        allPromises: [PromiseMessage]
-        allIdMsgs: [IdentityMessage]
-        allMessagesFor(userId:ID): [FeedMessage]
-        availabilityMessage(id:ID!): AvailabilityMessage
-        adMessage(id:ID): AdMessage
-        feed(id: ID!): Feed
-        promises(feedId: ID!): [PromiseMessage]
-        promiseChain(claimName: ID!, feedId: ID!): [PromiseMessage]
-        promise(claimName: ID!, feedId: ID!, nonce: Int!): PromiseMessage
-        messages(feedId: ID!): [Message]
-        pendingPromises(feedId: ID!): [PromiseMessage]
-        claimSettlement(claimName: ID!): [CompleteSettlementMessage]
-        allSettlements: [CompleteSettlementMessage]
-        activeProposals: [ProposeReciprocityMessage]
-    }
+  union FeedMessage = AdMessage | AvailabilityMessage | GenericMessage
+
+  type Profile {
+    id: ID!
+    name: String
+    description: String
+  }
+
+  input SecretInput {
+    publicKey: String!
+    privateKey: String!
+  }
+  type Secret {
+    public: String
+    private: String
+    curve: String
+    id: String
+    email: String
+  }
+
+  type Query {
+    allFeedIds: [ID]
+    allCurrentPromises: [PromiseMessage]
+    allPromises: [PromiseMessage]
+    allIdMsgs: [IdentityMessage]
+    allMessagesFor(userId: ID): [FeedMessage]
+    availabilityMessage(id: ID!): AvailabilityMessage
+    adMessage(id: ID): AdMessage
+    feed(id: ID!): Feed
+    promises(feedId: ID!): [PromiseMessage]
+    promiseChain(claimName: ID!, feedId: ID!): [PromiseMessage]
+    promise(claimName: ID!, feedId: ID!, nonce: Int!): PromiseMessage
+    messages(feedId: ID!): [Message]
+    pendingPromises(feedId: ID!): [PromiseMessage]
+    claimSettlement(claimName: ID!): [CompleteSettlementMessage]
+    allSettlements: [CompleteSettlementMessage]
+    activeProposals: [ProposeReciprocityMessage]
+    """
+    Gets profile information for an ID
+    """
+    profile(id: ID!): Profile
+    """
+    Decrypts a hash that was sent through a magic link
+    """
+    decryptMagicLink(hash: String!): Secret
+  }
+
+  type Mutation {
+    """
+    Generates a ssb key and returns it's secret.
+    """
+    signup(name: String!, description: String): Secret
+    """
+    Sends email with a magic link containing hashed user secrets and email. Returns the created token.
+    """
+    sendMagiclink(email: String!, secret: SecretInput!): String
+    """
+    Creates profile and return profile
+    """
+    createProfile(name: String, description: String): Profile
+    """
+    Updates profile and returns updated id
+    """
+    updateProfile(id: ID!, name: String, description: String): String
+  }
 `;
 
 module.exports = typeDefs;

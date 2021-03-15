@@ -27,6 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
+    "lint": "eslint src --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
@@ -57,6 +58,7 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "eslint-plugin-react": "^7.22.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8"
   }

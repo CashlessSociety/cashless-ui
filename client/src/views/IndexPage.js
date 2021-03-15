@@ -1,26 +1,22 @@
-import React from "react";
-// react plugin used to create DropdownMenu for selecting messages
-import Select from "react-select";
-import axios from 'axios';
-// reactstrap components
-import {
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import React, {useState} from 'react';
 
 // core components
-import TopNavbar from "components/Navbars/TopNavbar.js";
-import HomeHeader from "components/Headers/HomeHeader.js";
-import FooterSocial from "components/Footers/FooterSocial.js";
-import Messages from "components/Messages.js"
+import TopNavbar from 'components/Navbars/TopNavbar.js';
+import HomeHeader from 'components/Headers/HomeHeader.js';
+import FooterSocial from 'components/Footers/FooterSocial.js';
+import Messages from 'components/Messages.js';
+import MagicLinkToast from 'components/MagicLinkToast.js';
+import { localStorageGet } from '../lib/localStorage';
 
-function IndexPage() {
-
+function IndexPage({ isAuthenticated, token, storageKeys }) {
+  const [gotToken, setToken] = useState(null)
   const load = async () => {
-    console.log("index page load");
-
-  }
+    console.log('index page load');
+    /* Repeated from index.js, need smarter way to re-check localStorage */
+    const getToken = localStorageGet(storageKeys.token);
+    const token = getToken[storageKeys.token];
+    if (token) setToken(token)
+  };
   // select states and functions
   React.useEffect(() => {
     (async () => await load())();
@@ -32,20 +28,19 @@ function IndexPage() {
       //document.body.classList.remove("product-page");
       //document.body.classList.remove("sidebar-collapse");
     };
-  }, []);
+  }, [load]);
 
   return (
     <>
-      <TopNavbar />
-      <div className="wrapper">
+      <TopNavbar isAuthenticated={isAuthenticated} />
+      <div className='wrapper'>
         <HomeHeader />
-
-          <Messages />
+        <MagicLinkToast show={!token && !gotToken && isAuthenticated} />
+        <Messages />
 
         <FooterSocial />
       </div>
     </>
   );
 }
-
 export default IndexPage;
