@@ -42,6 +42,18 @@ function TopNavbar({ isAuthenticated }) {
             <NavbarBrand to='/' tag={Link} id='navbar-brand'>
               Cashless
             </NavbarBrand>
+            <button
+              onClick={() => {
+                document.documentElement.classList.toggle("nav-open");
+                setCollapseOpen(!collapseOpen);
+              }}
+              aria-expanded={collapseOpen}
+              className="navbar-toggler"
+            >
+              <span className="navbar-toggler-bar top-bar"></span>
+              <span className="navbar-toggler-bar middle-bar"></span>
+              <span className="navbar-toggler-bar bottom-bar"></span>
+            </button>
           </div>
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className='ml-auto' id='ceva' navbar>
