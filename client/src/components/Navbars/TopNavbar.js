@@ -91,39 +91,48 @@ function TopNavbar({ isAuthenticated }) {
           </>}
 
           <Collapse isOpen={collapseOpen} navbar>
-            <Nav className='ml-auto' id='ceva' navbar>
+            <button
+              onClick={() => {
+                document.documentElement.classList.toggle("nav-open");
+                setCollapseOpen(!collapseOpen);
+              }}
+            >
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+            </button>
 
-              {isAuthenticated && <>
-                <NavItem>
-                  <NavLink>
-                    <i class="now-ui-icons ui-1_simple-add"></i>
-                    <p>POST</p>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
-                    <i class="now-ui-icons users_circle-08"></i>
-                    <p>My Profile</p>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
-                    <i class="now-ui-icons files_paper"></i>
-                    <p>My Trades</p>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
-                    <i class="now-ui-icons media-1_button-power"></i>
-                    <p>Logout</p>
-                  </NavLink>
-                </NavItem>
-              </>
-              }
-            </Nav>
+        <Nav className='ml-auto' id='ceva' navbar>
+
+          {isAuthenticated && <>
+            <NavItem>
+              <NavLink>
+                <i class="now-ui-icons ui-1_simple-add"></i>
+                <p>POST</p>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <i class="now-ui-icons users_circle-08"></i>
+                <p>My Profile</p>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <i class="now-ui-icons files_paper"></i>
+                <p>My Trades</p>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
+                <i class="now-ui-icons media-1_button-power"></i>
+                <p>Logout</p>
+              </NavLink>
+            </NavItem>
+          </>
+          }
+        </Nav>
           </Collapse>
-        </Container>
-      </Navbar>
+    </Container>
+      </Navbar >
     </>
   );
 }
