@@ -47,8 +47,15 @@ function TopNavbar({ isAuthenticated }) {
             Cashless
             </NavbarBrand>
 
-          {/* this button below makes the hamburger menu present when  screen width is narrow */}
-          <button
+          {/* this displays the join button when a user is not logged in */}
+          {!isAuthenticated && <NavItem tag={Link} to='/join'>
+            <Button className='nav-link btn-round' color='primary'>
+              <p>Join Cashless</p>
+            </Button>
+          </NavItem>}
+          
+          {/* this button below makes the hamburger menu present when screen width is narrow */}
+          {isAuthenticated && <button
             onClick={() => {
               // this line opens the sidebar
               document.documentElement.classList.toggle("nav-open");
@@ -63,18 +70,11 @@ function TopNavbar({ isAuthenticated }) {
             <span className="navbar-toggler-bar top-bar"></span>
             <span className="navbar-toggler-bar middle-bar"></span>
             <span className="navbar-toggler-bar bottom-bar"></span>
-          </button>
+          </button>}
           {/* </div> */}
 
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className='ml-auto' id='ceva' navbar>
-
-              {/* this probably needs to move out of the collapse and toggle with the hamburger depending on if a user is authenticated */}
-              {!isAuthenticated && <NavItem tag={Link} to='/join'>
-                <Button className='nav-link btn-round' color='primary'>
-                  <p>Join Cashless</p>
-                </Button>
-              </NavItem>}
 
               {isAuthenticated && <>
                 <NavItem>
