@@ -45,7 +45,7 @@ function TopNavbar({ isAuthenticated }) {
 
           <NavbarBrand to='/' tag={Link} id='navbar-brand'>
             Cashless
-            </NavbarBrand>
+          </NavbarBrand>
 
           {/* this displays the join button when a user is not logged in */}
           {!isAuthenticated && <NavItem tag={Link} to='/join'>
@@ -53,25 +53,42 @@ function TopNavbar({ isAuthenticated }) {
               <p>Join Cashless</p>
             </Button>
           </NavItem>}
-          
-          {/* this button below makes the hamburger menu present when screen width is narrow */}
-          {isAuthenticated && <button
-            onClick={() => {
-              // this line opens the sidebar
-              document.documentElement.classList.toggle("nav-open");
-              // this line just keeps track of the state (can this be linked to nav-open as default?)
-              setCollapseOpen(!collapseOpen);
-            }}
-            // this property says whether the collapse is open (true) or not (false)
-            aria-expanded={collapseOpen}
-            className="navbar-toggler"
-          >
-            {/* these bits are literally the layers of the hamburger!! */}
-            <span className="navbar-toggler-bar top-bar"></span>
-            <span className="navbar-toggler-bar middle-bar"></span>
-            <span className="navbar-toggler-bar bottom-bar"></span>
-          </button>}
-          {/* </div> */}
+
+          {/* this chunk controls what's visible when a user is logged in */}
+          {isAuthenticated && <>
+
+            {/* this bit controls what's visible when the collapse is not open */}
+            {!collapseOpen && <>
+              <NavLink href='/'>
+                <i class="now-ui-icons ui-1_simple-add"></i>
+                <p>POST</p>
+              </NavLink>
+
+              <NavLink>
+                <i class="now-ui-icons users_circle-08"></i>
+              </NavLink>
+
+              {/* hamburger menu */}
+              <button
+                onClick={() => {
+                  // this line opens the sidebar
+                  document.documentElement.classList.toggle("nav-open");
+                  // this line just keeps track of the state (can this be linked to nav-open as default?)
+                  setCollapseOpen(!collapseOpen);
+                }}
+                // this property says whether the collapse is open (true) or not (false)
+                aria-expanded={collapseOpen}
+                className="navbar-toggler"
+              >
+                {/* these bits are literally the layers of the hamburger!! */}
+                <span className="navbar-toggler-bar top-bar"></span>
+                <span className="navbar-toggler-bar middle-bar"></span>
+                <span className="navbar-toggler-bar bottom-bar"></span>
+              </button>
+            </>
+            }
+
+          </>}
 
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className='ml-auto' id='ceva' navbar>
