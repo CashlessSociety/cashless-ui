@@ -35,7 +35,6 @@ function TopNavbar({ isAuthenticated }) {
       ) : null}
 
       <Navbar className='bg-dark fixed-top'>
-        <Container>
           <NavbarBrand to='/' tag={Link} id='navbar-brand'>
             Cashless
           </NavbarBrand>
@@ -50,13 +49,7 @@ function TopNavbar({ isAuthenticated }) {
           
             {/* this bit controls what's visible on the navbar when the sidebar is closed */}
             {!collapseOpen && <>
-              <NavLink href='/'>
-                <i class="now-ui-icons ui-1_simple-add"></i>
-                <p>POST</p>
-              </NavLink>
-              <NavLink>
-                <i class="now-ui-icons users_circle-08"></i>
-              </NavLink>
+              
 
               {/* hamburger menu */}
               <button
@@ -67,9 +60,12 @@ function TopNavbar({ isAuthenticated }) {
                 aria-expanded={collapseOpen}
                 className="navbar-toggler"
               >
-                <span className="navbar-toggler-bar top-bar"></span>
-                <span className="navbar-toggler-bar middle-bar"></span>
-                <span className="navbar-toggler-bar bottom-bar"></span>
+                <i className="now-ui-icons users_circle-08"></i>
+                <span className="navbar-toggler-bar">
+                  <span className="navbar-toggler-bar top-bar"></span>
+                  <span className="navbar-toggler-bar middle-bar"></span>
+                  <span className="navbar-toggler-bar bottom-bar"></span>
+                </span>
               </button>
             </>
             }
@@ -80,37 +76,38 @@ function TopNavbar({ isAuthenticated }) {
 
             {/* this is the 'x' close button on the sidebar */}
             <button
+              className ="button-close-nav"
               onClick={() => {
                 document.documentElement.classList.toggle("nav-open");
                 setCollapseOpen(!collapseOpen);
               }}
             >
-              <i class="now-ui-icons ui-1_simple-remove"></i>
+              <i className="now-ui-icons ui-1_simple-remove"></i>
             </button>
 
             <Nav className='ml-auto' id='ceva' navbar>
               {isAuthenticated && <>
                 <NavItem>
                   <NavLink>
-                    <i class="now-ui-icons ui-1_simple-add"></i>
+                    <i className="now-ui-icons ui-1_simple-add"></i>
                     <p>POST</p>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink>
-                    <i class="now-ui-icons users_circle-08"></i>
+                    <i className="now-ui-icons users_circle-08"></i>
                     <p>My Profile</p>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink>
-                    <i class="now-ui-icons files_paper"></i>
+                    <i className="now-ui-icons files_paper"></i>
                     <p>My Trades</p>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink>
-                    <i class="now-ui-icons media-1_button-power"></i>
+                    <i className="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>
                   </NavLink>
                 </NavItem>
@@ -118,7 +115,6 @@ function TopNavbar({ isAuthenticated }) {
               }
             </Nav>
           </Collapse>
-        </Container>
       </Navbar >
     </>
   );

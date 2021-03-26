@@ -35,8 +35,8 @@ export const AvailabilityCard = ({ message })  => {
             <p>
               {/* FIXME whats the best way to do a comma separated list ? */}
               <i className="now-ui-icons business_bulb-63"></i>
-              <div class="available-for">
-                <span class="available-user">{message.author.commonName.name}</span>
+              <div className="available-for">
+                <span className="available-user">{message.author.commonName.name}</span>
                 is available for 
               </div> 
               <span className="each-skill">{message.skills.map(skill => skill.name).join(', ')}</span>
