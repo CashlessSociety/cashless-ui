@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
-import { Container, Form, FormGroup, FormText, Label, Input, Button } from 'reactstrap';
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
+import {
+  Container,
+  Form,
+  FormGroup,
+  FormText,
+  Label,
+  Input,
+  Button,
+  Card,
+  CardTitle,
+  CardBody
+} from 'reactstrap';
+import ImageUpload from 'components/CustomUpload/ImageUpload.js'
 import { localStorageSet } from '../lib/localStorage';
 
 export const SIGNUP = gql`
@@ -40,7 +52,7 @@ const SignupForm = ({ storageKeys }) => {
         } else {
           return p
         }
-        }, {})
+      }, {})
       localStorageSet(storageKeys.secret, cleanData);
     },
   });
@@ -60,44 +72,40 @@ const SignupForm = ({ storageKeys }) => {
   };
   return (
     <Container>
-      <hr />
       <h1 className='mt-xl'>Join Cashless</h1>
       <p>
-        We're a community of people who can get things done without spending
+        We are an online community of people who can get things done without spending
         cash.
       </p>
-      <Form onSubmit={onSubmit}>
-        <FormGroup>
-          <Label for='profileName'>Name</Label>
-          <Input
-            type='text'
-            name='profileName'
-            value={input.profileName}
-            onChange={changeInput}
-            placeholder='The name you preffer being called'
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for='profileFile'>Profile image</Label>
-          <Button>
-            <Input onChange={changeInput} type='file' name='profileImage' />
-          </Button>
-          <FormText color='muted'>
-            This is some placeholder block-level help text for the above input.
-            It's a bit lighter and easily wraps to a new line.
-          </FormText>
-        </FormGroup>
-        <FormGroup>
-          <Label for='profileDescription'>Description</Label>
-          <Input
-            type='text'
-            name='profileDescription'
-            placeholder='A short bio'
-            onChange={changeInput}
-          />
-        </FormGroup>
-        {/* Should e-mail be asked for here? */}
-        {/* <FormGroup>
+      <Card>
+        <CardBody>
+          <CardTitle className="text-center" tag="h3">
+            Create your Cashless profile
+          </CardTitle>
+
+          <Form onSubmit={onSubmit}>
+            <FormGroup>
+              {/* This renders a standard image upload
+              <CardTitle>Regular Image</CardTitle>
+              <ImageUpload /> */}
+
+              {/* This renders a circle avatar upload - maybe we want this? */}
+              <ImageUpload avatar />
+            </FormGroup>
+            <FormGroup>
+              <Label for='profileName'>Name to display</Label>
+              <Input
+                type='text'
+                name='profileName'
+                value={input.profileName}
+                onChange={changeInput}
+              />
+              <FormText color='muted'>
+                This is the name other users will see you as on Cashless
+              </FormText>
+            </FormGroup>
+            {/* Should e-mail be asked for here? */}
+            {/* <FormGroup>
           <Label for='profileEmail'>E-mail</Label>
           <Input
             type='email'
@@ -106,12 +114,15 @@ const SignupForm = ({ storageKeys }) => {
             placeholder='Your e-mail address so we can send your token'
           />
         </FormGroup> */}
-        <Button disabled={loading } type='submit'>
-          Send
+            <Button disabled={loading} type='submit'>
+              Sign Up
         </Button>
-        {(error) && <p>Got error: {JSON.stringify(error)}</p>}
-      </Form>
-    </Container>
+            {(error) && <p>Got error: {JSON.stringify(error)}</p>}
+          </Form>
+        </CardBody>
+      </Card>
+
+    </Container >
   );
 };
 export default SignupForm;
