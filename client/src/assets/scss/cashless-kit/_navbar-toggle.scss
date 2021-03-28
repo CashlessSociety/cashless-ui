@@ -1,0 +1,82 @@
+// Override default navbar-toggle
+
+// show navbar toggle in desktop width
+.navbar .navbar-toggler-bar {
+  display: block;
+  position: relative;
+  width: 22px;
+  height: 1px;
+  border-radius: 1px;
+  background: #FFFFFF;
+  
+  & + .navbar-toggler-bar { margin-top: 7px;}
+}
+
+.navbar .navbar-toggler {
+  display: flex;
+  width: auto;
+  color: white;
+  
+  > .navbar-toggler-bar {
+    margin-left: $padding-base-horizontal;
+  }
+}
+
+
+//  collapsed navbar links
+.navbar .navbar-nav .nav-item .nav-link:not(.btn):hover {
+  border-radius: 0;
+}
+
+.nav-open .navbar-collapse {
+  transform: translate3d(0px, 0, 0);  
+}
+
+// background color for collapsed navbar
+.navbar-collapse:before {
+  content: "";
+  display: block;
+  position:absolute;
+  z-index: -100;
+  height: 100%;
+  width: 100%;
+  background: $dark-background !important;  
+  box-shadow: $box-shadow-raised;
+}
+
+
+// copied over from default to have collapsed navbar menu be vertical
+.navbar-collapse {
+  position: fixed;
+  display: block !important;
+  top: 0;
+  height: 100% !important;
+  width: 300px;
+  right: 0;
+  z-index: 1032;
+  visibility: visible;
+  background-color: $dark-background !important;
+  overflow-y: visible;
+  border-top: none;
+  text-align: left;
+  max-height: none !important;
+  transform: translate3d(300px, 0, 0);
+  transition: all 0.5s;
+  
+  .navbar-nav:not(.navbar-logo) .nav-link {
+    margin: 0 !important;
+  }
+}
+
+
+.button-close-nav  {
+  background: none;
+  border:0;
+  outline: 0;
+  color: white;
+  padding: $padding-base-horizontal;
+  
+  &:focus {
+    outline: none;
+  }
+}
