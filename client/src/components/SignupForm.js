@@ -77,19 +77,13 @@ const SignupForm = ({ storageKeys }) => {
         We are an online community of people who can get things done without spending
         cash.
       </p>
-      <Card>
-        <CardBody>
-          <CardTitle className="text-center" tag="h3">
-            Create your Cashless profile
+      <Form onSubmit={onSubmit}>
+        <Card>
+          <CardBody>
+            <CardTitle className="text-center" tag="h3">
+              Create your Cashless profile
           </CardTitle>
-
-          <Form onSubmit={onSubmit}>
             <FormGroup>
-              {/* This renders a standard image upload
-              <CardTitle>Regular Image</CardTitle>
-              <ImageUpload /> */}
-
-              {/* This renders a circle avatar upload - maybe we want this? */}
               <ImageUpload avatar />
             </FormGroup>
             <FormGroup>
@@ -114,14 +108,13 @@ const SignupForm = ({ storageKeys }) => {
             placeholder='Your e-mail address so we can send your token'
           />
         </FormGroup> */}
-            <Button disabled={loading} type='submit'>
-              Sign Up
+          </CardBody>
+        </Card>
+        <Button disabled={loading} type='submit'>
+          Sign Up
         </Button>
-            {(error) && <p>Got error: {JSON.stringify(error)}</p>}
-          </Form>
-        </CardBody>
-      </Card>
-
+        {(error) && <p>Got error: {JSON.stringify(error)}</p>}
+      </Form>
     </Container >
   );
 };
