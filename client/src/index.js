@@ -79,7 +79,7 @@ ReactDOM.render(
           )}
         />
         <Route path='/icons' render={(props) => <NucleoIcons {...props} />} />
-        {/* <Redirect to="/" /> */}
+        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
     </UserProvider>

@@ -1,7 +1,9 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
+import UserContext from '../../providers/User'
+
 // reactstrap components
 import {
   Button,
@@ -16,14 +18,10 @@ import {
   Nav,
   Container,
 } from 'reactstrap';
-import {
-  localStorageGet,
-  localStorageSet,
-  localStorageDelete,
-} from '../../lib/localStorage';
 
-function TopNavbar({ isAuthenticated }) {
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
+function TopNavbar() {
+  const [collapseOpen, setCollapseOpen] = useState(false);
+  const {user: { isAuthenticated }} = useContext(UserContext);
 
   return (
     <>

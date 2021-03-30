@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
 // reactstrap components
-import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import UserContext from "../providers/User";
 
 // core components
-import TopNavbar from 'components/Navbars/TopNavbar.js';
-import FooterSocial from 'components/Footers/FooterSocial.js';
-
-import { localStorageSet } from '../lib/localStorage';
+import TopNavbar from "components/Navbars/TopNavbar.js";
+import FooterSocial from "components/Footers/FooterSocial.js";
 
 export const SEND_MAGIC_LINK = gql`
   mutation($email: String!, $secret: SecretInput!) {
@@ -16,13 +15,18 @@ export const SEND_MAGIC_LINK = gql`
   }
 `;
 
-function MagicLinkPage({ isAuthenticated, email, secret, token, storageKeys }) {
+function MagicLinkPage() {
+  const {
+    user: { isAuthenticated, profile: { email }, secret, token },
+    dispatch,
+  } = useContext(UserContext);
+
   let history = useHistory();
   /* Redirect if not authenticated */
-  if (!isAuthenticated) history.push('/');
+  if (!isAuthenticated) history.push("/");
   /* Input control */
   const [input, setInput] = useState({
-    email: '',
+    email: "",
   });
   const changeInput = (e) => {
     const { value, name } = e.target;
@@ -40,8 +44,7 @@ function MagicLinkPage({ isAuthenticated, email, secret, token, storageKeys }) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!email && input.email) {
-      localStorageSet(storageKeys.email, input.email);
-
+      dispatch({ type: "set_profile", value: input });
     }
     sendMagicLink({
       variables: {
@@ -56,27 +59,27 @@ function MagicLinkPage({ isAuthenticated, email, secret, token, storageKeys }) {
   return (
     <>
       <TopNavbar isAuthenticated={isAuthenticated} />
-      <div className='wrapper'>
+      <div className="wrapper">
         <Container>
           <h1>Your Magic Link</h1>
           <p>Magic link explanation</p>
-          {(!token && !data && !loading && !email) && (
+          {!token && !data && !loading && !email && (
             <Form onSubmit={onSubmit}>
               <FormGroup>
-                <Label for='email'>E-mail</Label>
+                <Label for="email">E-mail</Label>
                 <Input
                   required
-                  type='email'
-                  name='email'
+                  type="email"
+                  name="email"
                   onChange={changeInput}
-                  placeholder='Your e-mail address so we can send your token'
+                  placeholder="Your e-mail address so we can send your token"
                 />
               </FormGroup>
-              <Button type='submit'>Send magic link</Button>
+              <Button type="submit">Send magic link</Button>
             </Form>
           )}
           {loading && <p>Sending email...</p>}
-          {(!loading && (data || token || email)) && (
+          {!loading && (data || token || email) && (
             <Button
               onClick={() =>
                 sendMagicLink({

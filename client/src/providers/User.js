@@ -72,9 +72,9 @@ export const FEED = gql`
 export const UserProvider = ({ children }) => {
   const [initialState, setState] = useLocalStorage(STORE_KEY, context)
   /* TODO: query for profile */
-  const { loading, error, data } = useQuery(FEED, {
-    variables: { id: secret.public },
-  });
+  // const { loading, error, data } = useQuery(FEED, {
+  //   variables: { id: secret.public },
+  // });
   const [state, dispatch] = useReducer(reducer, initialState);
   const [contextValue, memoDispatch] = useMemo(() => [state, dispatch], [
     state,
