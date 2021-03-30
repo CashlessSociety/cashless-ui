@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 // reactstrap components
 import {
@@ -21,6 +21,7 @@ import {
 
 function TopNavbar({ isAuthenticated }) {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  let onJoinPage = useLocation().pathname === '/join';
 
   return (
     <>
@@ -39,7 +40,7 @@ function TopNavbar({ isAuthenticated }) {
             Cashless
           </NavbarBrand>
 
-          {!isAuthenticated && <NavItem tag={Link} to='/join'>
+          {!isAuthenticated && !onJoinPage && <NavItem tag={Link} to='/join'>
             <Button className='nav-link btn-round' color='primary'>
               <p>Join Cashless</p>
             </Button>
