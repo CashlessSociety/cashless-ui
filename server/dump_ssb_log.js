@@ -13,28 +13,25 @@ const streamPull = (...streams) =>
   });
 
 async function dumpAllMsgs() {
-    const myQuery = [
-      {
-        $filter: {},
-      },
-    ];
-    try {
-      let results = await streamPull(
-        ssb.query.read({
-          query: myQuery,
-        })
-      );
-      return results.map((result) => console.log(result));
-    } catch (e) {
-      console.log('ERROR QUERYING FLUME DB:', e);
-      return [];
-    }
+  const myQuery = [
+    {
+      $filter: {},
+    },
+  ];
+  try {
+    let results = await streamPull(
+      ssb.query.read({
+        query: myQuery,
+      })
+    );
+    return results.map((result) => console.log(result));
+  } catch (e) {
+    console.log('ERROR QUERYING FLUME DB:', e);
+    return [];
   }
+}
 
-dumpAllMsgs()
-
-
-
+dumpAllMsgs();
 
 // var previouslySync = true;
 // function indexingLog(server) {

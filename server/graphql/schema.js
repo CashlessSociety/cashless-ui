@@ -301,7 +301,6 @@ const typeDefs = gql`
 
   union FeedMessage = AdMessage | AvailabilityMessage | GenericMessage
 
-
   input SecretInput {
     publicKey: String!
     privateKey: String!
