@@ -50,7 +50,7 @@ const SignupForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { profileName, profileDescription, profileEmail } = input;
-    signup({ variables: { name: profileName, profile: profileDescription } });
+    signup({ variables: { name: profileName, description: profileDescription } });
     const newProfile = {
       name: profileName,
       description: profileDescription,
