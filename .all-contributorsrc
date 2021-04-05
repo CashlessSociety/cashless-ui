@@ -51,6 +51,17 @@
         "code",
         "business"
       ]
+    },
+    {
+      "login": "superarius",
+      "name": "Ari Rodriguez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27920584?v=4",
+      "profile": "https://github.com/superarius",
+      "contributions": [
+        "ideas",
+        "code",
+        "business"
+      ]
     }
   ],
   "contributorsPerLine": 7
