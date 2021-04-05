@@ -18,6 +18,17 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "jwu910",
+      "name": "Joshua Wu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12107969?v=4",
+      "profile": "https://github.com/jwu910",
+      "contributions": [
+        "code",
+        "review",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
