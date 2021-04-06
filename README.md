@@ -1,6 +1,6 @@
 ## cashless-ui Cashless Front End
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 #### Getting started
@@ -37,6 +37,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/karenkun"><img src="https://avatars.githubusercontent.com/u/2974103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Karen</b></sub></a><br /><a href="https://github.com/CashlessSociety/cashless-ui/commits?author=karenkun" title="Code">💻</a> <a href="#design-karenkun" title="Design">🎨</a> <a href="#ideas-karenkun" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://goodbright.nz/"><img src="https://avatars.githubusercontent.com/u/166867?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Miles Thompson</b></sub></a><br /><a href="#ideas-utunga" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/CashlessSociety/cashless-ui/commits?author=utunga" title="Code">💻</a> <a href="#business-utunga" title="Business development">💼</a></td>
     <td align="center"><a href="https://github.com/superarius"><img src="https://avatars.githubusercontent.com/u/27920584?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ari Rodriguez</b></sub></a><br /><a href="#ideas-superarius" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/CashlessSociety/cashless-ui/commits?author=superarius" title="Code">💻</a> <a href="#business-superarius" title="Business development">💼</a></td>
+    <td align="center"><a href="https://github.com/Sarah-"><img src="https://avatars.githubusercontent.com/u/9959574?v=4?s=100" width="100px;" alt=""/><br /><sub><b>sarah-</b></sub></a><br /><a href="https://github.com/CashlessSociety/cashless-ui/commits?author=sarah-" title="Code">💻</a></td>
   </tr>
 </table>
 
