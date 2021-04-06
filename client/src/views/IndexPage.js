@@ -6,7 +6,7 @@ import HomeHeader from 'components/Headers/HomeHeader.js';
 import FooterSocial from 'components/Footers/FooterSocial.js';
 import Messages from 'components/Messages.js';
 import MagicLinkToast from 'components/MagicLinkToast.js';
-import UserContext from '../providers/User'
+import UserContext from 'providers/User'
 
 
 function IndexPage() {

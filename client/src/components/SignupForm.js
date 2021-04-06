@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Form, FormGroup, FormText, Label, Input, Button } from 'reactstrap';
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import UserContext from '../providers/User'
+import UserContext from 'providers/User'
 
 export const SIGNUP = gql`
   mutation($name: String!, $description: String) {

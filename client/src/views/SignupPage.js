@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 // reactstrap components
 import { useHistory } from 'react-router-dom';
-import UserContext from '../providers/User'
+import UserContext from 'providers/User'
 
 // core components
 import TopNavbar from 'components/Navbars/TopNavbar.js';

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect, useMemo } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from 'hooks/useLocalStorage';
 import { gql, useQuery } from '@apollo/client';
 
 const STORE_KEY = '@CashlessUser@1';

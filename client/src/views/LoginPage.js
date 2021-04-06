@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-import UserContext from '../providers/User'
+import UserContext from 'providers/User'
 
 export const DECRYPT_MAGIC_LINK = gql`
   query($hash: String!) {

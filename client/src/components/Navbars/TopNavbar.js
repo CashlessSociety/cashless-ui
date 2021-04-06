@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
-import UserContext from '../../providers/User'
+import UserContext from 'providers/User'
 
 // reactstrap components
 import {
