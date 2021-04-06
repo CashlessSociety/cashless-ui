@@ -64,6 +64,15 @@
       ]
     },
     {
+      "login": "sarah-arrrgh",
+      "name": "Sarah Rogers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12442114?v=4",
+      "profile": "https://github.com/sarah-arrrgh",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "luandro",
       "name": "luandro",
       "avatar_url": "https://avatars.githubusercontent.com/u/693728?v=4",
@@ -73,6 +82,6 @@
       ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 8,
   "skipCi": true
 }
