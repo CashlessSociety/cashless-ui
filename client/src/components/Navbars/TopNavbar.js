@@ -13,13 +13,16 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container,
 } from 'reactstrap';
 
 function TopNavbar() {
   const [collapseOpen, setCollapseOpen] = useState(false);
-  const {user: { isAuthenticated }} = useContext(UserContext);
-
+  const {user: { isAuthenticated }, dispatch } = useContext(UserContext);
+  function logout () {
+    dispatch({ type: 'logout' })
+    document.documentElement.classList.toggle('nav-open');
+    setCollapseOpen(false)
+  }
   return (
     <>
       {collapseOpen ? (
@@ -104,7 +107,7 @@ function TopNavbar() {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink>
+                  <NavLink onClick={logout}>
                     <i className="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>
                   </NavLink>

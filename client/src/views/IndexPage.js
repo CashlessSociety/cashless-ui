@@ -13,7 +13,7 @@ function IndexPage() {
   const {user: { isAuthenticated, token }} = useContext(UserContext);
   return (
     <>
-      <TopNavbar isAuthenticated={isAuthenticated} />
+      <TopNavbar />
       <div className='wrapper'>
         <HomeHeader />
         <MagicLinkToast show={!token && isAuthenticated} />

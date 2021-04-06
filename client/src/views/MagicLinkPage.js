@@ -58,7 +58,7 @@ function MagicLinkPage() {
   };
   return (
     <>
-      <TopNavbar isAuthenticated={isAuthenticated} />
+      <TopNavbar />
       <div className="wrapper">
         <Container>
           <h1>Your Magic Link</h1>

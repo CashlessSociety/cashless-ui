@@ -1,8 +1,8 @@
-import React, { createContext, useReducer, useEffect, useMemo } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
-import { gql, useQuery } from "@apollo/client";
+import React, { createContext, useReducer, useEffect, useMemo } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { gql, useQuery } from '@apollo/client';
 
-const STORE_KEY = "@CashlessUser@1";
+const STORE_KEY = '@CashlessUser@1';
 
 const context = {
   id: null,
@@ -22,40 +22,30 @@ const UserContext = createContext(defaultContext);
 
 function reducer(state, action) {
   switch (action.type) {
-    case "set_secret": {
-      try {
-        const newState = {
-          ...state,
-          id: action.value.id,
-          secret: action.value,
-          isAuthenticated: true,
-        };
-        return { ...state, ...newState };
-      } catch {
-        return state;
-      }
+    case 'set_secret': {
+      const newState = {
+        ...state,
+        id: action.value.id,
+        secret: action.value,
+        isAuthenticated: true,
+      };
+      return { ...state, ...newState };
     }
-    case "set_profile": {
-      try {
-        return {
-          ...state,
-          profile: {
-            ...state.profile,
-            ...action.value,
-          },
-        };
-      } catch {
-        return state;
-      }
+    case 'set_profile': {
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...action.value,
+        },
+      };
     }
-    case "set_token": {
-      try {
-        return { ...state, token: action.value };
-      } catch {
-        return state;
-      }
+    case 'set_token': {
+      return { ...state, token: action.value };
     }
-
+    case 'logout': {
+      return context;
+    }
     default:
       return state;
   }
@@ -78,17 +68,15 @@ export const UserProvider = ({ children }) => {
     state,
     dispatch,
   ]);
-  const {
-    id,
-    token,
-    secret,
-    profile: { name, description },
-  } = contextValue;
-  const { fetchMore } = useQuery(PROFILE, {
-    variables: { id },
-  });
+  const { fetchMore } = useQuery(PROFILE);
   useEffect(() => {
-    if (token && secret && (!name || !description)) {
+    if (
+      contextValue &&
+      contextValue.token &&
+      contextValue.secret &&
+      !contextValue.profile
+    ) {
+      const { id, profile } = contextValue;
       /* TODO: set to locastorage */
       fetchMore({
         variables: {
@@ -99,17 +87,17 @@ export const UserProvider = ({ children }) => {
             setState({
               ...contextValue,
               profile: {
-                ...contextValue.profile,
-                ...data.profile
-              }
+                ...profile,
+                ...data.profile,
+              },
             });
           }
-        }
+        },
       });
     } else {
       setState(contextValue);
     }
-  }, [contextValue, description, fetchMore, id, name, secret, setState, token]);
+  }, [contextValue, fetchMore, setState]);
   return (
     <UserContext.Provider
       value={{ user: contextValue, dispatch: memoDispatch }}

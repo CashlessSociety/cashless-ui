@@ -16,7 +16,7 @@ function SignupPage() {
   }, [history, isAuthenticated]);
   return (
     <>
-      <TopNavbar isAuthenticated={isAuthenticated} />
+      <TopNavbar />
       <div className='wrapper'>
         <SignupForm />
         <FooterSocial />
