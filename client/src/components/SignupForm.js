@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Form, FormGroup, FormText, Label, Input, Button } from 'reactstrap';
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import { localStorageSet } from '../lib/localStorage';
+import UserContext from 'providers/User'
 
 export const SIGNUP = gql`
   mutation($name: String!, $description: String) {
@@ -15,7 +15,9 @@ export const SIGNUP = gql`
   }
 `;
 
-const SignupForm = ({ storageKeys }) => {
+const SignupForm = () => {
+  /* User context */
+  const {dispatch} = useContext(UserContext);
   /* History */
   let history = useHistory()
   /* Input control */
@@ -41,21 +43,22 @@ const SignupForm = ({ storageKeys }) => {
           return p
         }
         }, {})
-      localStorageSet(storageKeys.secret, cleanData);
+      dispatch({ type: 'set_secret', value: cleanData })
     },
   });
   /* Submit form */
   const onSubmit = (e) => {
     e.preventDefault();
     const { profileName, profileDescription, profileEmail } = input;
-    signup({ variables: { name: profileName, profile: profileDescription } });
-    if (data && !error) {
-      /* Hack to force refetching of new set localStorage keys */
-      window.location.reload();
-      history.push('/')
+    signup({ variables: { name: profileName, description: profileDescription } });
+    const newProfile = {
+      name: profileName,
+      description: profileDescription,
+      email: profileEmail
     }
-    if (!error && data && profileEmail) {
-      localStorageSet(storageKeys.email, profileEmail);
+    dispatch({ type: 'set_profile', value: newProfile})
+    if (data && !error) {
+      history.push('/')
     }
   };
   return (
@@ -96,16 +99,6 @@ const SignupForm = ({ storageKeys }) => {
             onChange={changeInput}
           />
         </FormGroup>
-        {/* Should e-mail be asked for here? */}
-        {/* <FormGroup>
-          <Label for='profileEmail'>E-mail</Label>
-          <Input
-            type='email'
-            name='profileEmail'
-            onChange={changeInput}
-            placeholder='Your e-mail address so we can send your token'
-          />
-        </FormGroup> */}
         <Button disabled={loading } type='submit'>
           Send
         </Button>

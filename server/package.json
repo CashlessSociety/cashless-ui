@@ -24,6 +24,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "nodemailer": "^6.5.0",
+    "pull-stream": "^3.6.14",
     "secret-stack": "^6.3.2",
     "sharp": "^0.27.1",
     "sodium-native": "^3.2.0",

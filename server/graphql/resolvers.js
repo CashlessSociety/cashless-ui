@@ -1,7 +1,7 @@
 const { generateKey, publishAs } = require('../ssb/identities');
 const sendMail = require('../lib/mailer');
 const { decrypt } = require('../lib/crypto');
-const ssbConfig = require('../ssb/ssb-config');
+const { getProfile } = require('../ssb/queries');
 
 module.exports = {
   Message: {
@@ -91,14 +91,14 @@ module.exports = {
       dataSources.ssbFlumeAPI.getAllSettlements(),
     activeProposals: (_, __, { dataSources }) =>
       dataSources.ssbFlumeAPI.getActiveReciprocityProposals(),
-    profile: async (_, { id }) => {},
+    profile: (_, { id }) => getProfile(id),
     decryptMagicLink: async (_, { hash }) => {
       const [public, private, email] = decrypt(hash).split('~~');
       return {
         public,
         private,
         curve: 'ed25519',
-        id: public,
+        id: `@${public}`,
         email,
       };
     },

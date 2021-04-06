@@ -29,40 +29,21 @@ import IndexPage from 'views/IndexPage.js';
 import SignupPage from 'views/SignupPage.js';
 import MagicLinkPage from 'views/MagicLinkPage.js';
 import LoginPage from 'views/LoginPage.js';
+import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { cache } from './cache';
-import { localStorageGet } from './lib/localStorage';
+import { UserProvider } from './providers/User'
 
 const apolloClient = new ApolloClient({
   cache,
   uri: '/graphql',
 });
-/* Probably not the best place for getting localStorage */
-/* Local storage keys */
-const secretStorageKey = 'ssb_secrets';
-const emailStorageKey = 'email';
-const tokenStorageKey = 'token';
-const storageKeys = {
-  email: emailStorageKey,
-  secret: secretStorageKey,
-  token: tokenStorageKey,
-};
-
-/* Get localstorage */
-const getSecret = localStorageGet(secretStorageKey);
-const getEmail = localStorageGet(emailStorageKey);
-const getToken = localStorageGet(tokenStorageKey);
-
-const secret = getSecret[secretStorageKey];
-const email = getEmail[emailStorageKey];
-const token = getToken[tokenStorageKey];
-
-const isAuthenticated = (secret && Object.keys(secret).length > 0);
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
+    <UserProvider>
     <BrowserRouter>
       <Switch>
         <Route
@@ -70,9 +51,6 @@ ReactDOM.render(
           render={(props) => (
             <SignupPage
               {...props}
-              isAuthenticated={isAuthenticated}
-              secret={secret}
-              storageKeys={storageKeys}
             />
           )}
         />
@@ -81,11 +59,6 @@ ReactDOM.render(
           render={(props) => (
             <MagicLinkPage
               {...props}
-              secret={secret}
-              token={token}
-              isAuthenticated={isAuthenticated}
-              email={email}
-              storageKeys={storageKeys}
             />
           )}
         />
@@ -94,7 +67,6 @@ ReactDOM.render(
           render={(props) => (
             <LoginPage
               {...props}
-              storageKeys={storageKeys}
             />
           )}
         />
@@ -104,16 +76,23 @@ ReactDOM.render(
           render={(props) => (
             <IndexPage
               {...props}
-              token={token}
-              isAuthenticated={isAuthenticated}
-              storageKeys={storageKeys}
+            />
+          )}
+        />
+        <Route
+          path='/not-found'
+          exact
+          render={(props) => (
+            <NotFoundPage
+              {...props}
             />
           )}
         />
         <Route path='/icons' render={(props) => <NucleoIcons {...props} />} />
-        {/* <Redirect to="/" /> */}
+        <Redirect to="/not-found" />
       </Switch>
     </BrowserRouter>
+    </UserProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
