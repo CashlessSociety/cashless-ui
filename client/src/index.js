@@ -29,6 +29,7 @@ import IndexPage from 'views/IndexPage.js';
 import SignupPage from 'views/SignupPage.js';
 import MagicLinkPage from 'views/MagicLinkPage.js';
 import LoginPage from 'views/LoginPage.js';
+import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
 import { ApolloClient, ApolloProvider } from '@apollo/client';
@@ -78,8 +79,17 @@ ReactDOM.render(
             />
           )}
         />
+        <Route
+          path='/not-found'
+          exact
+          render={(props) => (
+            <NotFoundPage
+              {...props}
+            />
+          )}
+        />
         <Route path='/icons' render={(props) => <NucleoIcons {...props} />} />
-        <Redirect to="/" />
+        <Redirect to="/not-found" />
       </Switch>
     </BrowserRouter>
     </UserProvider>
