@@ -25,6 +25,7 @@ const Server = require('secret-stack')()
   .use(require('./plugins/memory-identities'))
   .use(require('ssb-blobs'))
   .use(require('ssb-backlinks'))
+  .use(require('ssb-serve-blobs'))
   .use(require('./plugins/feedless-index'))
   .use(require('./plugins/encrypted-view'));
 

@@ -13,6 +13,7 @@ const context = {
     name: null,
     email: null,
     description: null,
+    image: null
   },
 };
 
@@ -57,6 +58,9 @@ export const PROFILE = gql`
       id
       name
       description
+      image {
+        uri
+      }
     }
   }
 `;

@@ -12,7 +12,7 @@ const resolvers = require('./graphql/resolvers');
 const mocks = require('./mocks');
 const ssb = require('./ssb/server');
 const ssbFlumeAPI = require('./graphql/datasource');
-
+const { graphqlUploadExpress } = require('graphql-upload');
 const isDev = process.env.NODE_ENV === 'development';
 
 const dataSources = () => ({
@@ -52,6 +52,7 @@ const apollo = new ApolloServer({
   dataSources,
   typeDefs,
   resolvers,
+  uploads: false,
   plugins: [ApolloCustomDebugPlugin],
   mocks,
   context: ({ req }) => {
@@ -68,6 +69,8 @@ const apollo = new ApolloServer({
 });
 
 let app = express();
+app.use(graphqlUploadExpress({ maxFileSize: 5000000, maxFiles: 10 }));
+
 apollo.applyMiddleware({ app });
 console.log(`Apollo endpoint deployed: ${apollo.graphqlPath}`);
 

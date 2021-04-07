@@ -1,9 +1,15 @@
+const { GraphQLUpload } = require('graphql-upload');
+
 const { generateKey, publishAs } = require('../ssb/identities');
 const sendMail = require('../lib/mailer');
 const { decrypt } = require('../lib/crypto');
+const ssbConfig = require('../ssb/ssb-config');
+const postUploadFile = require('../ssb/blobs');
 const { getProfile } = require('../ssb/queries');
+const toUrl = require('ssb-serve-blobs/id-to-url');
 
 module.exports = {
+  Upload: GraphQLUpload,
   Message: {
     __resolveType(msg, _context, _info) {
       if (msg.type == 'PROMISE') {
@@ -104,21 +110,28 @@ module.exports = {
     },
   },
   Mutation: {
-    signup: async (_, { name, description }, { ssb }) => {
+    signup: async (_, { name, description, image }, { ssb }) => {
       const key = await generateKey();
+      // publish file
+      let profile = {
+        name,
+        description,
+        image: null,
+      };
+      if (image) {
+        const { hash, size, type } = await postUploadFile(ssb, image);
+        profile.image = {
+          uri: toUrl(hash),
+          hash,
+          size,
+          type,
+        };
+      }
+
       const content = {
         type: 'about',
         about: key.id,
-        name,
-        description,
-        /* TODO add image blobs */
-        // image: {
-        //   link: '&NfP4H4NZCfiPQ6AZ6fEmilbFL8Hz3wTQVeaxbCnNEt4=.sha256',
-        //   size: 347856,
-        //   type: 'image/png',
-        //   width: 512,
-        //   height: 512
-        // }
+        ...profile,
       };
       const publishData = {
         key,
@@ -126,7 +139,11 @@ module.exports = {
         content: content,
       };
       await publishAs(ssb, publishData);
-      return key;
+      return {
+        id: key.id,
+        secret: key,
+        profile,
+      };
     },
     sendMagiclink: async (_, { email, secret }) => sendMail(email, secret),
     updateProfile: async (_, { key, name, description }) => {},

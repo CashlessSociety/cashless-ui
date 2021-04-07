@@ -33,12 +33,18 @@ import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
 import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { cache } from './cache';
 import { UserProvider } from './providers/User'
 
-const apolloClient = new ApolloClient({
-  cache,
+const httpLink = createUploadLink({
   uri: '/graphql',
+});
+
+
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache
 });
 
 ReactDOM.render(
