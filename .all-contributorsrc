@@ -1,0 +1,89 @@
+{
+  "projectName": "cashless-ui",
+  "projectOwner": "CashlessSociety",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "DAHuerta",
+      "name": "Daniel Huerta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53913596?v=4",
+      "profile": "https://www.linkedin.com/in/daniel-huerta-34868631/",
+      "contributions": [
+        "ideas",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "jwu910",
+      "name": "Joshua Wu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12107969?v=4",
+      "profile": "https://github.com/jwu910",
+      "contributions": [
+        "code",
+        "review",
+        "doc"
+      ]
+    },
+    {
+      "login": "karenkun",
+      "name": "Karen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2974103?v=4",
+      "profile": "https://github.com/karenkun",
+      "contributions": [
+        "code",
+        "design",
+        "ideas"
+      ]
+    },
+    {
+      "login": "utunga",
+      "name": "Miles Thompson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/166867?v=4",
+      "profile": "http://goodbright.nz/",
+      "contributions": [
+        "ideas",
+        "code",
+        "business",
+        "review"
+      ]
+    },
+    {
+      "login": "superarius",
+      "name": "Ari Rodriguez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27920584?v=4",
+      "profile": "https://github.com/superarius",
+      "contributions": [
+        "ideas",
+        "code",
+        "business"
+      ]
+    },
+    {
+      "login": "sarah-arrrgh",
+      "name": "Sarah Rogers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12442114?v=4",
+      "profile": "https://github.com/sarah-arrrgh",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "luandro",
+      "name": "luandro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/693728?v=4",
+      "profile": "http://luandro.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 8,
+  "skipCi": true
+}

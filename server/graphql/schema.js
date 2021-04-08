@@ -8,11 +8,19 @@ const typeDefs = gql`
     type: NameType!
   }
 
+  type Profile {
+    id: ID!
+    name: String
+    description: String
+    image: String
+  }
+
   type Feed implements Name {
     type: NameType!
     id: ID
     publicKey: String
     reserves: ReservesAddress
+    profile: Profile
     commonName: CommonName
     profileImageSrc: String
     verifiedAccounts: [AccountHandle]
@@ -292,12 +300,6 @@ const typeDefs = gql`
   }
 
   union FeedMessage = AdMessage | AvailabilityMessage | GenericMessage
-
-  type Profile {
-    id: ID!
-    name: String
-    description: String
-  }
 
   input SecretInput {
     publicKey: String!

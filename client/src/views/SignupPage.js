@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 // reactstrap components
 import { useHistory } from 'react-router-dom';
+import UserContext from 'providers/User'
 
 // core components
 import TopNavbar from 'components/Navbars/TopNavbar.js';
 import FooterSocial from 'components/Footers/FooterSocial.js';
 import SignupForm from 'components/SignupForm';
 
-function SignupPage({ isAuthenticated, storageKeys }) {
+function SignupPage() {
   let history = useHistory();
-  if (isAuthenticated) history.push('/');
-
+  const {user: {isAuthenticated}} = useContext(UserContext);
+  useEffect(() => {
+    if (isAuthenticated) history.push('/');
+  }, [history, isAuthenticated]);
   return (
     <>
-      <TopNavbar isAuthenticated={isAuthenticated} />
+      <TopNavbar />
       <div className='wrapper'>
-        <SignupForm storageKeys={storageKeys} />
+        <SignupForm />
         <FooterSocial />
       </div>
     </>

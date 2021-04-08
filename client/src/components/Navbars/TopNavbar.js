@@ -1,7 +1,9 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
+import UserContext from 'providers/User'
+
 // reactstrap components
 import {
   Button,
@@ -11,17 +13,16 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container,
 } from 'reactstrap';
-import {
-  localStorageGet,
-  localStorageSet,
-  localStorageDelete,
-} from '../../lib/localStorage';
 
-function TopNavbar({ isAuthenticated }) {
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
-
+function TopNavbar() {
+  const [collapseOpen, setCollapseOpen] = useState(false);
+  const {user: { isAuthenticated }, dispatch } = useContext(UserContext);
+  function logout () {
+    dispatch({ type: 'logout' })
+    document.documentElement.classList.toggle('nav-open');
+    setCollapseOpen(false)
+  }
   return (
     <>
       {collapseOpen ? (
@@ -106,7 +107,7 @@ function TopNavbar({ isAuthenticated }) {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink>
+                  <NavLink onClick={logout}>
                     <i className="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>
                   </NavLink>
