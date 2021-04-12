@@ -55,24 +55,26 @@ If our mission is to make the world better a better place *"be kind" should be a
 
 Trusting the science means taking the time to properly write up our approaches and get peer-review of our mathematical and economic models. There is pressure to to build fast ('go hard') if we want to succeed, but also the entire domain of money and trust is also too important to do in a rush. We must be sure of our approaches and support our work with mathematically principled work. 
 
+
+ENDS 
+
+---
+
+## Work in progress 
+
+Some work in progress thoughts on governance 
+
 ### Governance tokens and 'exit to community' 
 
-One thing to admit is we tried the angel / vc funded startup approach already. However having done that for a bit, we've decided to go for a more decentralized startup approach now. The exact form of this approach is still a work in progress but it will be inspired by the work of people like [Mark Pascall](https://medium.com/@mark_pascall/using-blockchain-dao-token-economics-to-create-a-pure-teal-startup-a-practical-guide-534a373d7b1b), [Colony](https://colony.io/), and other related effort.s For now we're keeping things simple by
+We've decided to go for a more decentralized approach for now. The exact form of this approach is still a work in progress but it will be inspired by the work of people like Mark Pascall who proposed [Pure TEAL](https://medium.com/@mark_pascall/using-blockchain-dao-token-economics-to-create-a-pure-teal-startup-a-practical-guide-534a373d7b1b) approach, and [Colony](https://colony.io/) who have let us create our own tokehn there. For now we're keeping things simple by
 
 - meeting on discord 
 - keeping our code open source
 - building real solutions and see how they get used 
 - progressively distributing governance tokens to the community of creators over multiple years 
 
-(I'll remove this next bit, but fwiw this is what JV of enspiral had to say:
 
-> I’m a big fan of both governance tokens and exit to community. I really rate what Balancer labs and Nexus mutual teams are doing in this space. I have less time for all the ‘pure dao’ folks - daostack, aragon etc.
->
-> The model I see working currently is a core team who raises money, funds initial development and then progressively distributes governance tokens to a community over multiple years while building up the community capacity to self govern. - Joshua Vial (founder of Enspiral)
-
-
-
-### Clearing, Liquidity, AI
+### Other ideas on clearing, Liquidity, AI
 
 To understand this section we have to talk about they way that money actually works. This requires an entire presentation in its own right (insert link here ;-) ) however suffice it to say that 
 
