@@ -110,8 +110,8 @@ module.exports = {
     },
   },
   Mutation: {
-    signup: async (_, { name, description, image }, { ssb }) => {
-      const key = await generateKey();
+    signup: async (_, { name, description, image, keys }, { ssb }) => {
+      const key = keys || (await generateKey());
       // publish file
       let profile = {
         name,
@@ -141,7 +141,7 @@ module.exports = {
       await publishAs(ssb, publishData);
       return {
         id: key.id,
-        secret: key,
+        keys: key,
         profile,
       };
     },

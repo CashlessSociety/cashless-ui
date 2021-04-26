@@ -314,7 +314,7 @@ const typeDefs = gql`
     publicKey: String!
     privateKey: String!
   }
-  type Secret {
+  type Keys {
     public: String
     private: String
     curve: String
@@ -346,7 +346,7 @@ const typeDefs = gql`
     """
     Decrypts a hash that was sent through a magic link
     """
-    decryptMagicLink(hash: String!): Secret
+    decryptMagicLink(hash: String!): Keys
   }
 
   input FileInput {
@@ -354,9 +354,16 @@ const typeDefs = gql`
     file: Upload!
   }
 
+  input KeysInput {
+    curve: String!
+    public: String!
+    private: String!
+    id: String!
+  }
+
   type Signup {
     id: String
-    secret: Secret
+    keys: Keys
     profile: Profile
   }
 
@@ -364,7 +371,12 @@ const typeDefs = gql`
     """
     Generates a ssb key and returns it's secret.
     """
-    signup(name: String!, description: String, image: FileInput): Signup
+    signup(
+      name: String!
+      description: String
+      image: FileInput
+      keys: KeysInput
+    ): Signup
     """
     Sends email with a magic link containing hashed user secrets and email. Returns the created token.
     """
