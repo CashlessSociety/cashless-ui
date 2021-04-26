@@ -45,6 +45,7 @@ function reducer(state, action) {
       return { ...state, token: action.value };
     }
     case 'logout': {
+      window.localStorage.clear()
       return context;
     }
     default:

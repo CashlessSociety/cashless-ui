@@ -38,6 +38,8 @@ function MagicLinkPage() {
     {
       update(cache, { data }) {
         console.log(`Token: ${data.sendMagiclink}`);
+        console.log(`\n Access:`)
+        console.log(`${window.location.origin}/login/${data.sendMagiclink}`)
       },
     }
   );
@@ -59,7 +61,7 @@ function MagicLinkPage() {
   return (
     <>
       <TopNavbar />
-      <div className="wrapper">
+      <div className="wrapper" style={{ padding: '10vh 0'}}>
         <Container>
           <h1>Your Magic Link</h1>
           <p>Magic link explanation</p>

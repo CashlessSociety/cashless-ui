@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import UserContext from 'providers/User'
+import Avatar from 'components/Avatar'
 
 // reactstrap components
 import {
@@ -17,11 +18,18 @@ import {
 
 function TopNavbar() {
   const [collapseOpen, setCollapseOpen] = useState(false);
-  const {user: { isAuthenticated }, dispatch } = useContext(UserContext);
+  const {user: { isAuthenticated, token }, dispatch } = useContext(UserContext);
   function logout () {
-    dispatch({ type: 'logout' })
-    document.documentElement.classList.toggle('nav-open');
-    setCollapseOpen(false)
+    let confirm = true
+    if (!token) {
+      /* TODO */
+      confirm = window.confirm('Your keys will be lost! Send a magiclink to your e-email to save them. Or continue and to lose your profile.');
+    }
+    if (confirm) {
+      dispatch({ type: 'logout' })
+      document.documentElement.classList.toggle('nav-open');
+      setCollapseOpen(false)
+    }
   }
   return (
     <>
@@ -61,7 +69,7 @@ function TopNavbar() {
                 aria-expanded={collapseOpen}
                 className="navbar-toggler"
               >
-                <i className="now-ui-icons users_circle-08"></i>
+                <Avatar marginTop={-10} marginRight={10} />
                 <span className="navbar-toggler-bar">
                   <span className="navbar-toggler-bar top-bar"></span>
                   <span className="navbar-toggler-bar middle-bar"></span>
