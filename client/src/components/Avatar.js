@@ -20,7 +20,7 @@ function Avatar({ size = 35, round = true, marginTop = 0, marginRight = 0, id })
     );
   if (id || (isAuthenticated && !image))
     return (
-      <div
+      <div className="avatar"
         style={{ marginTop, marginRight, borderRadius: round ? '50%' : null }}
       >
         <Identicon size={size} string={secret.public || id} />

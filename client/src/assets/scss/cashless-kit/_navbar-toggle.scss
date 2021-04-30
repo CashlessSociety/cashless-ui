@@ -22,6 +22,11 @@
   }
 }
 
+// set a height for fixed navbar so that the page contents can have the appropriate padding to not get covered
+.navbar { height: 88px;}
+.fixed-top.navbar + .wrapper {
+  padding-top: 88px; 
+}
 
 //  collapsed navbar links
 .navbar .navbar-nav .nav-item .nav-link:not(.btn):hover {

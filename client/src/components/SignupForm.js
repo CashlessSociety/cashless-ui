@@ -1,6 +1,10 @@
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import {
   Container,
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
   Form,
   FormGroup,
   Label,
@@ -11,6 +15,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Row
 } from 'reactstrap';
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
@@ -161,54 +166,64 @@ const SignupForm = () => {
     }
   }, [croppedAreaPixels, displayImage, input, rotation]);
   return (
-    <Container style={{ padding: '15vh 0' }}>
+    <Container className="text-center mt-5 mb-5">
       <h1 className="mt-xl">Join Cashless</h1>
       <p>
         We're a community of people who can get things done without spending
         cash.
       </p>
-      <hr />
-      <Form onSubmit={onSubmit}>
-        <FormGroup>
-          <Label for="profileName">Name</Label>
-          <Input
-            type="text"
-            name="profileName"
-            value={input.profileName}
-            onChange={changeInput}
-            placeholder="The name you preffer being called"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="profileFile">Profile image</Label>
-          <div>{input.profileImage && <img src={displayImage} height={120} width={120} />}</div>
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <>
-                <SignupAvatar display={!displayImage} id={keys.public} />
-                <p>Drop the files here ...</p>
-              </>
-            ) : (
-              <>
-                <SignupAvatar display={!displayImage} id={keys.public} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-              </>
-            )}
-          </div>
-        </FormGroup>
-        <FormGroup>
-          <Label for="profileDescription">Short bio</Label>
-          <Input
-            type="textarea"
-            rows="10"
-            name="profileDescription"
-            placeholder="A short biography about yourself"
-            onChange={changeInput}
-          />
-        </FormGroup>
-        <Button disabled={loading} type="submit">
-          Send
+      
+      <Form onSubmit={onSubmit} className="col-lg-8 mt-5 mx-auto">
+        <Card className="text-left">
+          <CardBody>
+            <CardTitle tag="h3">Create your Cashless profile</CardTitle>
+            <Row className="mt-4">
+              <Col sm={12} lg={4} className="text-center">
+                <FormGroup>
+                  <div>{input.profileImage && <img src={displayImage} alt="user profile" width={120} className="border rounded-circle"/>}</div>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()}/>
+                    {isDragActive ? (
+                      <>
+                        <SignupAvatar display={!displayImage} id={keys.public} width={120} />
+                        <p className="small mt-3 text-muted">Drop the files here ...</p>
+                      </>
+                    ) : (
+                      <>
+                        <SignupAvatar display={!displayImage} id={keys.public} width={120} />
+                        <p className="small mt-3 text-muted">Drag 'n' drop some files here, or click to select files</p>
+                      </>
+                    )}
+                  </div>
+                </FormGroup>
+              </Col>
+              <Col sm={12} lg={8}>
+                <FormGroup>
+                  <Label for="profileName">Name to display</Label>
+                  <Input
+                    type="text"
+                    name="profileName"
+                    value={input.profileName}
+                    onChange={changeInput}
+                    placeholder=""
+                  />
+                </FormGroup>
+                <FormGroup className="mt-3">
+                  <Label for="profileDescription">Short bio</Label>
+                  <Input
+                    type="textarea"
+                    rows="10"
+                    name="profileDescription"
+                    placeholder="Tell us a bit about yourself"
+                    onChange={changeInput}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+        <Button color="primary" className="btn-round" disabled={loading} type="submit">
+          Sign Up
         </Button>
         {error && <p>Got error: {JSON.stringify(error)}</p>}
       </Form>
