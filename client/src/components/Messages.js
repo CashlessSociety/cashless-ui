@@ -3,14 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardTitle,
   Container,
-  Row,
-  Col,
 } from "reactstrap";
 
 import Loading from "./Loading"
