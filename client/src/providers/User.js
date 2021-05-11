@@ -13,6 +13,7 @@ const context = {
     name: null,
     email: null,
     description: null,
+    image: null
   },
 };
 
@@ -44,6 +45,7 @@ function reducer(state, action) {
       return { ...state, token: action.value };
     }
     case 'logout': {
+      window.localStorage.clear()
       return context;
     }
     default:
@@ -57,6 +59,9 @@ export const PROFILE = gql`
       id
       name
       description
+      image {
+        uri
+      }
     }
   }
 `;

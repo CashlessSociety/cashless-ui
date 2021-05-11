@@ -3,16 +3,25 @@ const Date = require('graphql-date');
 
 const typeDefs = gql`
   scalar Date
+  scalar Upload
 
   interface Name {
     type: NameType!
+  }
+
+  type ProfileImage {
+    hash: String!
+    uri: String!
+    size: Int
+    name: String
+    type: String!
   }
 
   type Profile {
     id: ID!
     name: String
     description: String
-    image: String
+    image: ProfileImage
   }
 
   type Feed implements Name {
@@ -305,7 +314,7 @@ const typeDefs = gql`
     publicKey: String!
     privateKey: String!
   }
-  type Secret {
+  type Keys {
     public: String
     private: String
     curve: String
@@ -337,14 +346,37 @@ const typeDefs = gql`
     """
     Decrypts a hash that was sent through a magic link
     """
-    decryptMagicLink(hash: String!): Secret
+    decryptMagicLink(hash: String!): Keys
+  }
+
+  input FileInput {
+    size: Int!
+    file: Upload!
+  }
+
+  input KeysInput {
+    curve: String!
+    public: String!
+    private: String!
+    id: String!
+  }
+
+  type Signup {
+    id: String
+    keys: Keys
+    profile: Profile
   }
 
   type Mutation {
     """
     Generates a ssb key and returns it's secret.
     """
-    signup(name: String!, description: String): Secret
+    signup(
+      name: String!
+      description: String
+      image: FileInput
+      keys: KeysInput
+    ): Signup
     """
     Sends email with a magic link containing hashed user secrets and email. Returns the created token.
     """

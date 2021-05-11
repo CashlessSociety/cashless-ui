@@ -6,9 +6,7 @@ import React from "react";
 import {
   Card,
   CardBody,
-  CardFooter,
-  CardTitle,
-  Button,
+  CardFooter
 } from "reactstrap";
 
 
@@ -39,9 +37,11 @@ export const AvailabilityCard = ({ message })  => {
                 <span className="available-user">{message.author.commonName.name}</span>
                 is available for 
               </div> 
-              <span className="each-skill">{message.skills.map(skill => skill.name).join(', ')}</span>
             </p>
         </CardBody>
+        <CardFooter>
+          <span className="each-skill">{message.skills.map(skill => skill.name).join(', ')}</span>
+        </CardFooter>
       </Card>
     </div>
   );

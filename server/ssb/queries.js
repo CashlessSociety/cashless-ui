@@ -15,6 +15,7 @@ const debugPosts = require('debug')('queries:posts'),
     'queries:communityProfileCommunities'
   );
 const paramap = require('pull-paramap');
+const toUrl = require('ssb-serve-blobs/id-to-url');
 const { promisePull, mapValues } = require('./utils');
 const ssb = require('../ssb/server');
 
@@ -627,10 +628,7 @@ const getProfile = async (id) => {
   let abouts = await lastAboutValues(id);
   const { name, description } = abouts;
   let image = abouts.image;
-
-  if (image && typeof image == 'object') {
-    image = image.link;
-  }
+  image.uri = toUrl(image.hash);
 
   let profile = { id, name, description, image };
   profileCache[id] = profile;

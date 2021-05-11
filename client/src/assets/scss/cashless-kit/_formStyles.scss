@@ -1,0 +1,11 @@
+// formStyles to override defaults
+
+
+textarea.form-control {
+  border: 1px solid $light-gray;
+  border-radius: $border-radius-large;
+  line-height: 1.5;
+  &:focus, &:active {
+    border: 1px solid $primary-color;
+  }
+}
