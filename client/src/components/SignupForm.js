@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import {
   Container,
   Card,
@@ -9,7 +9,6 @@ import {
   FormGroup,
   Label,
   Input,
-  Media,
   Button,
   Modal,
   ModalHeader,

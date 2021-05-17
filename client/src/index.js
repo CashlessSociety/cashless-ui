@@ -29,6 +29,7 @@ import IndexPage from 'views/IndexPage.js';
 import SignupPage from 'views/SignupPage.js';
 import MagicLinkPage from 'views/MagicLinkPage.js';
 import LoginPage from 'views/LoginPage.js';
+import ProfilePage from 'views/ProfilePage.js';
 import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
@@ -72,6 +73,14 @@ ReactDOM.render(
           path='/login/:token'
           render={(props) => (
             <LoginPage
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path='/profile/:id'
+          render={(props) => (
+            <ProfilePage
               {...props}
             />
           )}
