@@ -30,7 +30,7 @@ function ProfilePageHeader({ profile }) {
     <>
       <div
         style={{
-          margin: '5vh',
+          margin: '2.5vh',
           justifyContent: 'space-around',
           display: 'flex',
         }}

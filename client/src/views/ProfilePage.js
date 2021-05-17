@@ -53,7 +53,7 @@ function ProfilePage() {
             <div className="button-container">
               <Button
                 className="btn-round mr-1"
-                color="info"
+                color="primary"
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
                 size="lg"
@@ -103,7 +103,7 @@ function ProfilePage() {
               </Col>
               <Col xs="12" md="8" xl="9">
                 <div className="nav-align-center">
-                  <Nav className="nav-pills-info" pills role="tablist">
+                  <Nav className="nav-pills-primary" pills role="tablist">
                     <NavItem>
                       <NavLink
                         onClick={(e) => {
