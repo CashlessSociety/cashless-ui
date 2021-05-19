@@ -14,23 +14,29 @@ import {
   NavItem,
   NavLink,
   Nav,
+  Modal,
+  ModalFooter,
 } from 'reactstrap';
 
 function TopNavbar() {
   const [collapseOpen, setCollapseOpen] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
   const {user: { isAuthenticated, token }, dispatch } = useContext(UserContext);
+
   function logout () {
-    let confirm = true
+    dispatch({ type: 'logout' })
+    document.documentElement.classList.toggle('nav-open');
+    setCollapseOpen(false)
+  }
+
+  function checkLogout () {
     if (!token) {
-      /* TODO */
-      confirm = window.confirm('Your keys will be lost! Send a magiclink to your e-email to save them. Or continue and to lose your profile.');
-    }
-    if (confirm) {
-      dispatch({ type: 'logout' })
-      document.documentElement.classList.toggle('nav-open');
-      setCollapseOpen(false)
+      setLogoutModal(true)
+    } else {
+      logout()
     }
   }
+
   return (
     <>
       {collapseOpen ? (
@@ -115,7 +121,7 @@ function TopNavbar() {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink onClick={logout}>
+                  <NavLink onClick={checkLogout}>
                     <i className="now-ui-icons media-1_button-power"></i>
                     <p>Logout</p>
                   </NavLink>
@@ -124,6 +130,38 @@ function TopNavbar() {
               }
             </Nav>
           </Collapse>
+          <Modal
+            isOpen={logoutModal}
+            toggle={() => setLogoutModal(false)}
+          >
+            <div className="modal-header justify-content-center">
+              <button
+                aria-hidden={true}
+                className="close"
+                onClick={() => setLogoutModal(false)}
+                type="button"
+              >
+                <i className="now-ui-icons ui-1_simple-remove"></i>
+              </button>
+              <h4 className="title title-up">Oh no!</h4>
+            </div>
+            <div className="modal-body">
+              <p>
+                You haven't used your magic link to finish setting up your profile. If you log out now, all your data will be lost.
+              </p>
+            </div>
+            <ModalFooter>
+              <Button color="default" type="button">
+                Go back
+              </Button>
+              <Button color="primary" onClick={() => {
+                logout()
+                setLogoutModal(false)
+              }}>
+                Log me out!
+              </Button>
+            </ModalFooter>
+          </Modal>
       </Navbar >
     </>
   );
