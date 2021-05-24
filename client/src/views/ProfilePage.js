@@ -57,6 +57,7 @@ function ProfilePage() {
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
                 size="lg"
+                disabled
               >
                 Follow
               </Button>
@@ -66,7 +67,7 @@ function ProfilePage() {
                 <Card
                   className="bg-dark"
                   style={{
-                    padding: 15,
+                    padding: '0 15px',
                     width: '100%',
                     height: '100%',
                     color: 'white',
@@ -82,7 +83,7 @@ function ProfilePage() {
                     }}
                   >
                     <span>@username</span>
-                    <Button>
+                    <Button disabled>
                       Message <i className="fab fa-instagram"></i>
                     </Button>
                   </p>
@@ -94,7 +95,7 @@ function ProfilePage() {
                     }}
                   >
                     <span>@username</span>
-                    <Button>
+                    <Button disabled>
                       Message <i className="fab fa-twitter"></i>
                     </Button>
                   </p>
@@ -135,8 +136,8 @@ function ProfilePage() {
                   </Nav>
                 </div>
                 <TabContent className="gallery" activeTab={'pills' + pills}>
-                  <TabPane tabId="pills1">Messages</TabPane>
-                  <TabPane tabId="pills2">Credits</TabPane>
+                  <TabPane tabId="pills1">Skills...</TabPane>
+                  <TabPane tabId="pills2">Credits ledger...</TabPane>
                 </TabContent>
               </Col>
             </Row>

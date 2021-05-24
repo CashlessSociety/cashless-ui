@@ -11,7 +11,6 @@ import {
 // core components
 
 function ProfilePageHeader({ profile }) {
-  let { goBack } = useHistory();
   let pageHeader = React.createRef();
   React.useEffect(() => {
     if (window.innerWidth > 991) {
@@ -31,14 +30,10 @@ function ProfilePageHeader({ profile }) {
       <div
         style={{
           margin: '2.5vh',
-          justifyContent: 'space-around',
+          justifyContent: 'flex-end',
           display: 'flex',
         }}
       >
-        <Button size="sm" onClick={goBack}>
-          <i className="fa fa-angle-left"></i>
-          <span style={{paddingLeft: 7.5 }}>Back</span>
-        </Button>
         <div>
           <Button
             className="mr-1"
@@ -71,6 +66,15 @@ function ProfilePageHeader({ profile }) {
         </div>
       </div>
       <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: -60
+            }}
+          >
+            <Avatar size="120" src={profile.image} />
+          </div>
+      <div
         className="page-header header-filter page-header-small"
         filter-color="blue"
       >
@@ -82,14 +86,6 @@ function ProfilePageHeader({ profile }) {
           ref={pageHeader}
         ></div>
         <Container>
-        <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Avatar size="120" src={profile.image} />
-          </div>
           {/* <p className="category">{profile.ocupation}</p> */}
           <h3 className="title">{profile.name}</h3>
           <p>{profile.description}</p>

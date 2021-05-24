@@ -33,10 +33,11 @@ function Avatar({
           marginTop,
           marginRight,
           borderRadius: round ? '50%' : null,
-          background: 'white',
+          background: '#b4cffa',
           width: size + 10,
           height: size + 10,
           textAlign: 'center',
+          zIndex: 2,
         }}
       >
         <Identicon size={size} string={secret.public || id} />
