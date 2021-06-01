@@ -16,11 +16,13 @@ import {
   Nav,
   Modal,
   ModalFooter,
+  Alert 
 } from 'reactstrap';
 
 function TopNavbar() {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutAlert, setLogoutAlert] = useState(true);
   const {user: { isAuthenticated, token }, dispatch } = useContext(UserContext);
 
   function logout () {
@@ -53,6 +55,16 @@ function TopNavbar() {
           <NavbarBrand to='/' tag={Link} id='navbar-brand'>
             Cashless
           </NavbarBrand>
+
+          <Alert
+            color="success"
+            isOpen={logoutAlert}
+          >
+            <div className="alert-icon">
+              <i className="now-ui-icons ui-1_check"></i>
+            </div>
+            You have successfully logged out.
+          </Alert>
 
           {!isAuthenticated && <NavItem tag={Link} to='/join'>
             <Button className='nav-link btn-round' color='primary'>
