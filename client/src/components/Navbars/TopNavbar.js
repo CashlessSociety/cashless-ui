@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import UserContext from 'providers/User'
 import Avatar from 'components/Avatar'
+import AlertToast from 'components/AlertToast'
 
 // reactstrap components
 import {
@@ -23,6 +24,7 @@ function TopNavbar() {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [logoutAlert, setLogoutAlert] = useState(false);
+
   const { user: { isAuthenticated, token }, dispatch } = useContext(UserContext);
 
   function logout() {
@@ -60,15 +62,7 @@ function TopNavbar() {
           Cashless
         </NavbarBrand>
 
-        <Alert
-          color="success"
-          isOpen={logoutAlert}
-        >
-          <div className="alert-icon">
-            <i className="now-ui-icons ui-1_check"></i>
-          </div>
-            You have successfully logged out.
-        </Alert>
+        <AlertToast isOpen={logoutAlert} />
 
         {!isAuthenticated && <NavItem tag={Link} to='/join'>
           <Button className='nav-link btn-round' color='primary'>
