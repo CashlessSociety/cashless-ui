@@ -30,6 +30,7 @@ import SignupPage from 'views/SignupPage.js';
 import MagicLinkPage from 'views/MagicLinkPage.js';
 import LoginPage from 'views/LoginPage.js';
 import ProfilePage from 'views/ProfilePage.js';
+import EditProfilePage from 'views/EditProfilePage.js';
 import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
@@ -81,6 +82,14 @@ ReactDOM.render(
           path='/profile/:id'
           render={(props) => (
             <ProfilePage
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path='/edit/:id'
+          render={(props) => (
+            <EditProfilePage
               {...props}
             />
           )}
