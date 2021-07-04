@@ -1,0 +1,144 @@
+$grey3: #9A9A9A;
+$smoke: #F4F6F6;
+$link: #134074;
+$inner-border: #DDDDDD;
+$orange: #FF8427;
+$danger: #EE4266;
+
+.editProfilePage {
+    h1 {
+        color: #444;
+        flex-grow: 1;
+        font-size: 36px;
+        font-weight: 500;
+        margin-top: 0.66rem;
+        text-align: center;
+    }
+    .btn {
+        border-radius: 2rem;
+    }
+    .btnBack {
+        background: $smoke;
+        color: $link;
+        font-weight: 600;
+        padding-left: 1rem;
+        &::before {
+            content: '< ';
+            font-size: 1.33em;
+            font-weight: 400;
+        }
+    }
+    .btnAdd {
+        background: $smoke;
+        color: $link;
+        float: right;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-top: 0;
+    }
+    .btnSave {
+        font-weight: 600;
+    }
+    .dollar-input{
+        input {
+            padding-right: 0.625rem;
+            text-indent: 1.66rem;
+        }
+        &::before {
+            color: $grey3;
+            content: "$";
+            position: absolute;
+            top: 0.125rem;
+            left: 1.5rem;
+        }
+    }
+    .my-4 {
+        max-width: 55rem;
+        margin: 1.5rem auto 0;
+    }
+    div.section {
+        padding-top: 10px;
+    }
+    .container {
+        max-width: 57rem;
+    }
+    .container-fluid {
+        max-width: 58rem;
+    }
+    .card {
+        max-width: 27rem;
+        padding: 0.25rem 1rem 1.25rem 1.25rem;
+    }
+    .card-title {
+        font-size: 1.75rem;
+    }
+    .card-body {
+        padding: 0;
+        img {
+            width: 4.66rem;
+            height: auto;
+        }
+        a {
+            color: $link !important;
+            font-size: 1rem;
+            font-weight: 400;
+            &.changePhoto {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+    .skill {
+        border: 1px solid $inner-border;
+        border-radius: 0.33rem;
+        padding: 1.25rem;
+        margin-top: 1rem;
+        .row {
+            margin-bottom: 1rem;
+        }
+    }
+    .skill-name {
+        border: 1px solid $inner-border;
+        border-radius: 0.66rem;
+        font-size: 1.25rem;
+        padding: 0.166rem 0.66rem;
+        width: 100%;
+    }
+    .label {
+        color: $grey3;
+        font: bold 0.75rem/0.94rem Inter;
+        padding-top: 0.5rem;
+        text-transform: uppercase;
+    }
+    .input-field {
+        border: 1px solid $inner-border;
+        border-radius: 0.66rem;
+    }
+    .hash-tags {
+        color: $orange;
+    }
+    textarea.input-field {
+        max-width: 12.5rem;
+        padding: 0.25rem 0.66rem 0.33rem;
+    }
+    .btn-remove {
+        background: transparent;
+        border: 1px solid $danger;
+        color: $danger;
+        padding-left: 2.66rem;
+        position: relative;
+        &::before {
+            content: '\00D7';
+            font-size: 1.66rem;
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+        }
+    }
+    .divided {
+        border-top: 1px solid $inner-border;
+        padding-top: 1rem;
+    }
+    .align-right {
+        text-align: right;
+    }
+}

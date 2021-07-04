@@ -15,20 +15,19 @@ function ProfilePageHeader({ id, save }) {
           >
             <div>
               <Button
-                color="default"
                 href={`/profile/${id}`}
                 id="tooltip962023211"
-                size="sm"
+                className="btnBack"
               >
-                Go back
+                Back
               </Button>
               <UncontrolledTooltip delay={0} target="tooltip962023211">
                 Return to profile
               </UncontrolledTooltip>
             </div>
-            <h1>Update profile</h1>
+            <h1>Update My Profile</h1>
             <div>
-              <Button size="sm" color="primary" onClick={save} >
+              <Button className="btnSave" color="primary" onClick={save} >
                 Save changes
               </Button>
             </div>
