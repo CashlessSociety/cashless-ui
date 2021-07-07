@@ -18,6 +18,24 @@ import ProfileEditHeader from 'components/Headers/ProfileEditHeader.js';
 import { useParams } from 'react-router-dom';
 import TopNavbar from 'components/Navbars/TopNavbar.js';
 import UserContext from 'providers/User';
+import { printIntrospectionSchema } from 'graphql';
+
+class AvailabilityToggle extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {isOn: props.isOn || false};
+  }
+  render() {
+      return (
+          <div>
+              <Switch defaultValue={this.state.isOn} offColor="default" onColor="success" onText="" offText="" onChange={(el, val) => {
+                this.setState({isOn: val})}
+              }></Switch>
+              <div className="availabilityText">{(this.state.isOn === true)? 'Available' : 'Not Available'}</div>
+          </div>
+      );
+  }
+}
 
 function ProfilePage() {
   const {
@@ -55,11 +73,61 @@ function ProfilePage() {
         <div className="section">
           <Container fluid>
             <Row>
-              <Col>
+              <Col id="about-you">
                 <Card>
                   <CardTitle tag="h2">About You</CardTitle>
                   <CardBody>
                     <Avatar /> <a className="changePhoto" href="#">Change Photo</a>
+                    <div className="about-you-fields">
+                      <div>
+                        <label>First Name</label><br />
+                        <input type="text" name="FirstName" />
+                      </div>
+                      <div>
+                        <label>Last Name</label><br />
+                        <input type="text" name="LastName" />
+                      </div>
+                      <div>
+                        <label>Your Title</label><br />
+                        <input type="text" name="Title" />
+                      </div>
+                      <div>
+                        <label>Short bio about you or your company</label><br />
+                        <textarea name="bio"></textarea>
+                      </div>
+                    </div>
+                    </CardBody>
+                  </Card>
+                  <Card>
+                    <CardTitle tag="h2">My Portfolio / Gallery</CardTitle>
+                    <CardBody className="divided about-you-fields">
+                      <div class="link-input">
+                        <label>Website or Relevant Link</label><br />
+                        <input type="text" name="website" />
+                      </div>
+                    </CardBody>
+                  </Card>
+                  <Card>
+                    <CardTitle tag="h2">Social Media Accounts</CardTitle>
+                    <CardBody className="social-media about-you-fields">
+                      <Row>
+                        <Col className="label">Instagram</Col>
+                        <Col>
+                          <input type="text" className="input-field" name="instagram" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="label">Twitter</Col>
+                        <Col>
+                          <input type="text" className="input-field" name="twitter" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="label">Facebook</Col>
+                        <Col>
+                          <input type="text" className="input-field" name="facebook" />
+                        </Col>
+                      </Row>
                   </CardBody>
                 </Card>
               </Col>
@@ -115,7 +183,7 @@ function ProfilePage() {
                       </Col>
                     </Row>
                     <Row>
-                      <Col className="label">Skill hashtag</Col>
+                      <Col className="label">Skill hashtags</Col>
                       <Col>
                         <textarea name="hashTags" className="input-field hash-tags"></textarea>
                       </Col>
@@ -123,20 +191,14 @@ function ProfilePage() {
                     <Row>
                       <Col className="label">Icon</Col>
                       <Col>
-                      from #skill_name
+                      from #firsthashtag
                       </Col>
                     </Row>
                     <Row className='divided'>
-                      <Col>
-                        <Row>
-                          <Col className="label">Available</Col>
-                          <Col>
-                            {' '}
-                            <Switch defaultValue={false} offColor="default" onColor="success" onText="" offText=""></Switch>
-                          </Col>
-                        </Row>
+                      <Col className='availability'>
+                          <AvailabilityToggle isOn={false} />
                       </Col>
-                      <Col className='align-right'>
+                      <Col className='col-remove'>
                         <Button className="btn-remove" onClick={() => remove(i.id)}>Remove</Button>
                       </Col>
                     </Row>

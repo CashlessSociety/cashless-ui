@@ -20,6 +20,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 // styles
 import 'assets/css/bootstrap.min.css';
+import 'react-bootstrap-switch/dist/css/bootstrap2/react-bootstrap-switch.css';
 import 'assets/css/nucleo-icons-page-styles.css?v=1.4.0';
 import 'assets/scss/now-ui-kit.scss?v=1.4.0';
 
