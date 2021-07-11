@@ -3,14 +3,10 @@ import React from 'react';
 // reactstrap components
 import Avatar from 'components/Avatar';
 import { useHistory } from 'react-router-dom';
-import {
-  Button,
-  Container,
-  UncontrolledTooltip,
-} from 'reactstrap';
+import { Button, Container, UncontrolledTooltip } from 'reactstrap';
 // core components
 
-function ProfilePageHeader({ profile }) {
+function ProfilePageHeader({ profile, selfProfile, id }) {
   let pageHeader = React.createRef();
   React.useEffect(() => {
     if (window.innerWidth > 991) {
@@ -27,69 +23,96 @@ function ProfilePageHeader({ profile }) {
   });
   return (
     <>
-      <div
-        style={{
-          margin: '2.5vh',
-          justifyContent: 'flex-end',
-          display: 'flex',
-        }}
-      >
-        <div>
+      <div>
+        <div
+          style={{
+            justifyContent: 'space-around',
+            display: 'flex',
+            alignItems: 'center',
+            margin: '0 10px'
+          }}
+        >
+        {selfProfile && <div>
           <Button
             className="mr-1"
             color="default"
-            href="#pablo"
-            id="tooltip871723211"
-            onClick={(e) => e.preventDefault()}
+            href={`/edit/${id}`}
+            id="tooltip962023211"
             size="sm"
           >
-            <span style={{paddingRight: 7.5 }}>Tweet</span>
-            <i className="fab fa-twitter"></i>
+            <span style={{ paddingRight: 7.5 }}>Edit</span>
           </Button>
-          <UncontrolledTooltip delay={0} target="tooltip871723211">
-            Share on Twitter
-          </UncontrolledTooltip>
-          <Button
-            className="mr-1"
-            color="default"
-            href="#pablo"
-            id="tooltip871723210"
-            onClick={(e) => e.preventDefault()}
-            size="sm"
-          >
-            <span style={{paddingRight: 7.5 }}>Share</span>
-            <i className="fab fa-instagram"></i>
-          </Button>
-          <UncontrolledTooltip delay={0} target="tooltip871723210">
-            Share on Instagram
-          </UncontrolledTooltip>
-        </div>
-      </div>
-      <div
+          <UncontrolledTooltip delay={0} target="tooltip962023211">
+              Edit profile
+            </UncontrolledTooltip>
+        </div>}
+          <div
             style={{
+              margin: '2.5vh',
+              justifyContent: 'flex-end',
               display: 'flex',
-              justifyContent: 'center',
-              marginBottom: -60
             }}
           >
-            <Avatar size="120" src={profile.image} />
+            <div>
+              <Button
+                className="mr-1"
+                color="default"
+                href="#pablo"
+                id="tooltip871723211"
+                onClick={(e) => e.preventDefault()}
+                size="sm"
+              >
+                <span style={{ paddingRight: 7.5 }}>Tweet</span>
+                <i className="fab fa-twitter"></i>
+              </Button>
+              <UncontrolledTooltip delay={0} target="tooltip871723211">
+                Share on Twitter
+              </UncontrolledTooltip>
+              <Button
+                className="mr-1"
+                color="default"
+                href="#pablo"
+                id="tooltip871723210"
+                onClick={(e) => e.preventDefault()}
+                size="sm"
+              >
+                <span style={{ paddingRight: 7.5 }}>Share</span>
+                <i className="fab fa-instagram"></i>
+              </Button>
+              <UncontrolledTooltip delay={0} target="tooltip871723210">
+                Share on Instagram
+              </UncontrolledTooltip>
+            </div>
           </div>
-      <div
-        className="page-header header-filter page-header-small"
-        filter-color="blue"
-      >
+        </div>
         <div
-          className="page-header-image"
           style={{
-            backgroundImage: 'url(' + require('assets/img/steve-halama-kfwQvL6niR8-unsplash.jpg') + ')',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: -60,
           }}
-          ref={pageHeader}
-        ></div>
-        <Container>
-          {/* <p className="category">{profile.ocupation}</p> */}
-          <h3 className="title">{profile.name}</h3>
-          <p>{profile.description}</p>
-          {/* <div className="content">
+        >
+          <Avatar size="120" src={profile.image} />
+        </div>
+        <div
+          className="page-header header-filter page-header-small"
+          filter-color="blue"
+        >
+          <div
+            className="page-header-image"
+            style={{
+              backgroundImage:
+                'url(' +
+                require('assets/img/steve-halama-kfwQvL6niR8-unsplash.jpg') +
+                ')',
+            }}
+            ref={pageHeader}
+          ></div>
+          <Container>
+            {/* <p className="category">{profile.ocupation}</p> */}
+            <h3 className="title">{profile.name}</h3>
+            <p>{profile.description}</p>
+            {/* <div className="content">
             <div className="social-description">
               <h2>26</h2>
               <p>Comments</p>
@@ -103,7 +126,8 @@ function ProfilePageHeader({ profile }) {
               <p>Bookmarks</p>
             </div>
           </div> */}
-        </Container>
+          </Container>
+        </div>
       </div>
     </>
   );

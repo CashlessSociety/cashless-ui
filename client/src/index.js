@@ -20,6 +20,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 // styles
 import 'assets/css/bootstrap.min.css';
+import 'react-bootstrap-switch/dist/css/bootstrap2/react-bootstrap-switch.css';
 import 'assets/css/nucleo-icons-page-styles.css?v=1.4.0';
 import 'assets/scss/now-ui-kit.scss?v=1.4.0';
 
@@ -30,6 +31,7 @@ import SignupPage from 'views/SignupPage.js';
 import MagicLinkPage from 'views/MagicLinkPage.js';
 import LoginPage from 'views/LoginPage.js';
 import ProfilePage from 'views/ProfilePage.js';
+import EditProfilePage from 'views/EditProfilePage.js';
 import NotFoundPage from 'views/NotFoundPage.js';
 // others
 
@@ -81,6 +83,14 @@ ReactDOM.render(
           path='/profile/:id'
           render={(props) => (
             <ProfilePage
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path='/edit/:id'
+          render={(props) => (
+            <EditProfilePage
               {...props}
             />
           )}

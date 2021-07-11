@@ -28,7 +28,10 @@ function ProfilePage() {
   } = React.useContext(UserContext);
   const [pills, setPills] = React.useState('1');
   const params = useParams();
-  if (id !== params.id) {
+  let selfProfile = false
+  if (id === params.id) {
+    selfProfile = true
+  } else {
     // Fetch profile and set
     console.log('Fetch other profile')
   }
@@ -47,7 +50,7 @@ function ProfilePage() {
     <>
       <TopNavbar />
       <div className="wrapper">
-        <ProfilePageHeader profile={profile} />
+        <ProfilePageHeader profile={profile} id={params.id} selfProfile={selfProfile} />
         <div className="section">
           <Container fluid>
             <div className="button-container">

@@ -1,0 +1,251 @@
+$grey2: #DDDDDD;
+$grey3: #9A9A9A;
+$neutral-black: #4A4A4A;
+$smoke: #F4F6F6;
+$link: #134074;
+$inner-border: #DDDDDD;
+$orange: #FF8427;
+$danger: #EE4266;
+
+.editProfilePage {
+    h1 {
+        color: #444;
+        flex-grow: 1;
+        font-size: 36px;
+        font-weight: 500;
+        margin-top: 0.66rem;
+        text-align: center;
+    }
+    .btn {
+        border-radius: 2rem;
+    }
+    .btnBack {
+        background: $smoke;
+        color: $link;
+        font-weight: 600;
+        padding-left: 1rem;
+        &::before {
+            content: '< ';
+            font-size: 1.33em;
+            font-weight: 400;
+        }
+    }
+    .btnAdd {
+        background: $smoke;
+        color: $link;
+        float: right;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-top: 0;
+    }
+    .btnSave {
+        font-weight: 600;
+    }
+    input[type="text"] {
+        color: $neutral-black;
+    }
+    textarea {
+        color: $neutral-black;
+        line-height: 1.21rem;
+        resize: none;
+    }
+    .about-you-fields {
+        margin-top: 1rem;
+        label {
+            color: $neutral-black;
+            margin: 0.5rem 0 0.25rem;
+        }
+        input {
+            border: 1px solid $inner-border;
+            border-radius: 2rem;
+            padding: 0.5rem 1.25rem;
+            width: 100%;
+        }
+        div:not(.row) {
+            margin-bottom: 1rem;
+        }
+        textarea {
+            border: 1px solid $inner-border;
+            border-radius: 0.33rem;
+            padding: 0.5rem 0.66rem;
+            width: 100%;
+            height: 7rem;
+        }
+        .col.label {
+            flex-grow: 0.5;
+        }
+        .link-input {
+            position: relative;
+            &:before {
+                content: "\1f517";
+                position: absolute;
+                top: 3rem;
+                left: 0.75rem;
+                font-family: FontAwesome;
+                font-size: 0.8rem;
+            }
+            input {
+                padding-left: 2.2rem;
+            }
+        }
+        &.social-media .row .col:nth-child(2) {
+            position: relative;
+            &:before {
+                color: $grey3;
+                content: '@';
+                position: absolute;
+                top: 0.5rem;
+                left: 1.8rem;
+            }
+            input {
+                padding-left: 2rem;
+            }
+        }
+    }
+    .dollar-input{
+        input {
+            padding-right: 0.625rem;
+            text-indent: 1.66rem;
+        }
+        &::before {
+            color: $grey3;
+            content: "$";
+            position: absolute;
+            top: 0.125rem;
+            left: 1.5rem;
+        }
+    }
+    input::placeholder {
+        color: $grey2;
+    }
+    .my-4 {
+        max-width: 55rem;
+        margin: 1.5rem auto 0;
+    }
+    div.section {
+        padding-top: 10px;
+    }
+    .container {
+        max-width: 57rem;
+    }
+    .container-fluid {
+        max-width: 58rem;
+    }
+    .card {
+        max-width: 27rem;
+        padding: 0.25rem 1.25rem 1.25rem;
+    }
+    .card-title {
+        font-size: 1.75rem;
+    }
+    .card-body {
+        padding: 0;
+        img {
+            width: 4.66rem;
+            height: auto;
+        }
+        a {
+            color: $link !important;
+            font-size: 1rem;
+            font-weight: 400;
+            &.changePhoto {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+    .skill {
+        border: 1px solid $inner-border;
+        border-radius: 0.33rem;
+        padding: 1.25rem 1.25rem 0.5rem;
+        margin-top: 1rem;
+        .row {
+            margin-bottom: 1rem;
+        }
+    }
+    .skill-name {
+        border: 1px solid $inner-border;
+        border-radius: 0.66rem;
+        font-size: 1.25rem;
+        padding: 0.166rem 0.66rem;
+        width: 100%;
+    }
+    .label {
+        color: $grey3;
+        font: bold 0.75rem/0.94rem Inter;
+        padding: 0.5rem 0 0 1rem;
+        text-transform: uppercase;
+    }
+    .input-field {
+        border: 1px solid $inner-border;
+        border-radius: 0.66rem;
+    }
+    .hash-tags {
+        color: $orange;
+        text-transform: uppercase;
+    }
+    textarea.input-field {
+        max-width: 12.5rem;
+        padding: 0.25rem 0.66rem 0.33rem;
+    }
+    .btn-remove {
+        background: transparent;
+        border: 1px solid $danger;
+        color: $danger;
+        padding-left: 2.66rem;
+        position: relative;
+        &::before {
+            content: '\00D7';
+            font-size: 1.66rem;
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+        }
+    }
+    .divided {
+        border-top: 1px solid $inner-border;
+        padding-top: 0.5rem;
+        &.row {
+            margin-bottom: 0;
+            margin-top: 2rem;
+        }
+    }
+    .availability {
+        padding-right: 0;
+        .wrapper {
+            margin-right: 0.66rem;
+            margin-top: 1.15rem;
+        }
+        div {
+            float: left;
+        }
+        .availabilityText {
+            margin-top: 1.1rem;
+        }
+    }
+    .col-remove {
+        flex-grow: 0.5;
+        text-align: right;
+    }
+    #about-you {
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem;
+        margin: 0 1rem 1rem;
+        padding: 0;
+        .card {
+            box-shadow: none;
+            margin-bottom: 0;
+            border-top: 1px solid $inner-border;
+            border-radius: 0;
+            max-width: 27rem;
+            &:first-child {
+                border-top: none;
+                border-top-left-radius: 0.5rem;
+                border-top-right-radius: 0.5rem;
+            }
+            &:last-child {
+                border-bottom-left-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+            }
+        }
+    }
+}
